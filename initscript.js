@@ -13,6 +13,8 @@ var canvasHasLoaded = function(){
     console.log("click");
     //run the function for the active mode you are in
   });
+
+  //code that turns the setInterval engine on
 }
 
 var initSortableLayers = function(){
