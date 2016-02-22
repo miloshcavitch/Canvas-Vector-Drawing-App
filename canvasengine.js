@@ -1,0 +1,4 @@
+
+var update = function(){
+  activeFunction();
+}
