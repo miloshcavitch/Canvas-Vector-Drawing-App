@@ -1,5 +1,6 @@
 var mouseX, mouseY, pointerX, pointerY;
 var oSnapBool = false;
+var pointsBeingAdded = false;
 var c, ctx;
 var currentShape;//be careful with the way this is going to be used
 var canvasHasLoaded = function(){
@@ -8,11 +9,11 @@ var canvasHasLoaded = function(){
     mouseX = event.pageX - canvas.offsetLeft;
     mouseY = event.pageY - canvas.offsetTop;
     console.log(mouseX);
-    //then run function for OSnap(mouseX, mouseY);//this turns mouse position into pointer position (pointerX, pointerY);
+    //then run function for oSnap(mouseX, mouseY);//this turns mouse position into pointer position (pointerX, pointerY);
+    oSnap();//just testing
   });
 
   $('#myCanvas').on('click', function(){
-    console.log("click");
     activeMode(pointerX, pointerY, currentShape)//run the function for the active mode you are in
   });
 
@@ -37,11 +38,13 @@ var initDrawingApp = function(){
   initSortableLayers();
   $('#currentForm').append("<form id='newPolyForm'>Polygon Name:<br><input type='text'name='polygonName'></form><button type='button' id='submitPolyName'>Enter Poly Name</button>");
   $('#currentForm').append("<form id='newHexColor'>Hex Color:<br><input type='text' name='hexColor'><br>Variable Name:<br><input type='text' name='colorVarName'></form><button type='button' id='submitColorVar'>Enter Hex Color</button>");
+  $('#currentForm').append("<button type='button' id='finishAddingPoints'>Finish Adding Points</button>")
   $('#currentInstructions').hide();
   $('#newPolyForm').hide();
   $('#submitPolyName').hide();
   $('#newHexColor').hide();
   $('#submitColorVar').hide();
+  $('#finishAddingPoints').hide();
 
   $('#newPoly').click(function(){
     $('#currentInstructions').text("Enter the name of your new Polygon");
@@ -67,11 +70,18 @@ var initDrawingApp = function(){
     $('#currentInstructions').hide(500);
     $('#currentInstructions').text('');
     console.log($polyName);
-    visualObject.shapes.push(new shape('polygon', $polyName, 'blank'));
+    pseudoSprite.shapes.push(new shape('polygon', $polyName, 'blank'));
     $('input[name="polygonName"]').val('');
+    $('#finishAddingPoints').show(500);
+    pointsBeingAdded = true;
+  });
+
+  $('#finishAddingPoints').click(function(){
+    $('#finishAddingPoints').hide(500);
     $('#newColorVar').show(500);
     $('#newPoly').show(500);
-  });
+    pointsBeingAdded = false;
+  })
   $('#submitColorVar').click(function(){
     var $colorName = $('input[name="colorVarName"]').val();
     var $hexVal = $('input[name="hexColor"]').val();
@@ -90,7 +100,7 @@ var initDrawingApp = function(){
 
 
 $(document).ready(function(){
-  $('#textInfo').append("<p>Enter the width and height of the desired canvas size<br>(size of your object can be changed later by changing 'visualObject.unit' but the center of your canvas will be the referenced center position of your visualObject.)</p>");
+  $('#textInfo').append("<p>Enter the width and height of the desired canvas size<br>(size of your object can be changed later by changing 'pseudoSprite.unit' but the center of your canvas will be the referenced center position of your pseudoSprite.)</p>");
   $('#textInfo').append("<form>Width:<br><input type='text' name='canWidth'><br> Height:<br><input type='text' name='canHeight'></form>");//init canvas
   $('#textInfo').append("<br><button type='button' id='setCanvas'>Create Canvas</button>");
 

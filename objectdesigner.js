@@ -1,4 +1,4 @@
-var visualObject = {xCenter: 0, yCenter: 0, unit: 4, shapes: []};
+var pseudoSprite = {xCenter: 0, yCenter: 0, unit: 4, shapes: []};
 var shape = function(type, name, fillColor){
   this.fillColor = fillColor;
   this.type = type;
@@ -7,11 +7,14 @@ var shape = function(type, name, fillColor){
   this.positions = [];
   var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button></li>";
   $('#shapesCollection').append(htmlLiString);
+
+
+
   console.log(htmlLiString);
   var tempJQString = "#" + this.name;
   $(tempJQString).click(function(event){
     console.log(event);
-    visualObject.shapes.filter(function(el){
+    pseudoSprite.shapes.filter(function(el){
       if (el.name === event.target.parentNode.id){
         //this is where some cool code will eventually be
         el.editBool = !el.editBool;
@@ -36,6 +39,8 @@ var shape = function(type, name, fillColor){
 }
 
 var point = function(x, y){
-  this.x = x;
-  this.y = y;
+  this.worldX = x;
+  this.worldY = y;
+  this.localX;
+  this.localY;
 }
