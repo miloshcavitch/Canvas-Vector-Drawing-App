@@ -1,17 +1,19 @@
-var mouseX, mouseY;
+var mouseX, mouseY, pointerX, pointerY;
 var oSnapBool = false;
 var c, ctx;
+var currentShape;//be careful with the way this is going to be used
 var canvasHasLoaded = function(){
   canvas = document.getElementById("myCanvas");
   $('#myCanvas').on( "mousemove", function(event) {
     mouseX = event.pageX - canvas.offsetLeft;
     mouseY = event.pageY - canvas.offsetTop;
     console.log(mouseX);
+    //then run function for OSnap(mouseX, mouseY);//this turns mouse position into pointer position (pointerX, pointerY);
   });
 
   $('#myCanvas').on('click', function(){
     console.log("click");
-    //run the function for the active mode you are in
+    activeMode(pointerX, pointerY, currentShape)//run the function for the active mode you are in
   });
 
   //code that turns the setInterval engine on

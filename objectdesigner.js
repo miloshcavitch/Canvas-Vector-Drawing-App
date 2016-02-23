@@ -5,17 +5,27 @@ var shape = function(type, name, fillColor){
   this.name = name;
   this.editBool = false;
   this.positions = [];
-  var htmlLiString = "<li class='clearFix' class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' id='" + this.name + "'>Edit Poly</button></li>";
+  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button></li>";
   $('#shapesCollection').append(htmlLiString);
   console.log(htmlLiString);
   var tempJQString = "#" + this.name;
   $(tempJQString).click(function(event){
+    console.log(event);
     visualObject.shapes.filter(function(el){
-      if (el.name === event.target.id){
-        console.log(el);//this is where some cool code will eventually be
+      if (el.name === event.target.parentNode.id){
+        //this is where some cool code will eventually be
         el.editBool = !el.editBool;
         $(tempJQString).parent().toggleClass('.selected');//this is working but the css is not
         //set active function as edit/move points for the object you just selected;
+        console.log(el);
+
+        /*switch(event.target.outerText){
+            case 'Move Points':
+              *set activeMode() to run movePoints();
+              break;
+            etc..
+          }
+        */
       } else{
         el.editBool = false;
         $(tempJQString).parent().removeClass('.selected');
