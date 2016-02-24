@@ -1,10 +1,11 @@
 var mouseX, mouseY, pointerX, pointerY;
 var oSnapBool = false;
 var pointsBeingAdded = false;
-var c, ctx;
+var ctx;
 var currentShape;//be careful with the way this is going to be used
 var canvasHasLoaded = function(){
   canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext('2d');
   $('#myCanvas').on( "mousemove", function(event) {
     mouseX = event.pageX - canvas.offsetLeft;
     mouseY = event.pageY - canvas.offsetTop;
@@ -14,7 +15,7 @@ var canvasHasLoaded = function(){
   });
 
   $('#myCanvas').on('click', function(){
-    activeMode(pointerX, pointerY, currentShape)//run the function for the active mode you are in
+    activeMode(pointerX, pointerY)//run the function for the active mode you are in
   });
 
   //code that turns the setInterval engine on
@@ -71,9 +72,12 @@ var initDrawingApp = function(){
     $('#currentInstructions').text('');
     console.log($polyName);
     pseudoSprite.shapes.push(new shape('polygon', $polyName, 'blank'));
+    pointsBeingAdded = true;
+    activeMode = function(pointerX, pointerY){
+      initPointAdd(pointsBeingAdded);
+    };
     $('input[name="polygonName"]').val('');
     $('#finishAddingPoints').show(500);
-    pointsBeingAdded = true;
   });
 
   $('#finishAddingPoints').click(function(){
