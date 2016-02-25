@@ -31,6 +31,7 @@ var initSortableLayers = function(){
     $(this).toggleClass('.shapeSelected');
     console.log('success');
   });
+  setInterval(update, 30);
 }
 
 

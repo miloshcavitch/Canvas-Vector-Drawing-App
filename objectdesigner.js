@@ -23,13 +23,15 @@ var shape = function(type, name, fillColor){
         //set active function as edit/move points for the object you just selected;
         console.log(el);
 
-        /*switch(event.target.outerText){
-            case 'Move Points':
-              *set activeMode() to run movePoints();
-              break;
-            etc..
+        switch(event.target.outerText){
+          case 'Move Points':
+            console.log('being called');
+            activeMode = function(){
+              test(el);
+            }
+            break;
           }
-        */
+
       } else{
         el.editBool = false;
         $(tempJQString).parent().removeClass('.selected');
