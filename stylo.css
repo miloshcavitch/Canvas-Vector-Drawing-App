@@ -2,7 +2,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 30%;
+  width: 50%;
 }
 .clearFix:after {
     content:"";
@@ -10,6 +10,16 @@
     display:block;
 }
 .objButton {
+  float: right;
+  height: auto;
+}
+
+.alphaSlide {
+  float: right;
+  height: auto;
+  width: 100px;
+}
+.colorList {
   float: right;
   height: auto;
 }
