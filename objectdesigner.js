@@ -31,6 +31,9 @@ var shape = function(type, name, fillColor){
               activeMode = function(){
                 pickupPoint();
               }
+              pseudoSprite.shapes.forEach(function(el){
+                el.editPoints = false;
+              });
               pseudoSprite.shapes[j].editPoints = true;
               enterEditPoints();
             }
