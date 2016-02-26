@@ -97,7 +97,12 @@ var initDrawingApp = function(){
     pseudoSprite.shapes.forEach(function(el){
       el.editPoints = false;
     });
+    activeUpdate = function(){
 
+    }
+    activeMode = function(){
+      
+    }
   });
 
   $('#submitColorVar').click(function(){

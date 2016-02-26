@@ -10,10 +10,10 @@ var enterEditPoints = function(){
   $('#finishMovingPoints').show(500);
 }
 
-var pythagLength = function(pointerX, pointerY, point){//takes 2 point objects
+var pythagLength = function(pointerX, pointerY, point){
   var a = Math.abs(pointerX - point.worldX);
-  var b = Math.abs(pointerX - point.worldY);
-  var c = Math.sqrt((a * a) + (b * b));
+  var b = Math.abs(pointerY - point.worldY);
+  var c = Math.hypot(a, b);
   return c;
 }
 
@@ -89,6 +89,7 @@ var movePoint = function(){
 
 var dropPoint = function(){
   pointMoveToggles.pickedUp = false;
+  pointMoveToggles.posIndex = undefined;
   activeUpdate = function(){
 
   }
