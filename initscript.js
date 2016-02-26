@@ -40,14 +40,15 @@ var initDrawingApp = function(){
   initSortableLayers();
   $('#currentForm').append("<form id='newPolyForm'>Polygon Name:<br><input type='text'name='polygonName'></form><button type='button' id='submitPolyName'>Enter Poly Name</button>");
   $('#currentForm').append("<form id='newHexColor'>Hex Color:<br><input type='text' name='hexColor'><br>Variable Name:<br><input type='text' name='colorVarName'></form><button type='button' id='submitColorVar'>Enter Hex Color</button>");
-  $('#currentForm').append("<button type='button' id='finishAddingPoints'>Finish Adding Points</button>")
+  $('#currentForm').append("<button type='button' id='finishAddingPoints'>Finish Adding Points</button>");
+  $('#currentForm').append("<button type='button' id='finishMovingPoints'>Finish Moving Points</button>");
   $('#currentInstructions').hide();
   $('#newPolyForm').hide();
   $('#submitPolyName').hide();
   $('#newHexColor').hide();
   $('#submitColorVar').hide();
   $('#finishAddingPoints').hide();
-
+  $('#finishMovingPoints').hide();
   $('#newPoly').click(function(){
     $('#currentInstructions').text("Enter the name of your new Polygon");
     $('#currentInstructions').show(500);
@@ -86,7 +87,19 @@ var initDrawingApp = function(){
     $('#newColorVar').show(500);
     $('#newPoly').show(500);
     pointsBeingAdded = false;
-  })
+  });
+
+  $('#finishMovingPoints').click(function(){
+    $('#finishMovingPoints').hide(500);
+    $('#currentInstructions').hide(500);
+    $('#newColorVar').show(500);
+    $('#newPoly').show(500);
+    pseudoSprite.shapes.forEach(function(el){
+      el.editPoints = false;
+    });
+
+  });
+
   $('#submitColorVar').click(function(){
     var $colorName = $('input[name="colorVarName"]').val();
     var $hexVal = $('input[name="hexColor"]').val();
