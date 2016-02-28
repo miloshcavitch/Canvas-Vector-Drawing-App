@@ -17,7 +17,7 @@ var pythagLength = function(pointerX, pointerY, point){
   return c;
 }
 
-var oSnap = function(){
+var oSnap = function(){//to be added
   pointerX = mouseX;
   pointerY = mouseY;
 }
@@ -29,6 +29,7 @@ var activeMode = function(x, y, shape){
 
 var renderPoly = function(shape){
   ctx.beginPath();
+  ctx.globalAlpha = shape.alphaLevel;
   ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
   shape.positions.forEach(function(el){
     ctx.lineTo(el.worldX, el.worldY);
@@ -37,6 +38,7 @@ var renderPoly = function(shape){
   ctx.closePath();
   ctx.fillStyle = 'red';
   ctx.fill();
+  ctx.globalAlpha = 1;
 }
 var polyEditPoint = function(shape){
   ctx.globalAlpha = 0.6;

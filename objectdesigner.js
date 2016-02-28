@@ -42,7 +42,11 @@ var shape = function(type, name, fillColor){
             }
             break;
           case 'alphaSlide':
-            console.log('slider');
+            var val = event.offsetX * 0.01;
+            if (val >= 0.98){
+              val = 1;
+            }
+            pseudoSprite.shapes[j].alphaLevel = val;
             break;
           case 'colorList':
             console.log('color list');
