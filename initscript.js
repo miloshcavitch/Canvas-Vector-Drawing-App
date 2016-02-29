@@ -101,7 +101,7 @@ var initDrawingApp = function(){
 
     }
     activeMode = function(){
-      
+
     }
   });
 
@@ -112,7 +112,7 @@ var initDrawingApp = function(){
     $('#currentInstructions').text('');
     $('#newHexColor').hide(500);
     $('#submitColorVar').hide(500);
-    console.log($colorName);
+    colorVariables.push(new colorVar($colorName, $hexVal));
     console.log($hexVal);
     $('input[name="colorVarName"]').val('');
     $('input[name="hexColor"]').val('');

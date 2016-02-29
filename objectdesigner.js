@@ -69,3 +69,11 @@ var point = function(x, y){
   this.localX;
   this.localY;
 }
+
+var colorVariables = [];
+
+var colorVar = function(name, hexstring){
+  this.name = name;
+  this.color = hexstring;
+  //append colors to drop down
+}
