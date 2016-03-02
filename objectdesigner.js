@@ -76,4 +76,7 @@ var colorVar = function(name, hexstring){
   this.name = name;
   this.color = hexstring;
   //append colors to drop down
+  $( "li" ).each(function( index ) {
+    $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='blue'>" + name + "</option>" );
+  });
 }
