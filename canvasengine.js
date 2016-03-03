@@ -61,6 +61,17 @@ var polyEditPoint = function(shape){
   ctx.globalAlpha = 1;
 }
 
+var renderOrder = [];
+var setRenderOrder = function(){
+  renderOrder = [];
+  $('li').each(function(){
+    for (var i = 0; i < pseudoSprite.shapes.length; i++){
+      if ($(this).context.id === pseudoSprite.shapes[i].name){
+        renderOrder.push(i);
+      }
+    }
+  });
+}
 var renderUI = function(){
   pseudoSprite.shapes.forEach(function(el){
     if (el.editPoints === true){
@@ -128,10 +139,10 @@ var dropPoint = function(){
 //////////////////////////////////////////
 var render = function(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  pseudoSprite.shapes.forEach(function(el){
-    switch(el.type){
+  renderOrder.forEach(function(o){
+    switch(pseudoSprite.shapes[o].type){
       case 'polygon':
-        renderPoly(el);
+        renderPoly(pseudoSprite.shapes[o]);
         break;
     }
   });

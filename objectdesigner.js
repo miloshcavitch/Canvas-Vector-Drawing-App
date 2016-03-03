@@ -14,14 +14,19 @@ var shape = function(type, name, fillColor){
   console.log(selectString);
   var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select></li>";
   $('#shapesCollection').append(htmlLiString);
-
-
-  for (var i = 0; i < colorVariables.length; i++){
-    //colorVariables[i].name
-  }
+  setRenderOrder();
   console.log(this);
   console.log(htmlLiString);
+
   var tempJQString = "#" + this.name;
+
+
+  $(tempJQString).mouseup(function(){
+    setTimeout(function(){
+      setRenderOrder();
+    }, 10);
+  });
+
 
   $(tempJQString).click(function(event){
     console.log(event);
@@ -87,14 +92,14 @@ var colorVar = function(name, hexstring){
   this.name = name;
   this.color = hexstring;
   //append colors to drop down
-  $( "li" ).each(function( index ) {
+  $( "li" ).each(function() {
     $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='" + name + "'>" + name + "</option>" );
   });
 }
 colorVariables.push(new colorVar('default color', '#000000'));
 
 var colorSearch = function(string){
-  var color = '';
+  var color;
   colorVariables.forEach(function(el){
     if (string === el.name){
       color = el.color;
