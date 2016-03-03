@@ -6,11 +6,20 @@ var shape = function(type, name, fillColor){
   this.positions = [];
   this.editPoints = false;
   this.movePoly = false;
-  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button><select class='colorList'><option value='blue'>primary color</option></select><input type='range' class='alphaSlide'></select></li>";
+  var selectString = "<select class='colorList'>";
+    for (var i = 0; i < colorVariables.length; i++){
+      selectString +="<option value='" + colorVariables[i].name + "'>" + colorVariables[i].name + "</option>";
+  }
+    selectString += "</select>";
+  console.log(selectString);
+  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select></li>";
   $('#shapesCollection').append(htmlLiString);
 
 
-
+  for (var i = 0; i < colorVariables.length; i++){
+    //colorVariables[i].name
+  }
+  console.log(this);
   console.log(htmlLiString);
   var tempJQString = "#" + this.name;
 
@@ -50,6 +59,8 @@ var shape = function(type, name, fillColor){
             break;
           case 'colorList':
             console.log('color list');
+            console.log(colorSearch(event.target.value));
+            pseudoSprite.shapes[j].fillColor = colorSearch(event.target.value);
             break;
           }
 
@@ -77,6 +88,17 @@ var colorVar = function(name, hexstring){
   this.color = hexstring;
   //append colors to drop down
   $( "li" ).each(function( index ) {
-    $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='blue'>" + name + "</option>" );
+    $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='" + name + "'>" + name + "</option>" );
   });
+}
+colorVariables.push(new colorVar('default color', '#000000'));
+
+var colorSearch = function(string){
+  var color = '';
+  colorVariables.forEach(function(el){
+    if (string === el.name){
+      color = el.color;
+    }
+  });
+  return color;
 }

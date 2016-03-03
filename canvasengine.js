@@ -36,7 +36,7 @@ var renderPoly = function(shape){
   });
   ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
   ctx.closePath();
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = shape.fillColor;
   ctx.fill();
   ctx.globalAlpha = 1;
 }
