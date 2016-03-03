@@ -87,7 +87,7 @@ var renderUI = function(){
 var gridRender = function(){
   var increment = canvas.width/8;
   var gPoint = increment;
-  ctx.globalAlpha = 0.5;
+  ctx.globalAlpha = 1;
   ctx.strokeStyle = 'red';
   for (var i = 0; i < 7; i++){
     ctx.moveTo(gPoint, 0);

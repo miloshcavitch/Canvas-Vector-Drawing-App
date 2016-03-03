@@ -17,7 +17,7 @@ var shape = function(type, name){
   $('#shapesCollection').append(htmlLiString);
   console.log(this);
   console.log(htmlLiString);
-
+  renderOrder.push(pseudoSprite.shapes.length);
   var tempJQString = "#" + this.name;
 
 
