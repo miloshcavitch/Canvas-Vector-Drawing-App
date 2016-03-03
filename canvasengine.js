@@ -82,6 +82,27 @@ var renderUI = function(){
     }
 
   });
+  //gridRender();
+}
+var gridRender = function(){
+  var increment = canvas.width/8;
+  var gPoint = increment;
+  ctx.globalAlpha = 0.5;
+  ctx.strokeStyle = 'red';
+  for (var i = 0; i < 7; i++){
+    ctx.moveTo(gPoint, 0);
+    ctx.lineTo(gPoint, canvas.height);
+    ctx.stroke();
+    gPoint += increment;
+  }
+  gPoint = increment;
+  for (var i = 0; i < 7; i++){
+    ctx.moveTo(0, gPoint);
+    ctx.lineTo(canvas.width, gPoint);
+    ctx.stroke();
+    gPoint += increment;
+  }
+  ctx.globalAlpha = 1;
 }
 ////////////////////////////////////////////
 ///////////////////////////////////////////

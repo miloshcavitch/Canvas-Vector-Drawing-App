@@ -1,6 +1,7 @@
 var pseudoSprite = {xCenter: 0, yCenter: 0, unit: 4, shapes: []};
-var shape = function(type, name, fillColor){
-  this.fillColor = fillColor;
+var shape = function(type, name){
+  this.fillColor = '#000000';
+  this.alphaLevel = 1;
   this.type = type;
   this.name = name;
   this.positions = [];
@@ -14,7 +15,6 @@ var shape = function(type, name, fillColor){
   console.log(selectString);
   var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select></li>";
   $('#shapesCollection').append(htmlLiString);
-  setRenderOrder();
   console.log(this);
   console.log(htmlLiString);
 
@@ -75,7 +75,6 @@ var shape = function(type, name, fillColor){
       }
     }
   });
-
 
 }
 
