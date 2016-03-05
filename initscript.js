@@ -20,9 +20,14 @@ var canvasHasLoaded = function(){
 
   //code that turns the setInterval engine on
 }
+var initColorEditor = function(){
+  $('#colorsCollection').append('<p>Color Editor</p><select id="colorChoice"><option value="default color">default color</option></select><input type="color" name="color">');
+  
+}
 
 var initSortableLayers = function(){
-  $('#appBox').append('<ul id="shapesCollection"></ul>');
+  $('#appBox').append('<ul id="shapesCollection"></ul><div id="colorsCollection"></div>');
+  initColorEditor();
   $(function() {
       $("#shapesCollection").sortable();
     });

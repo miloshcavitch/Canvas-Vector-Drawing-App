@@ -23,6 +23,27 @@
   float: right;
   height: auto;
 }
+
+#shapesCollection{
+  float: left;
+}
+#colorsCollection{
+  float: right;
+  border: 1px;
+  height: 200px;
+  width: 50%;
+  background-color: #ff0000;
+}
+#colorsCollection p {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+#colorChoice{
+  margin-left: 10px;
+}
+#flat{
+  float: right;
+}
 #shapesCollection li {
   margin: 0 3px 3px 3px;
   padding: 0.4em;
