@@ -21,7 +21,7 @@ var canvasHasLoaded = function(){
   //code that turns the setInterval engine on
 }
 var initColorLayers = function(){
-  //<input type="color" id="colPick" name="color">
+    //<input type="color" id="colPick" name="color">
   $(function() {
       $("#colorsCollection").sortable();
     });

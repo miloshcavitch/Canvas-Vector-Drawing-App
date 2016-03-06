@@ -1,6 +1,7 @@
 var pseudoSprite = {xCenter: 0, yCenter: 0, unit: 4, shapes: []};
 var shape = function(type, name){
   this.fillColor = '#000000';
+  this.colorIndex = 0;
   this.alphaLevel = 1;
   this.type = type;
   this.name = name;
@@ -9,7 +10,7 @@ var shape = function(type, name){
   this.movePoly = false;
   var selectString = "<select class='colorList'>";
     for (var i = 0; i < colorVariables.length; i++){
-      selectString +="<option value='" + colorVariables[i].name + "'>" + colorVariables[i].name + "</option>";
+      selectString +="<option value='" + i + "'>" + colorVariables[i].name + "</option>";
   }
     selectString += "</select>";
   console.log(selectString);
@@ -64,8 +65,8 @@ var shape = function(type, name){
             break;
           case 'colorList':
             console.log('color list');
-            console.log(colorSearch(event.target.value));
-            pseudoSprite.shapes[j].fillColor = colorSearch(event.target.value);
+            console.log(event.target.value);
+            pseudoSprite.shapes[j].colorIndex = parseInt(event.target.value);
             break;
           }
 
@@ -92,12 +93,36 @@ var colorVar = function(name, hexstring){
   this.color = hexstring;
   //append colors to drop down
   $( "#shapesCollection li" ).each(function() {
-    $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='" + name + "'>" + name + "</option>" );
+    $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='" + colorVariables.length + "'>" + name + "</option>" );
   });
-  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'>" + this.name + "</li>";
+  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'>" + this.name + "<input type='text' class='basic' id='" + this.name + "Picker' value='red'/></li>";
   $('#colorsCollection').append(htmlLiString);
+  var jqColString = '#' + this.name + 'Picker';
+  $(jqColString).spectrum({
+    preferredFormat: "hex",
+    showInput: true,
+    showPalette: true,
+    palette: [["red", "rgba(0, 255, 0, .5)", "rgb(0, 0, 255)"]]
+  });
+
+  var colIndex = colorVariables.length;
+  debugger;
+  $(jqColString).on('move.spectrum', function(e, tinycolor) {
+    colorVariables[colIndex].color = tinycolor.toHexString();
+    console.log(tinycolor.toHexString());
+  });
+
+
+  $(jqColString).click(function(event){
+    console.log(event);
+  })
+  var tempJQString = '#' + this.name;
+  $(tempJQString).click(function(event){
+    console.log(event);
+  });
 }
-colorVariables.push(new colorVar('default color', '#000000'));
+
+colorVariables.push(new colorVar('black', '#000000'))
 var colorSearch = function(string){
   var color;
   colorVariables.forEach(function(el){
