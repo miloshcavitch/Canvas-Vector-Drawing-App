@@ -46,7 +46,7 @@ var initDrawingApp = function(){
   initColorLayers();
   initSortableLayers();
   $('#currentForm').append("<form id='newPolyForm'>Polygon Name:<br><input type='text'name='polygonName'></form><button type='button' id='submitPolyName'>Enter Poly Name</button>");
-  $('#currentForm').append("<form id='newHexColor'>Hex Color:<br><input type='text' name='hexColor'><br>Variable Name:<br><input type='text' name='colorVarName'></form><button type='button' id='submitColorVar'>Enter Hex Color</button>");
+  $('#currentForm').append("<form id='newHexColor'>Variable Name:<br><input type='text' name='colorVarName'></form><button type='button' id='submitColorVar'>Enter Hex Color</button>");
   $('#currentForm').append("<button type='button' id='finishAddingPoints'>Finish Adding Points</button>");
   $('#currentForm').append("<button type='button' id='finishMovingPoints'>Finish Moving Points</button>");
   $('#currentInstructions').hide();
@@ -114,16 +114,13 @@ var initDrawingApp = function(){
 
   $('#submitColorVar').click(function(){
     var $colorName = $('input[name="colorVarName"]').val();
-    var $hexVal = $('input[name="hexColor"]').val();
     $('#currentInstructions').hide(500);
     $('#currentInstructions').text('');
     $('#newHexColor').hide(500);
     $('#submitColorVar').hide(500);
     console.log($colorName);
-    colorVariables.push(new colorVar($colorName, $hexVal));
-    console.log($hexVal);
+    colorVariables.push(new colorVar($colorName));
     $('input[name="colorVarName"]').val('');
-    $('input[name="hexColor"]').val('');
     $('#newPoly').show(500);
     $('#newColorVar').show(500);
   });

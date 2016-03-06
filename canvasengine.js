@@ -82,27 +82,6 @@ var renderUI = function(){
     }
 
   });
-  //gridRender();
-}
-var gridRender = function(){
-  var increment = canvas.width/8;
-  var gPoint = increment;
-  ctx.globalAlpha = 1;
-  ctx.strokeStyle = 'red';
-  for (var i = 0; i < 7; i++){
-    ctx.moveTo(gPoint, 0);
-    ctx.lineTo(gPoint, canvas.height);
-    ctx.stroke();
-    gPoint += increment;
-  }
-  gPoint = increment;
-  for (var i = 0; i < 7; i++){
-    ctx.moveTo(0, gPoint);
-    ctx.lineTo(canvas.width, gPoint);
-    ctx.stroke();
-    gPoint += increment;
-  }
-  ctx.globalAlpha = 1;
 }
 ////////////////////////////////////////////
 ///////////////////////////////////////////
@@ -158,8 +137,39 @@ var dropPoint = function(){
 
 ///////////////////////////////////////////
 //////////////////////////////////////////
+
+
+var backGrid = function(){
+  ctx.beginPath();
+  ctx.fillStyle = '#555555';
+  ctx.rect(0, 0, canvas.width, canvas.height);
+  ctx.fill();
+  ctx.closePath();
+  var increment = canvas.width/32;
+  var pos = increment;
+  ctx.strokeStyle = '#999999';
+  ctx.lineWidth = 0.125;
+  for (var i = 0; i < 31; i++){
+    ctx.beginPath();
+    ctx.moveTo(pos, 0);
+    ctx.lineTo(pos, canvas.height);
+    ctx.stroke();
+    ctx.closePath();
+    pos += increment;
+  }
+  pos = increment;
+  for (var i = 0; i < 31; i++){
+    ctx.beginPath();
+    ctx.moveTo(0, pos);
+    ctx.lineTo(canvas.width, pos);
+    ctx.stroke();
+    ctx.closePath();
+    pos += increment;
+  }
+}
 var render = function(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  backGrid();
   renderOrder.forEach(function(o){
     switch(pseudoSprite.shapes[o].type){
       case 'polygon':

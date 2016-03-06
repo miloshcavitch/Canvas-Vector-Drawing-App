@@ -106,7 +106,6 @@ var colorVar = function(name, hexstring){
   });
 
   var colIndex = colorVariables.length;
-  debugger;
   $(jqColString).on('move.spectrum', function(e, tinycolor) {
     colorVariables[colIndex].color = tinycolor.toHexString();
     console.log(tinycolor.toHexString());
