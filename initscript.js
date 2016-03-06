@@ -20,14 +20,14 @@ var canvasHasLoaded = function(){
 
   //code that turns the setInterval engine on
 }
-var initColorEditor = function(){
-  $('#colorsCollection').append('<p>Color Editor</p><select id="colorChoice"><option value="default color">default color</option></select><input type="color" name="color">');
-  
+var initColorLayers = function(){
+  //<input type="color" id="colPick" name="color">
+  $(function() {
+      $("#colorsCollection").sortable();
+    });
 }
 
 var initSortableLayers = function(){
-  $('#appBox').append('<ul id="shapesCollection"></ul><div id="colorsCollection"></div>');
-  initColorEditor();
   $(function() {
       $("#shapesCollection").sortable();
     });
@@ -42,6 +42,8 @@ var initSortableLayers = function(){
 
 var initDrawingApp = function(){
   $('#appBox').append("<br><button type='button' id='newPoly'>New Polygon</button><button type='button' id='newColorVar'>New Color Variable</button><br>");
+  $('#appBox').append('<ul id="shapesCollection"></ul><ul id="colorsCollection"></ul>');
+  initColorLayers();
   initSortableLayers();
   $('#currentForm').append("<form id='newPolyForm'>Polygon Name:<br><input type='text'name='polygonName'></form><button type='button' id='submitPolyName'>Enter Poly Name</button>");
   $('#currentForm').append("<form id='newHexColor'>Hex Color:<br><input type='text' name='hexColor'><br>Variable Name:<br><input type='text' name='colorVarName'></form><button type='button' id='submitColorVar'>Enter Hex Color</button>");

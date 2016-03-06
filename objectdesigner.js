@@ -91,12 +91,13 @@ var colorVar = function(name, hexstring){
   this.name = name;
   this.color = hexstring;
   //append colors to drop down
-  $( "li" ).each(function() {
+  $( "#shapesCollection li" ).each(function() {
     $(this).context.childNodes[4].insertAdjacentHTML( 'beforeend', "<option value='" + name + "'>" + name + "</option>" );
   });
+  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'>" + this.name + "</li>";
+  $('#colorsCollection').append(htmlLiString);
 }
 colorVariables.push(new colorVar('default color', '#000000'));
-
 var colorSearch = function(string){
   var color;
   colorVariables.forEach(function(el){

@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   width: 50%;
+  float: left;
 }
 .clearFix:after {
     content:"";
@@ -24,26 +25,28 @@
   height: auto;
 }
 
-#shapesCollection{
-  float: left;
-}
 #colorsCollection{
   float: right;
-  border: 1px;
-  height: 200px;
-  width: 50%;
-  background-color: #ff0000;
+  width: 30%;
 }
-#colorsCollection p {
-  margin-left: 10px;
-  margin-top: 10px;
+
+
+#colorsCollection li {
+  margin: 0 3px 3px 3px;
+  padding: 0.4em;
+  padding-left: 1.5em;
+  font-size: 1em;
+  background-color: green;
 }
-#colorChoice{
-  margin-left: 10px;
+#colorsCollection span {
+  position: absolute;
+  margin-left: -1.3em;
 }
-#flat{
-  float: right;
+#colorsCollection ul {
+  margin-top: 3px;
 }
+
+
 #shapesCollection li {
   margin: 0 3px 3px 3px;
   padding: 0.4em;
