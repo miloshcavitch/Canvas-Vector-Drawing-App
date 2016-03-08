@@ -125,7 +125,28 @@ var initDrawingApp = function(){
     $('#newColorVar').show(500);
   });
 }
+var objectSnaps = {toggle: false, line: false, grid: false, point: false};
+objectSnapSetup = function(){
+  $('#object-snap-toggle').click(function(){
+    objectSnaps.toggle = !objectSnaps.toggle;
+    console.log('toggle: ' + objectSnaps.toggle);
+  });
 
+  $('#point-snap').click(function(){
+    objectSnaps.point = !objectSnaps.point;
+    console.log('point: ' + objectSnaps.point);
+  });
+
+  $('#line-snap').click(function(){
+    objectSnaps.line = !objectSnaps.line;
+    console.log('line: ' + objectSnaps.line);
+  });
+
+  $('#grid-snap').click(function(){
+    objectSnaps.grid = !objectSnaps.grid;
+    console.log('grid: ' + objectSnaps.grid);
+  });
+}
 
 $(document).ready(function(){
   $('#textInfo').append("<p>Enter the width and height of the desired canvas size<br>(size of your object can be changed later by changing 'pseudoSprite.unit' but the center of your canvas will be the referenced center position of your pseudoSprite.)</p>");
@@ -138,9 +159,13 @@ $(document).ready(function(){
     console.log(cW);
     if (isNaN(cW) == false && isNaN(cH) == false && cW != false && cH != false){
       $('#textInfo').empty();
-      var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #000000;'></canvas>";
+      var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #555555;'></canvas>";
       $('#appBox').append(canString);
+      $('#appBox').append("<div id='object-snap'></div>");
+      $('#object-snap').append("<form action='' id='o-tog'><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form>")
+      $('#object-snap').append("<form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input>")
       canvasHasLoaded();
+      objectSnapSetup();
       $('#appBox').append("<div id='currentOptions'></div>");
       $('#currentOptions').append('<p id="currentInstructions"></p>');
       $('#currentOptions').append('<div id="currentForm"></div>');

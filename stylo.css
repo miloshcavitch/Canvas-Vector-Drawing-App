@@ -84,3 +84,13 @@ body {
 .selected {
   background-color: green;
 }
+#object-snap {
+  float: right;
+}
+#o-tog {
+  float: right;
+}
+
+#object-snap-options{
+  float: right;
+}

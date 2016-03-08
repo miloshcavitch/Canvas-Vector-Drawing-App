@@ -145,11 +145,11 @@ var backGrid = function(){
   ctx.rect(0, 0, canvas.width, canvas.height);
   ctx.fill();
   ctx.closePath();
-  var increment = canvas.width/32;
+  var increment = canvas.width/64;
   var pos = increment;
   ctx.strokeStyle = '#999999';
   ctx.lineWidth = 0.125;
-  for (var i = 0; i < 31; i++){
+  for (var i = 0; i < 63; i++){
     ctx.beginPath();
     ctx.moveTo(pos, 0);
     ctx.lineTo(pos, canvas.height);
@@ -158,7 +158,7 @@ var backGrid = function(){
     pos += increment;
   }
   pos = increment;
-  for (var i = 0; i < 31; i++){
+  for (var i = 0; i < 63; i++){
     ctx.beginPath();
     ctx.moveTo(0, pos);
     ctx.lineTo(canvas.width, pos);
