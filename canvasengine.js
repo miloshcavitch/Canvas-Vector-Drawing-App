@@ -20,6 +20,17 @@ var pythagLength = function(pointerX, pointerY, point){
 var oSnap = function(){//to be added
   pointerX = mouseX;
   pointerY = mouseY;
+  if (objectSnaps.toggle){
+    if (objectSnaps.point){
+      console.log('point!!');
+    }
+    if (objectSnaps.line){
+
+    }
+    if (objectSnaps.grid){
+
+    }
+  }
 }
 
 

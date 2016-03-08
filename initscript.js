@@ -127,9 +127,15 @@ var initDrawingApp = function(){
 }
 var objectSnaps = {toggle: false, line: false, grid: false, point: false};
 objectSnapSetup = function(){
+  $('#object-snap-options').hide();
   $('#object-snap-toggle').click(function(){
     objectSnaps.toggle = !objectSnaps.toggle;
     console.log('toggle: ' + objectSnaps.toggle);
+    if (objectSnaps.toggle){
+      $('#object-snap-options').show(100);
+    } else {
+      $('#object-snap-options').hide(300);
+    }
   });
 
   $('#point-snap').click(function(){
