@@ -28,14 +28,16 @@ var pointSnap = function(){
   var shortestDistance = 10;
   var candidate = {x: mouseX, y: mouseY};
   pseudoSprite.shapes.forEach(function(el){
-    el.positions.forEach(function(p){
-      var tempLength = pythagLength(mouseX, mouseY, p);
-      if (tempLength < shortestDistance){
-        shortestDistance = tempLength;
-        candidate.x = p.worldX;
-        candidate.y = p.worldY;
-      }
-    });
+    if (el.editPoints != true){
+      el.positions.forEach(function(p){
+        var tempLength = pythagLength(mouseX, mouseY, p);
+        if (tempLength < shortestDistance){
+          shortestDistance = tempLength;
+          candidate.x = p.worldX;
+          candidate.y = p.worldY;
+        }
+      });
+    }
   });
   console.log(candidate.x + ", " + candidate.y);
   return candidate;
