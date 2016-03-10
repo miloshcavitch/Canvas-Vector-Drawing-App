@@ -1,5 +1,4 @@
 var mouseX, mouseY, pointerX, pointerY;
-var oSnapBool = false;
 var pointsBeingAdded = false;
 var ctx;
 var currentShape;//be careful with the way this is going to be used
@@ -9,11 +8,8 @@ var canvasHasLoaded = function(){
   $('#myCanvas').on( "mousemove", function(event) {
     mouseX = event.pageX - canvas.offsetLeft;
     mouseY = event.pageY - canvas.offsetTop;
-    console.log(mouseX);
-    //then run function for oSnap(mouseX, mouseY);//this turns mouse position into pointer position (pointerX, pointerY);
-    oSnap();//just testing
+    oSnap();
   });
-
   $('#myCanvas').on('click', function(){
     activeMode(pointerX, pointerY)//run the function for the active mode you are in
   });
@@ -132,9 +128,9 @@ objectSnapSetup = function(){
     objectSnaps.toggle = !objectSnaps.toggle;
     console.log('toggle: ' + objectSnaps.toggle);
     if (objectSnaps.toggle){
-      $('#object-snap-options').show(100);
+      $('#object-snap-options').show();
     } else {
-      $('#object-snap-options').hide(300);
+      $('#object-snap-options').hide();
     }
   });
 

@@ -9,20 +9,44 @@ var enterEditPoints = function(){
   $('#newColorVar').hide(500);
   $('#finishMovingPoints').show(500);
 }
-
+//////////////////////////////////////
+/////////////////////////////////////
 var pythagLength = function(pointerX, pointerY, point){
   var a = Math.abs(pointerX - point.worldX);
   var b = Math.abs(pointerY - point.worldY);
   var c = Math.hypot(a, b);
   return c;
 }
-
+var renderPointer = function(){
+  ctx.fillStyle = 'black';
+  ctx.beginPath();
+  ctx.arc(pointerX, pointerY, 10, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.closePath();
+}
+var pointSnap = function(){
+  var shortestDistance = 10;
+  var candidate = {x: mouseX, y: mouseY};
+  pseudoSprite.shapes.forEach(function(el){
+    el.positions.forEach(function(p){
+      var tempLength = pythagLength(mouseX, mouseY, p);
+      if (tempLength < shortestDistance){
+        shortestDistance = tempLength;
+        candidate.x = p.worldX;
+        candidate.y = p.worldY;
+      }
+    });
+  });
+  console.log(candidate.x + ", " + candidate.y);
+  return candidate;
+}
 var oSnap = function(){//to be added
   pointerX = mouseX;
   pointerY = mouseY;
+  var pointer;
   if (objectSnaps.toggle){
     if (objectSnaps.point){
-      console.log('point!!');
+      pointer = pointSnap();
     }
     if (objectSnaps.line){
 
@@ -30,6 +54,10 @@ var oSnap = function(){//to be added
     if (objectSnaps.grid){
 
     }
+  }
+  if (pointer != undefined){
+    pointerX = pointer.x;
+    pointerY = pointer.y;
   }
 }
 
@@ -93,6 +121,7 @@ var renderUI = function(){
     }
 
   });
+  renderPointer();
 }
 ////////////////////////////////////////////
 ///////////////////////////////////////////
