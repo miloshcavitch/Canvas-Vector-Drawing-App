@@ -26,15 +26,15 @@ var renderPointer = function(){
 }
 var pointSnap = function(){
   var shortestDistance = 10;
-  var candidate = {x: mouseX, y: mouseY};
+  var candidate = {worldX: undefined, worldY: undefined};
   pseudoSprite.shapes.forEach(function(el){
     if (el.editPoints != true){
       el.positions.forEach(function(p){
         var tempLength = pythagLength(mouseX, mouseY, p);
         if (tempLength < shortestDistance){
           shortestDistance = tempLength;
-          candidate.x = p.worldX;
-          candidate.y = p.worldY;
+          candidate.worldX = p.worldX;
+          candidate.worldY = p.worldY;
         }
       });
     } else {
@@ -43,35 +43,95 @@ var pointSnap = function(){
           var tempLength = pythagLength(mouseX, mouseY, el.positions[i]);
           if (tempLength < shortestDistance){
             shortestDistance = tempLength;
-            candidate.x = el.positions[i].worldX;
-            candidate.y = el.positions[i].worldY;
+            candidate.worldX = el.positions[i].worldX;
+            candidate.worldY = el.positions[i].worldY;
           }
         }
       }
     }
   });
-  console.log(candidate.x + ", " + candidate.y);
-  return candidate;
+  if (candidate.worldX != undefined){
+    return candidate;
+  }
+}
+
+var gridCount = 16;
+var frontGridRender = function(){
+  var increment = canvas.width/gridCount;
+  var gridPos = increment;
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 0.25;
+  for (var i = 0; i < gridCount; i++){
+    ctx.beginPath();
+    ctx.moveTo(gridPos, 0);
+    ctx.lineTo(gridPos, canvas.height);
+    ctx.stroke();
+    gridPos += increment;
+    ctx.closePath();
+  }
+  gridPos = increment;
+  for (var i = 0; i < gridCount; i++){
+    ctx.beginPath();
+    ctx.moveTo(0, gridPos);
+    ctx.lineTo(canvas.width, gridPos);
+    ctx.stroke();
+    gridPos += increment;
+    ctx.closePath();
+  }
+}
+
+var gridSnap = function(){
+  var candidate = {worldX: mouseX, worldY: mouseY};
+  var xGridDist = mouseX % (canvas.width/gridCount);
+  var yGridDist = mouseY % (canvas.width/gridCount);
+  if ((xGridDist <= 10 || xGridDist >= 40) && (yGridDist <=10 || yGridDist >= 40)){
+    if (xGridDist <= 10){
+      candidate.worldX = Math.floor(mouseX/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+    } else {
+      candidate.worldX = Math.ceil(mouseX/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+    }
+
+    if (yGridDist <= 10){
+      candidate.worldY = Math.floor(mouseY/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+    } else {
+      candidate.worldY = Math.ceil(mouseY/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+    }
+    console.log(candidate.worldX + ", " + candidate.worldY);
+    return candidate;
+  }
 }
 var oSnap = function(){//to be added
   pointerX = mouseX;
   pointerY = mouseY;
-  var pointer;
+  var pCandidates = [];
+  var smallest = 10;
+  var goodOption = {worldX: mouseX, worldY: mouseY};
   if (objectSnaps.toggle){
     if (objectSnaps.point){
-      pointer = pointSnap();
+      if (pointSnap() != undefined){
+        pCandidates.push(pointSnap());
+        console.log('gucci');
+      }
     }
     if (objectSnaps.line){
 
     }
     if (objectSnaps.grid){
-
+      if (gridSnap() != undefined){
+        pCandidates.push(gridSnap());
+      }
     }
+    console.log(pCandidates);
+    pCandidates.forEach(function(c){
+      if (pythagLength(mouseX, mouseY, c) < smallest){
+        smallest = pythagLength(mouseX, mouseY, c);
+        goodOption.worldX = c.worldX;
+        goodOption.worldY = c.worldY;
+      }
+    });
   }
-  if (pointer != undefined){
-    pointerX = pointer.x;
-    pointerY = pointer.y;
-  }
+  pointerX = goodOption.worldX;
+  pointerY = goodOption.worldY;
 }
 
 
@@ -89,6 +149,7 @@ var renderPoly = function(shape){
   ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
   ctx.closePath();
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
+  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
   ctx.fill();
   ctx.globalAlpha = 1;
 }
@@ -134,6 +195,9 @@ var renderUI = function(){
     }
 
   });
+  if (objectSnaps.grid && objectSnaps.toggle){
+    frontGridRender();
+  }
   renderPointer();
 }
 ////////////////////////////////////////////
