@@ -37,6 +37,17 @@ var pointSnap = function(){
           candidate.y = p.worldY;
         }
       });
+    } else {
+      for (var i = 0; i < el.positions.length; i++){
+        if (i != pointMoveToggles.posIndex){
+          var tempLength = pythagLength(mouseX, mouseY, el.positions[i]);
+          if (tempLength < shortestDistance){
+            shortestDistance = tempLength;
+            candidate.x = el.positions[i].worldX;
+            candidate.y = el.positions[i].worldY;
+          }
+        }
+      }
     }
   });
   console.log(candidate.x + ", " + candidate.y);
