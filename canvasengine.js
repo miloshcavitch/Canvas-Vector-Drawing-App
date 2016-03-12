@@ -101,6 +101,8 @@ var gridSnap = function(){
   }
 }
 var oSnap = function(){//to be added
+  lastPointerX = pointerX;
+  lastPointerY = pointerY;
   pointerX = mouseX;
   pointerY = mouseY;
   var pCandidates = [];
@@ -249,8 +251,58 @@ var dropPoint = function(){
     pickupPoint();
   }
 }
+///////////////////////////////////
+///////////////////////////////////
+var shapeMoveToggles = {shapeIndex: undefined, pickedUp: false, posIndex: undefined};
+var pickupShape = function(){
+  for (var i = 0; i < pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions.length; i++){
+    if (pythagLength(pointerX, pointerY, pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[i]) <= 10){
+      shapeMoveToggles.pickedUp = true;
+      shapeMoveToggles.posIndex = i;
+      activeUpdate = function(){
+        moveShape();
+      }
+      activeMode = function(){
+        dropShape();
+      }
+    }
+  }
+}
+var moveShape = function(){
+  var rise = 0;
+  var run = 0;
+  if (pointerX != pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldX){
+    if (pointerX - pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldX < 0){
+      run = -1;
+    } else {
+      run = 1;
+    }
+  }
 
+  if (pointerY != pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldY){
+    if (pointerY - pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldY < 0){
+      rise = -1;
+    } else {
+      rise = 1;
+    }
+  }
+  
+  pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions.forEach(function(p){
+    p.worldX += run;
+    p.worldY += rise;
+  });
+}
 
+var dropShape = function(){
+  shapeMoveToggles.pickedUp = false;
+  shapeMoveToggles.posIndex = undefined;
+  activeUpdate = function(){
+
+  }
+  activeMode = function(){
+    pickupPoint();
+  }
+}
 
 ///////////////////////////////////////////
 //////////////////////////////////////////

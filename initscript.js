@@ -1,4 +1,4 @@
-var mouseX, mouseY, pointerX, pointerY;
+var mouseX, mouseY, pointerX, pointerY, lastPointerX, lastPointerY;
 var pointsBeingAdded = false;
 var ctx;
 var currentShape;//be careful with the way this is going to be used

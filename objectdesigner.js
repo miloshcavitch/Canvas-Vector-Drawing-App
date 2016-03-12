@@ -7,7 +7,7 @@ var shape = function(type, name){
   this.name = name;
   this.positions = [];
   this.editPoints = false;
-  this.movePoly = false;
+  this.movingPoly = false;
   var selectString = "<select class='colorList'>";
     for (var i = 0; i < colorVariables.length; i++){
       selectString +="<option value='" + i + "'>" + colorVariables[i].name + "</option>";
@@ -54,6 +54,14 @@ var shape = function(type, name){
             }
             if (event.target.outerText === 'Move Poly'){
               console.log('move poly');
+              shapeMoveToggles.shapeIndex = j;
+              activeMode = function(){
+                pickupShape();
+              }
+              pseudoSprite.shapes.forEach(function(el){
+                el.movingPoly = false;
+              });
+              pseudoSprite.shapes[j].movingPoly = true;
             }
             break;
           case 'alphaSlide':
