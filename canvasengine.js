@@ -18,15 +18,16 @@ var pythagLength = function(pointerX, pointerY, point){
   return c;
 }
 var renderPointer = function(){
-  ctx.fillStyle = 'black';
+  ctx.fillStyle = 'white';
   ctx.beginPath();
-  ctx.arc(pointerX, pointerY, 10, 0, 2 * Math.PI);
-  ctx.fill();
+  ctx.font = "20px Arial";
+  ctx.strokeText(snapString, pointerX, pointerY);
+  ctx.fillText(snapString, pointerX, pointerY);
   ctx.closePath();
 }
 var pointSnap = function(){
   var shortestDistance = 10;
-  var candidate = {worldX: undefined, worldY: undefined};
+  var candidate = {worldX: undefined, worldY: undefined, type: 'point'};
   pseudoSprite.shapes.forEach(function(el){
     if (el.editPoints != true){
       el.positions.forEach(function(p){
@@ -81,7 +82,7 @@ var frontGridRender = function(){
 }
 
 var gridSnap = function(){
-  var candidate = {worldX: mouseX, worldY: mouseY};
+  var candidate = {worldX: mouseX, worldY: mouseY, type: 'grid'};
   var xGridDist = mouseX % (canvas.width/gridCount);
   var yGridDist = mouseY % (canvas.width/gridCount);
   if ((xGridDist <= 10 || xGridDist >= 40) && (yGridDist <=10 || yGridDist >= 40)){
@@ -100,7 +101,9 @@ var gridSnap = function(){
     return candidate;
   }
 }
+var snapString = '';
 var oSnap = function(){//to be added
+  snapString = '';
   lastPointerX = pointerX;
   lastPointerY = pointerY;
   pointerX = mouseX;
@@ -129,6 +132,7 @@ var oSnap = function(){//to be added
         smallest = pythagLength(mouseX, mouseY, c);
         goodOption.worldX = c.worldX;
         goodOption.worldY = c.worldY;
+        snapString = c.type;
       }
     });
   }
@@ -286,7 +290,7 @@ var moveShape = function(){
       rise = 1;
     }
   }
-  
+
   pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions.forEach(function(p){
     p.worldX += run;
     p.worldY += rise;

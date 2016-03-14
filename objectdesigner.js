@@ -1,4 +1,5 @@
 var pseudoSprite = {xCenter: 0, yCenter: 0, unit: 4, shapes: []};
+var addingShape = [];
 var shape = function(type, name){
   this.fillColor = '#000000';
   this.colorIndex = 0;

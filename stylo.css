@@ -28,7 +28,11 @@ body {
   float: right;
   height: auto;
 }
-
+#appBox {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
 #colorsCollection{
   list-style-type: none;
   margin: 0;
@@ -84,6 +88,17 @@ body {
 .selected {
   background-color: green;
 }
+
+
+#side-nav{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  float: right;
+  background-color: red;
+}
+
+
 #object-snap {
   float: right;
 }

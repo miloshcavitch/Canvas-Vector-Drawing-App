@@ -123,6 +123,29 @@ var initDrawingApp = function(){
 }
 var objectSnaps = {toggle: false, line: false, grid: false, point: false};
 objectSnapSetup = function(){
+  jQuery(function($){
+          $( '.menu-btn' ).click(function(){
+            animSwitch = !animSwitch;
+            if (animSwitch){
+              $('.menu-btn').animate({"margin-right": '+=200'})
+              $('#object-snap').show("slide", { direction: "right" }, 500);
+            } else {
+              $('.menu-btn').animate({"margin-right": '-=200'})
+              $('#object-snap').hide("slide", {direction: "right" }, 500);
+            }
+          });
+        });
+        
+  $('#side-menu-btn').click(function(){
+    $('#side-menu').addClass('expand');
+    $('#side-menu-btn').addClass('btn-none');
+  });
+
+  $('#close-btn').click(function(){
+    $('#side-menu').removeClass('expand');
+    $('#side-menu-btn').removeClass('btn-none');
+  });
+
   $('#object-snap-options').hide();
   $('#object-snap-toggle').click(function(){
     objectSnaps.toggle = !objectSnaps.toggle;
@@ -163,9 +186,8 @@ $(document).ready(function(){
       $('#textInfo').empty();
       var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #555555;'></canvas>";
       $('#appBox').append(canString);
-      $('#appBox').append("<div id='object-snap'></div>");
-      $('#object-snap').append("<form action='' id='o-tog'><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form>")
-      $('#object-snap').append("<form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input>")
+      $('#appBox').append("<div id='side-nav'><div id='side-menu'><div id='object-snap'></div></div></div>");
+      $('#object-snap').append("<form action='' id='o-tog'><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input>")
       canvasHasLoaded();
       objectSnapSetup();
       $('#appBox').append("<div id='currentOptions'></div>");
