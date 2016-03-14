@@ -49,6 +49,7 @@ var shape = function(type, name){
               }
               pseudoSprite.shapes.forEach(function(el){
                 el.editPoints = false;
+                el.movingPoly = false;
               });
               pseudoSprite.shapes[j].editPoints = true;
               enterEditPoints();
@@ -61,6 +62,7 @@ var shape = function(type, name){
               }
               pseudoSprite.shapes.forEach(function(el){
                 el.movingPoly = false;
+                el.editPoints = false;
               });
               pseudoSprite.shapes[j].movingPoly = true;
             }

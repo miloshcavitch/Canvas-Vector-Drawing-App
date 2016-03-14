@@ -159,12 +159,12 @@ var renderPoly = function(shape){
   ctx.fill();
   ctx.globalAlpha = 1;
 }
-var polyEditPoint = function(shape){
+var polyEditPointRender = function(shape, color){
   ctx.globalAlpha = 0.6;
   shape.positions.forEach(function(p){
     ctx.beginPath();
     ctx.arc(p.worldX, p.worldY, 10, 0, 2 * Math.PI);
-    ctx.fillStyle = 'gray';
+    ctx.fillStyle = color;
     ctx.fill();
   });
   ctx.beginPath();
@@ -174,7 +174,7 @@ var polyEditPoint = function(shape){
     ctx.lineTo(p.worldX, p.worldY);
   });
   ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
-  ctx.strokeStyle = 'gray';
+  ctx.strokeStyle = color;
   ctx.lineWidth = 1;
   ctx.stroke();
   ctx.globalAlpha = 1;
@@ -196,7 +196,13 @@ var renderUI = function(){
     if (el.editPoints === true){
       switch(el.type){
         case 'polygon':
-          polyEditPoint(el);
+          polyEditPointRender(el, 'gray');
+      }
+    }
+    if (el.movingPoly === true){
+      switch(el.type){
+        case 'polygon':
+          polyEditPointRender(el, '#40ff00');
       }
     }
 
@@ -275,20 +281,13 @@ var pickupShape = function(){
 var moveShape = function(){
   var rise = 0;
   var run = 0;
-  if (pointerX != pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldX){
-    if (pointerX - pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldX < 0){
-      run = -1;
-    } else {
-      run = 1;
-    }
+  rise = Math.abs(pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldY - pointerY);
+  run = Math.abs(pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldX - pointerX);
+  if (pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldY > pointerY){
+    rise = rise * -1;
   }
-
-  if (pointerY != pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldY){
-    if (pointerY - pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldY < 0){
-      rise = -1;
-    } else {
-      rise = 1;
-    }
+  if (pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[shapeMoveToggles.posIndex].worldX > pointerX){
+    run = run * -1;
   }
 
   pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions.forEach(function(p){
@@ -304,7 +303,7 @@ var dropShape = function(){
 
   }
   activeMode = function(){
-    pickupPoint();
+    pickupShape();
   }
 }
 

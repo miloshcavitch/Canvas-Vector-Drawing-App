@@ -92,6 +92,21 @@ var initDrawingApp = function(){
     pointsBeingAdded = false;
   });
 
+  $(document).on('keydown', function(event){
+    if (event.which === 27){
+      pseudoSprite.shapes.forEach(function(el){
+        el.editPoints = false;
+        el.movingPoly = false;
+      })
+      activeUpdate = function(){
+
+      }
+      activeMode = function(){
+
+      }
+    }
+  });
+
   $('#finishMovingPoints').click(function(){
     $('#finishMovingPoints').hide(500);
     $('#currentInstructions').hide(500);
@@ -107,6 +122,7 @@ var initDrawingApp = function(){
 
     }
   });
+
 
   $('#submitColorVar').click(function(){
     var $colorName = $('input[name="colorVarName"]').val();
@@ -135,7 +151,7 @@ objectSnapSetup = function(){
             }
           });
         });
-        
+
   $('#side-menu-btn').click(function(){
     $('#side-menu').addClass('expand');
     $('#side-menu-btn').addClass('btn-none');
