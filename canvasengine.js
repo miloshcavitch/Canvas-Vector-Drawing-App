@@ -17,7 +17,6 @@ var renderPointer = function(){
   ctx.fillStyle = 'white';
   ctx.beginPath();
   ctx.font = "20px Arial";
-  ctx.strokeText(snapString, pointerX, pointerY);
   ctx.fillText(snapString, pointerX, pointerY);
   ctx.closePath();
 }
@@ -115,7 +114,7 @@ var oSnap = function(){//to be added
       }
     }
     if (objectSnaps.line){
-
+      
     }
     if (objectSnaps.grid){
       if (gridSnap() != undefined){

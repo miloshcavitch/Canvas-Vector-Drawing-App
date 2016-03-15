@@ -93,13 +93,13 @@ var initDrawingApp = function(){
   });
 
   $(document).on('keydown', function(event){
-    if (event.which === 27){
+    if (event.which === 27){//escape key
       pseudoSprite.shapes.forEach(function(el){
         el.editPoints = false;
         el.movingPoly = false;
-        $('#newColorVar').show(500);
-        $('#newPoly').show(500);
       })
+      $('#newColorVar').show(500);
+      $('#newPoly').show(500);
       activeUpdate = function(){
 
       }
