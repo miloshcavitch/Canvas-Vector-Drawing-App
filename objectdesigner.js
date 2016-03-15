@@ -52,7 +52,7 @@ var shape = function(type, name){
                 el.movingPoly = false;
               });
               pseudoSprite.shapes[j].editPoints = true;
-              enterEditPoints();
+              enterEdit();
             }
             if (event.target.outerText === 'Move Poly'){
               console.log('move poly');
@@ -65,6 +65,7 @@ var shape = function(type, name){
                 el.editPoints = false;
               });
               pseudoSprite.shapes[j].movingPoly = true;
+              enterEdit();
             }
             break;
           case 'alphaSlide':

@@ -97,6 +97,8 @@ var initDrawingApp = function(){
       pseudoSprite.shapes.forEach(function(el){
         el.editPoints = false;
         el.movingPoly = false;
+        $('#newColorVar').show(500);
+        $('#newPoly').show(500);
       })
       activeUpdate = function(){
 

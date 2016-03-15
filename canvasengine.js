@@ -1,13 +1,9 @@
 ///////////////////////////////////////
 ///////////////////////////////////////
 //JQuery functions
-var enterEditPoints = function(){
-  $('#currentInstructions').hide(500);
-  $('#currentInstructions').text('Click a point and move mouse. Click again to put it down. Click the finish button when done.');
-  $('#currentInstructions').show(500);
+var enterEdit = function(){
   $('#newPoly').hide(500);
   $('#newColorVar').hide(500);
-  $('#finishMovingPoints').show(500);
 }
 //////////////////////////////////////
 /////////////////////////////////////
