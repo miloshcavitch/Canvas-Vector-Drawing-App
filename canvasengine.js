@@ -44,7 +44,16 @@ var symmetryPolyRender = function(shape){
   ctx.fill();
   ctx.globalAlpha = 1;
 }
-
+var mirrorPythagLength = function(mouseX, mouseY, point){
+  var mirrorX = Math.abs(point.worldX - symmetryPos);
+  if (point.worldX > symmetryPos){
+    mirrorX = mirrorX * -1;
+  }
+  var a = Math.abs(pointerX - (mirrorX + symmetryPos));
+  var b = Math.abs(pointerY - point.worldY);
+  var c = Math.hypot(a, b);
+  return c;
+}
 var pointSnap = function(){
   var shortestDistance = 10;
   var candidate = {worldX: undefined, worldY: undefined, type: 'point'};
@@ -58,6 +67,20 @@ var pointSnap = function(){
           candidate.worldY = p.worldY;
         }
       });
+    if (el.symmetry === true){
+      el.positions.forEach(function(p){
+        var tempLength = mirrorPythagLength(mouseX, mouseY, p);
+        if (tempLength < shortestDistance){
+          shortestDistance = tempLength;
+          candidate.worldY = p.worldY;
+          var mirrorX = Math.abs(p.worldX - symmetryPos);
+          if (p.worldX > symmetryPos){
+            mirrorX = mirrorX * -1;
+          }
+          candidate.worldX = mirrorX + symmetryPos;
+        }
+      });
+    }
     } else {
       for (var i = 0; i < el.positions.length; i++){
         if (i != pointMoveToggles.posIndex){
