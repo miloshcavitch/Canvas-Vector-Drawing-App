@@ -4,6 +4,7 @@ var ctx;
 var currentShape;//be careful with the way this is going to be used
 var canvasHasLoaded = function(){
   canvas = document.getElementById("myCanvas");
+  symmetryPos = canvas.width/2;
   ctx = canvas.getContext('2d');
   $('#myCanvas').on( "mousemove", function(event) {
     mouseX = event.pageX - canvas.offsetLeft;

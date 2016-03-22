@@ -6,6 +6,7 @@ var shape = function(type, name){
   this.alphaLevel = 1;
   this.type = type;
   this.name = name;
+  this.symmetry = false;
   this.positions = [];
   this.editPoints = false;
   this.movingPoly = false;

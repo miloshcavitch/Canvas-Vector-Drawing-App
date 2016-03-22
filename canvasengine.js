@@ -20,6 +20,31 @@ var renderPointer = function(){
   ctx.fillText(snapString, pointerX, pointerY);
   ctx.closePath();
 }
+var symmetryPos; // gets value when canvas is made
+
+var symmetryPolyRender = function(shape){
+  ctx.beginPath();
+  ctx.globalAlpha = shape.alphaLevel;
+  var flippedXStart = Math.abs(shape.positions[0].worldX - symmetryPos);
+  if (shape.positions[0].world > symmetryPos){
+    flippedXStart = flippedXStart * -1;
+  }
+  ctx.moveTo((flippedXStart + symmetryPos), shape.positions[0].worldY);
+  shape.positions.forEach(function(el){
+    var flippedX = Math.abs(el.worldX - symmetryPos);
+    if (el.worldX > symmetryPos){
+      flippedX = flippedX * -1;
+    }
+    ctx.lineTo((flippedX + symmetryPos), el.worldY);
+  });
+  ctx.lineTo((flippedXStart + symmetryPos), shape.positions[0].worldY);
+  ctx.closePath();
+  ctx.fillStyle = colorVariables[shape.colorIndex].color;
+  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.fill();
+  ctx.globalAlpha = 1;
+}
+
 var pointSnap = function(){
   var shortestDistance = 10;
   var candidate = {worldX: undefined, worldY: undefined, type: 'point'};
@@ -114,7 +139,11 @@ var oSnap = function(){//to be added
       }
     }
     if (objectSnaps.line){
-      
+      var lineSnaps = polyLineSnap();
+      if (lineSnaps != undefined){
+        pCandidates.push(lineSnaps);
+        console.log('lines');
+      }
     }
     if (objectSnaps.grid){
       if (gridSnap() != undefined){
@@ -122,7 +151,12 @@ var oSnap = function(){//to be added
       }
     }
     console.log(pCandidates);
+    var lineSnapBypass;
     pCandidates.forEach(function(c){
+      if (c.type === 'point'){
+        lineSnapBypass = c;
+        console.log(lineSnapBypass);
+      }
       if (pythagLength(mouseX, mouseY, c) < smallest){
         smallest = pythagLength(mouseX, mouseY, c);
         goodOption.worldX = c.worldX;
@@ -152,6 +186,9 @@ var renderPoly = function(shape){
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
   ctx.fill();
+  if (shape.symmetry === true){
+    symmetryPolyRender(shape);
+  }
   ctx.globalAlpha = 1;
 }
 var polyEditPointRender = function(shape, color){
