@@ -9,6 +9,11 @@ body {
   width: 50%;
   float: left;
 }
+
+.symmetry-toggle{
+  float: right;
+}
+
 .clearFix:after {
     content:"";
     clear:both;

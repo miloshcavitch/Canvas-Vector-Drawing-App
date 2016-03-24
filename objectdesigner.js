@@ -16,7 +16,7 @@ var shape = function(type, name){
   }
     selectString += "</select>";
   console.log(selectString);
-  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select></li>";
+  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'></li>";
   $('#shapesCollection').append(htmlLiString);
   console.log(this);
   console.log(htmlLiString);
@@ -41,6 +41,8 @@ var shape = function(type, name){
         console.log(pseudoSprite.shapes[j]);
 
         switch(event.target.className){
+          case 'symmetry-toggle':
+            pseudoSprite.shapes[j].symmetry = !pseudoSprite.shapes[j].symmetry;
           case 'objButton':
             if (event.target.outerText === 'Move Points'){
               console.log('move points');

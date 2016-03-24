@@ -44,6 +44,7 @@ var symmetryPolyRender = function(shape){
   ctx.fill();
   ctx.globalAlpha = 1;
 }
+
 var mirrorPythagLength = function(mouseX, mouseY, point){
   var mirrorX = Math.abs(point.worldX - symmetryPos);
   if (point.worldX > symmetryPos){
@@ -54,6 +55,7 @@ var mirrorPythagLength = function(mouseX, mouseY, point){
   var c = Math.hypot(a, b);
   return c;
 }
+
 var pointSnap = function(){
   var shortestDistance = 10;
   var candidate = {worldX: undefined, worldY: undefined, type: 'point'};

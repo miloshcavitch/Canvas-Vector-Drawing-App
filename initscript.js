@@ -206,7 +206,7 @@ $(document).ready(function(){
       var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #555555;'></canvas>";
       $('#appBox').append(canString);
       $('#appBox').append("<div id='side-nav'><div id='side-menu'><div id='object-snap'></div></div></div>");
-      $('#object-snap').append("<form action='' id='o-tog'><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input>")
+      $('#object-snap').append("<form action='' id='o-tog'><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input>")
       canvasHasLoaded();
       objectSnapSetup();
       $('#appBox').append("<div id='currentOptions'></div>");
