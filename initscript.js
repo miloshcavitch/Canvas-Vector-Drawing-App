@@ -140,7 +140,7 @@ var initDrawingApp = function(){
     $('#newColorVar').show(500);
   });
 }
-var objectSnaps = {toggle: false, line: false, grid: false, point: false};
+var objectSnaps = {toggle: false, line: false, grid: false, point: false, sym: false};
 objectSnapSetup = function(){
   jQuery(function($){
           $( '.menu-btn' ).click(function(){
@@ -190,6 +190,11 @@ objectSnapSetup = function(){
     objectSnaps.grid = !objectSnaps.grid;
     console.log('grid: ' + objectSnaps.grid);
   });
+
+  $('#symmetry-snap').click(function(){
+    objectSnaps.sym = !objectSnaps.sym;
+    console.log('symmetry: ' + objectSnaps.sym);
+  })
 }
 
 $(document).ready(function(){

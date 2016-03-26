@@ -26,7 +26,7 @@ var symmetryPolyRender = function(shape){
   ctx.beginPath();
   ctx.globalAlpha = shape.alphaLevel;
   var flippedXStart = Math.abs(shape.positions[0].worldX - symmetryPos);
-  if (shape.positions[0].world > symmetryPos){
+  if (shape.positions[0].worldX > symmetryPos){
     flippedXStart = flippedXStart * -1;
   }
   ctx.moveTo((flippedXStart + symmetryPos), shape.positions[0].worldY);
@@ -125,7 +125,11 @@ var frontGridRender = function(){
     ctx.closePath();
   }
 }
-
+var symSnap = function(){
+  if (Math.abs(mouseX - symmetryPos) <= 10){
+    return {worldX: symmetryPos, worldY: mouseY, type: 'line of symmetry'};
+  }
+}
 var gridSnap = function(){
   var candidate = {worldX: mouseX, worldY: mouseY, type: 'grid'};
   var xGridDist = mouseX % (canvas.width/gridCount);
@@ -175,6 +179,11 @@ var oSnap = function(){//to be added
         pCandidates.push(gridSnap());
       }
     }
+    if (objectSnaps.sym){
+      if (symSnap() != undefined){
+        pCandidates.push(symSnap());
+      }
+    }
     console.log(pCandidates);
     var lineSnapBypass;
     pCandidates.forEach(function(c){
@@ -216,6 +225,7 @@ var renderPoly = function(shape){
   }
   ctx.globalAlpha = 1;
 }
+
 var polyEditPointRender = function(shape, color){
   ctx.globalAlpha = 0.6;
   shape.positions.forEach(function(p){
@@ -233,6 +243,18 @@ var polyEditPointRender = function(shape, color){
   ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
   ctx.strokeStyle = color;
   ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+}
+
+var symmetryLineRender = function(){
+  ctx.beginPath();
+  ctx.lineWidth = 0.6;
+  ctx.globalAlpha = 0.9;
+  ctx.strokeStyle = 'white';
+  ctx.moveTo(symmetryPos, 0);
+  ctx.lineTo(symmetryPos, canvas.height);
+  ctx.closePath();
   ctx.stroke();
   ctx.globalAlpha = 1;
 }
@@ -266,6 +288,9 @@ var renderUI = function(){
   });
   if (objectSnaps.grid && objectSnaps.toggle){
     frontGridRender();
+  }
+  if (objectSnaps.sym && objectSnaps.toggle){
+    symmetryLineRender();
   }
   renderPointer();
 }
