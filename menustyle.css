@@ -1,0 +1,68 @@
+.menu-btn div {
+ position: absolute;
+ right: 100%;
+ top: 64%;
+ padding-right: 8px;
+ margin-top: -0.50em;
+ line-height: 1.2;
+ font-size: 18px;
+ font-weight: 200;
+ vertical-align: middle;
+ z-index: 99;
+}
+
+.menu-btn{
+  opacity: 0.7;
+  background-color: #555;
+  position: fixed;
+  top: 0px;
+  right: -260px;
+  width: 280px;
+  padding: 10px;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-top: 1px solid #000;
+}
+#object-snap{
+  opacity: 0.7;
+  border-top: 1px solid #333;
+  border-left: 1px solid #000;
+  border-bottom: 1px solid #000;
+  position: fixed;
+  right: -280px;
+  top: 47px;
+  background-color: #555;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100%;
+  font-family: "Lucida Console", Monaco, monospace;
+
+}
+#object-snap-options{
+  padding: 0px;
+  width: 260px;
+}
+.menu-btn span {
+  opacity: 1;
+ display: block;
+ width: 19px;
+ height: 3px;
+ margin: 4px 0;
+ background: rgb(0,0,0);
+ z-index: 99;
+}
+.mobile-nav{
+  position: fixed;
+  right: -248px;
+  background-color: red;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.responsive-menu{
+ left: 150px;
+}
+
+.expand {
+ display: block !important;
+}

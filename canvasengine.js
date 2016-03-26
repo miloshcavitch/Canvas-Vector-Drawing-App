@@ -162,12 +162,14 @@ var oSnap = function(){//to be added
   var goodOption = {worldX: mouseX, worldY: mouseY};
   if (objectSnaps.toggle){
     if (objectSnaps.point){
+      console.log('point');
       if (pointSnap() != undefined){
         pCandidates.push(pointSnap());
         console.log('gucci');
       }
     }
     if (objectSnaps.line){
+      console.log('line');
       var lineSnaps = polyLineSnap();
       if (lineSnaps != undefined){
         pCandidates.push(lineSnaps);
@@ -175,6 +177,7 @@ var oSnap = function(){//to be added
       }
     }
     if (objectSnaps.grid){
+      console.log('grid');
       if (gridSnap() != undefined){
         pCandidates.push(gridSnap());
       }

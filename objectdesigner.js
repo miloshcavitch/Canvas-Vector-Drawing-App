@@ -136,7 +136,7 @@ var colorVar = function(name, hexstring){
   });
 }
 
-colorVariables.push(new colorVar('black', '#000000'))
+colorVariables.push(new colorVar('black', '#000000'));
 var colorSearch = function(string){
   var color;
   colorVariables.forEach(function(el){
