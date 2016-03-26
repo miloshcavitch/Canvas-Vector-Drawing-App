@@ -23,7 +23,7 @@
   border-bottom: 1px solid #000;
   border-top: 1px solid #000;
 }
-#object-snap{
+#side-menu{
   opacity: 0.7;
   border-top: 1px solid #333;
   border-left: 1px solid #000;
@@ -39,7 +39,7 @@
   font-family: "Lucida Console", Monaco, monospace;
 
 }
-#object-snap-options{
+  #object-snap-options{
   padding: 0px;
   width: 260px;
 }

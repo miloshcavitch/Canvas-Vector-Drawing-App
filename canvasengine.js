@@ -102,6 +102,12 @@ var pointSnap = function(){
 }
 
 var gridCount = 16;
+var gridSliderCalc = function(){
+  gridCount = 1;
+  for (var i = 0; i < $('#grid-size').val(); i++){
+    gridCount = gridCount * 2;
+  }
+}
 var frontGridRender = function(){
   var increment = canvas.width/gridCount;
   var gridPos = increment;
