@@ -60,6 +60,8 @@ var initDrawingApp = function(){
     $('#submitPolyName').show(500);
     $('#newColorVar').hide(500);
     $('#newPoly').hide(500);
+    $('#new-circle').hide(500);
+    $('#new-pixel-layer').hide(500);
   });
 
   $('#newColorVar').click(function(){
@@ -69,6 +71,8 @@ var initDrawingApp = function(){
     $('#submitColorVar').show(500);
     $('#newPoly').hide(500);
     $('#newColorVar').hide(500);
+    $('#new-circle').hide(500);
+    $('#new-pixel-layer').hide(500);
   });
   $('#submitPolyName').click(function(){
     var $polyName = $('input[name="polygonName"]').val();
@@ -90,6 +94,8 @@ var initDrawingApp = function(){
     $('#finishAddingPoints').hide(500);
     $('#newColorVar').show(500);
     $('#newPoly').show(500);
+    $('#new-circle').show(500);
+    $('#new-pixel-layer').show(500);
     pointsBeingAdded = false;
   });
 
@@ -101,6 +107,8 @@ var initDrawingApp = function(){
       })
       $('#newColorVar').show(500);
       $('#newPoly').show(500);
+      $('#new-circle').show(500);
+      $('#new-pixel-layer').show(500);
       activeUpdate = function(){
 
       }
@@ -115,6 +123,8 @@ var initDrawingApp = function(){
     $('#currentInstructions').hide(500);
     $('#newColorVar').show(500);
     $('#newPoly').show(500);
+    $('#new-circle').show(500);
+    $('#new-pixel-layer').show(500);
     pseudoSprite.shapes.forEach(function(el){
       el.editPoints = false;
     });
@@ -138,6 +148,8 @@ var initDrawingApp = function(){
     $('input[name="colorVarName"]').val('');
     $('#newPoly').show(500);
     $('#newColorVar').show(500);
+    $('#new-circle').show(500);
+    $('#new-pixel-layer').show(500);
   });
 }
 var objectSnaps = {toggle: false, line: false, grid: false, point: false, sym: false};

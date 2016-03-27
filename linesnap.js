@@ -15,8 +15,8 @@ var polyLineSnap = function(){
             slope = slope * -1;
           }
           inverse = -1/slope;
-          leftPoint = inverse * (0 - mouseX) + mouseY;
-          rightPoint = inverse * (canvas.width - mouseX) + mouseY;
+          leftY = inverse * (0 - mouseX) + mouseY;
+          rightY = inverse * (canvas.width - mouseX) + mouseY;
           possibleIntersections = checkLineIntersection(s.positions[i].worldX, s.positions[i].worldY, s.positions[0].worldX, s.positions[0].worldY, 0, leftY, canvas.width, rightY);
         } else {
           rise = Math.abs(s.positions[i].worldY - s.positions[i+1].worldY);
@@ -44,6 +44,19 @@ var polyLineSnap = function(){
   if (candidate.worldX != undefined){
     return candidate;
   }
+}
+
+var calculationOfLine = function(x1, y1, x2, y2){
+  rise = Math.abs(y1 - y2);
+  run = Math.abs(x1 - x2);
+  slope = rise/run;
+  if ((x1 > x2 && y1 < y2) || (x1 < x2 && y1 > y2)){
+    slope = slope * -1;
+  }
+  inverse = -1/slope;
+  leftY = inverse * (0 - mouseX) + mouseY;
+  rightY = inverse * (canvas.width - mouseX) + mouseY;
+  possibleIntersections = checkLineIntersection(x1, y1, x2, y2, 0, leftY, canvas.width, rightY);
 }
 var mirrorLineSnap = function(){
 
