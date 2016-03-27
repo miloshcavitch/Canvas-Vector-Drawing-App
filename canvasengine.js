@@ -39,8 +39,11 @@ var symmetryPolyRender = function(shape){
   });
   ctx.lineTo((flippedXStart + symmetryPos), shape.positions[0].worldY);
   ctx.closePath();
+  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.lineWidth = 1;
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.stroke();
   ctx.fill();
   ctx.globalAlpha = 1;
 }
@@ -102,6 +105,7 @@ var pointSnap = function(){
 }
 
 var gridCount = 16;
+var lastGridExponent = 0;
 var gridSliderCalc = function(){
   gridCount = 1;
   for (var i = 0; i < $('#grid-size').val(); i++){
@@ -109,6 +113,10 @@ var gridSliderCalc = function(){
   }
 }
 var frontGridRender = function(){
+  if (lastGridExponent != $('#grid-size').val()){
+    lastGridExponent = $('#grid-size').val();
+    gridSliderCalc();
+  }
   var increment = canvas.width/gridCount;
   var gridPos = increment;
   ctx.strokeStyle = 'white';
@@ -227,7 +235,9 @@ var renderPoly = function(shape){
   ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
   ctx.closePath();
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
+  ctx.lineWidth = 1;
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.stroke();
   ctx.fill();
   if (shape.symmetry === true){
     symmetryPolyRender(shape);
