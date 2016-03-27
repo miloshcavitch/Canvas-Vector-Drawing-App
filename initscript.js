@@ -38,7 +38,7 @@ var initSortableLayers = function(){
 
 
 var initDrawingApp = function(){
-  $('#below-menu').append("<br><button type='button' id='newPoly'>New Polygon</button><button type='button' id='newColorVar'>New Color Variable</button><br>");
+  $('#below-menu').append("<br><button type='button' id='newPoly'>New Polygon</button><button type='button' id ='new-circle'>New Circle</button><button type='button' id='new-pixel-layer'>New Pixel Layer</button><button type='button' id='newColorVar'>New Color Variable</button><br>");
   $('#below-menu').append('<ul id="shapesCollection"></ul><ul id="colorsCollection"></ul>');
   initColorLayers();
   initSortableLayers();
