@@ -42,10 +42,20 @@ var symmetryPolyRender = function(shape){
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
   ctx.lineWidth = 1;
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
-  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
-  ctx.stroke();
+  if (shape.alphaLevel >= 0.9){
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+    ctx.stroke();
+  }
   ctx.fill();
   ctx.globalAlpha = 1;
+}
+
+var mirrorShapeLocations = function(s){
+  var mS = [];
+  s.positions.forEach(function(p){
+
+  })
 }
 
 var mirrorPythagLength = function(mouseX, mouseY, point){
@@ -235,9 +245,11 @@ var renderPoly = function(shape){
   ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
   ctx.closePath();
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
-  ctx.stroke();
+  if (shape.alphaLevel >= 0.9){
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+    ctx.stroke();
+  }
   ctx.fill();
   if (shape.symmetry === true){
     symmetryPolyRender(shape);
