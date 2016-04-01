@@ -127,11 +127,21 @@ var frontGridRender = function(){
     lastGridExponent = $('#grid-size').val();
     gridSliderCalc();
   }
-  var increment = canvas.width/gridCount;
-  var gridPos = increment;
+  var increment = canvas.height/gridCount;
   ctx.strokeStyle = 'white';
   ctx.lineWidth = 0.25;
-  for (var i = 0; i < gridCount; i++){
+  var gridPos = canvas.width/2;
+  while(gridPos > 0){//verticals
+    ctx.beginPath();
+    ctx.moveTo(gridPos, 0);
+    ctx.lineTo(gridPos, canvas.height);
+    ctx.stroke();
+    gridPos -= increment;
+    ctx.closePath();
+    gLO = gridPos;
+  }
+  gridPos = canvas.width/2 + increment;
+  while (gridPos < canvas.width){
     ctx.beginPath();
     ctx.moveTo(gridPos, 0);
     ctx.lineTo(gridPos, canvas.height);
@@ -140,7 +150,7 @@ var frontGridRender = function(){
     ctx.closePath();
   }
   gridPos = increment;
-  for (var i = 0; i < gridCount; i++){
+  for (var i = 0; i < gridCount; i++){//horizontals
     ctx.beginPath();
     ctx.moveTo(0, gridPos);
     ctx.lineTo(canvas.width, gridPos);
@@ -154,21 +164,22 @@ var symSnap = function(){
     return {worldX: symmetryPos, worldY: mouseY, type: 'line of symmetry'};
   }
 }
+var gLO; //grid left offset
 var gridSnap = function(){
   var candidate = {worldX: mouseX, worldY: mouseY, type: 'grid'};
-  var xGridDist = mouseX % (canvas.width/gridCount);
-  var yGridDist = mouseY % (canvas.width/gridCount);
+  var xGridDist = mouseX - gLO % (canvas.height/gridCount);
+  var yGridDist = mouseY - gLO% (canvas.height/gridCount);
   if ((xGridDist <= 10 || xGridDist >= 40) && (yGridDist <=10 || yGridDist >= 40)){
     if (xGridDist <= 10){
-      candidate.worldX = Math.floor(mouseX/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+      candidate.worldX = Math.floor((mouseX +gLO) / (canvas.height/gridCount)) * (canvas.height/gridCount);
     } else {
-      candidate.worldX = Math.ceil(mouseX/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+      candidate.worldX = Math.ceil((mouseX +gLO) / (canvas.height/gridCount)) * (canvas.height/gridCount);
     }
 
     if (yGridDist <= 10){
-      candidate.worldY = Math.floor(mouseY/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+      candidate.worldY = Math.floor((mouseY + gLO) / (canvas.height/gridCount)) * (canvas.height/gridCount);
     } else {
-      candidate.worldY = Math.ceil(mouseY/ (canvas.width/gridCount)) * (canvas.width/gridCount);
+      candidate.worldY = Math.ceil((mouseY + gLO)/ (canvas.height/gridCount)) * (canvas.height/gridCount);
     }
     console.log(candidate.worldX + ", " + candidate.worldY);
     return candidate;
@@ -430,11 +441,20 @@ var backGrid = function(){
   ctx.rect(0, 0, canvas.width, canvas.height);
   ctx.fill();
   ctx.closePath();
-  var increment = canvas.width/64;
-  var pos = increment;
+  var increment = canvas.height/64;
+  var pos = canvas.width/2;
   ctx.strokeStyle = '#999999';
   ctx.lineWidth = 0.125;
-  for (var i = 0; i < 63; i++){
+  while (pos > 0){
+    ctx.beginPath();
+    ctx.moveTo(pos, 0);
+    ctx.lineTo(pos, canvas.height);
+    ctx.stroke();
+    ctx.closePath();
+    pos -= increment;
+  }
+  pos = canvas.width/2 + increment;
+  while (pos < canvas.width){
     ctx.beginPath();
     ctx.moveTo(pos, 0);
     ctx.lineTo(pos, canvas.height);
