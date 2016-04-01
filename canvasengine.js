@@ -167,22 +167,21 @@ var symSnap = function(){
 var gLO; //grid left offset
 var gridSnap = function(){
   var candidate = {worldX: mouseX, worldY: mouseY, type: 'grid'};
-  var xGridDist = mouseX - gLO % (canvas.height/gridCount);
-  var yGridDist = mouseY - gLO% (canvas.height/gridCount);
-  if ((xGridDist <= 10 || xGridDist >= 40) && (yGridDist <=10 || yGridDist >= 40)){
-    if (xGridDist <= 10){
-      candidate.worldX = Math.floor((mouseX +gLO) / (canvas.height/gridCount)) * (canvas.height/gridCount);
-    } else {
-      candidate.worldX = Math.ceil((mouseX +gLO) / (canvas.height/gridCount)) * (canvas.height/gridCount);
-    }
+  var yGridDist, xGridDist;
+  if (mouseY % canvas.height/gridCount <= 10 || mouseY % canvas.height/gridCount <= (gridSize - 10)){
+    yGridDist = mouseY % canvas.height/gridCount;
+    if (mouseX > canvas.width/2){//right of center
+      if ((mouseX - canvas.width/2) % canvas.height/gridCount < 10){
+        candidate.worldX = Math.floor((mouseX - canvas.width/2)/(canvas.height/gridCount) * (canvas.height/gridCount) );
+        if (yGridDist <= 10){
+          candidate.worldY = Math.floor((mouseY/(canvas.height/gridCount)) * (canvas.height/gridCount));
+        } else {
+          candidate.worldY = Math.ceil((mouseY/(canvas.height/gridCount)) * (canvas.height/gridCount));
+        }
+      }
+    } else {//left of center
 
-    if (yGridDist <= 10){
-      candidate.worldY = Math.floor((mouseY + gLO) / (canvas.height/gridCount)) * (canvas.height/gridCount);
-    } else {
-      candidate.worldY = Math.ceil((mouseY + gLO)/ (canvas.height/gridCount)) * (canvas.height/gridCount);
     }
-    console.log(candidate.worldX + ", " + candidate.worldY);
-    return candidate;
   }
 }
 var snapString = '';
