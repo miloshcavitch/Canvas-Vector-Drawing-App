@@ -2,8 +2,7 @@
 ///////////////////////////////////////
 //JQuery functions
 var enterEdit = function(){
-  $('#newPoly').hide(500);
-  $('#newColorVar').hide(500);
+  hideBTN();
 }
 //////////////////////////////////////
 /////////////////////////////////////
@@ -22,6 +21,28 @@ var renderPointer = function(){
 }
 var symmetryPos; // gets value when canvas is made
 
+
+var symmetryPLRender = function(shape){
+  ctx.beginPath();
+  ctx.globalAlpha = shape.alphaLevel;
+  var flippedXStart = Math.abs(shape.positions[0].worldX - symmetryPos);
+  if (shape.positions[0].worldX > symmetryPos){
+    flippedXStart = flippedXStart * -1;
+  }
+  ctx.moveTo((flippedXStart + symmetryPos), shape.positions[0].worldY);
+  shape.positions.forEach(function(el){
+    var flippedX = Math.abs(el.worldX - symmetryPos);
+    if (el.worldX > symmetryPos){
+      flippedX = flippedX * -1;
+    }
+    ctx.lineTo((flippedX + symmetryPos), el.worldY);
+  });
+  ctx.closePath();
+  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+}
 var symmetryPolyRender = function(shape){
   ctx.beginPath();
   ctx.globalAlpha = shape.alphaLevel;
@@ -316,13 +337,17 @@ var renderUI = function(){
     if (el.editPoints === true){
       switch(el.type){
         case 'polygon':
+        case 'polyline':
           polyEditPointRender(el, 'gray');
+          break;
       }
     }
     if (el.movingPoly === true){
       switch(el.type){
         case 'polygon':
+        case 'polyline':
           polyEditPointRender(el, '#40ff00');
+          break;
       }
     }
 
@@ -471,6 +496,23 @@ var backGrid = function(){
     pos += increment;
   }
 }
+var renderLine = function(pL){
+  ctx.beginPath();
+  ctx.moveTo(pL.positions[0].worldX, pL.positions[0].worldY);
+  pL.positions.forEach(function(p){
+    ctx.lineTo(p.worldX, p.worldY);
+  });
+  ctx.strokeStyle = 'black';
+  ctx.strokeStyle = colorVariables[pL.colorIndex].color;
+  ctx.globalAlpha = pL.alphaLevel;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.closePath();
+  ctx.globalAlpha = 1;
+  if (pL.symmetry === true){
+    symmetryPLRender(pL);
+  }
+}
 var render = function(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   backGrid();
@@ -478,6 +520,9 @@ var render = function(){
     switch(pseudoSprite.shapes[o].type){
       case 'polygon':
         renderPoly(pseudoSprite.shapes[o]);
+        break;
+      case 'polyline':
+        renderLine(pseudoSprite.shapes[o]);
         break;
     }
   });

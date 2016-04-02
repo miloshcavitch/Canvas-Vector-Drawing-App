@@ -36,7 +36,21 @@ var initSortableLayers = function(){
   setInterval(update, 30);
 }
 
+var hideBTN = function(){
+  $('#newColorVar').hide(500);
+  $('#newPoly').hide(500);
+  $('#new-circle').hide(500);
+  $('#new-pixel-layer').hide(500);
+  $('#new-polyline').hide(500);
+}
 
+var showBTN = function(){
+  $('#newColorVar').show(500);
+  $('#newPoly').show(500);
+  $('#new-circle').show(500);
+  $('#new-pixel-layer').show(500);
+  $('#new-polyline').show(500);
+}
 var initDrawingApp = function(){
   $('#below-menu').append("<br><button type='button' id='newPoly'>New Polygon</button><button type='button' id ='new-circle'>New Circle</button><button type='button' id ='new-polyline'>New (Poly)line</button><button type='button' id='new-pixel-layer'>New Pixel Layer</button><button type='button' id='newColorVar'>New Color Variable</button><br>");
   $('#below-menu').append('<ul id="shapesCollection"></ul><ul id="colorsCollection"></ul>');
@@ -46,6 +60,7 @@ var initDrawingApp = function(){
   $('#currentForm').append("<form id='newHexColor'>Variable Name:<br><input type='text' name='colorVarName'></form><button type='button' id='submitColorVar'>Enter Hex Color</button>");
   $('#currentForm').append("<button type='button' id='finishAddingPoints'>Finish Adding Points</button>");
   $('#currentForm').append("<button type='button' id='finishMovingPoints'>Finish Moving Points</button>");
+  $('#currentForm').append("<form id='newLineForm'>Line Name:<br><input type='text' name='polylineName'></form><button type='button' id='submitLineName'>Submit (Poly)line Name</button>");
   $('#currentInstructions').hide();
   $('#newPolyForm').hide();
   $('#submitPolyName').hide();
@@ -53,26 +68,43 @@ var initDrawingApp = function(){
   $('#submitColorVar').hide();
   $('#finishAddingPoints').hide();
   $('#finishMovingPoints').hide();
+  $('#submitLineName').hide();
+  $('#newLineForm').hide();
+  $('#new-polyline').click(function(){
+    $('#currentInstructions').text("Enter the name of your new (Poly)line");
+    $('#currentInstructions').show(500);
+    hideBTN();
+    $('#newLineForm').show(500);
+    $('#submitLineName').show(500);
+  })
   $('#newPoly').click(function(){
     $('#currentInstructions').text("Enter the name of your new Polygon");
     $('#currentInstructions').show(500);
     $('#newPolyForm').show(500);
     $('#submitPolyName').show(500);
-    $('#newColorVar').hide(500);
-    $('#newPoly').hide(500);
-    $('#new-circle').hide(500);
-    $('#new-pixel-layer').hide(500);
+    hideBTN();
   });
-
+  $('#submitLineName').click(function(){
+    var $lineName = $('input[name="polylineName"]').val();
+    $('#newLineForm').hide(500);
+    $('#submitLineName').hide(500);
+    $('#currentInstructions').hide(500);
+    $('#currentInstructions').text('');
+    console.log($lineName);
+    pseudoSprite.shapes.push(new shape('polyline', $lineName, 'blank'));
+    pointsBeingAdded = true;
+    activeMode = function(pointerX, pointerY){
+      initPointAdd(pointsBeingAdded);
+    };
+    $('input[name="polylineName"]').val('');
+    $('#finishAddingPoints').show(500);
+  });
   $('#newColorVar').click(function(){
     $('#currentInstructions').text("Enter the name of your color variable and it's hex value");
     $('#currentInstructions').show(500);
     $('#newHexColor').show(500);
     $('#submitColorVar').show(500);
-    $('#newPoly').hide(500);
-    $('#newColorVar').hide(500);
-    $('#new-circle').hide(500);
-    $('#new-pixel-layer').hide(500);
+    hideBTN();
   });
   $('#submitPolyName').click(function(){
     var $polyName = $('input[name="polygonName"]').val();
@@ -92,10 +124,7 @@ var initDrawingApp = function(){
 
   $('#finishAddingPoints').click(function(){
     $('#finishAddingPoints').hide(500);
-    $('#newColorVar').show(500);
-    $('#newPoly').show(500);
-    $('#new-circle').show(500);
-    $('#new-pixel-layer').show(500);
+    showBTN();
     pointsBeingAdded = false;
   });
 
@@ -104,11 +133,8 @@ var initDrawingApp = function(){
       pseudoSprite.shapes.forEach(function(el){
         el.editPoints = false;
         el.movingPoly = false;
-      })
-      $('#newColorVar').show(500);
-      $('#newPoly').show(500);
-      $('#new-circle').show(500);
-      $('#new-pixel-layer').show(500);
+      });
+      showBTN();
       activeUpdate = function(){
 
       }
@@ -121,10 +147,7 @@ var initDrawingApp = function(){
   $('#finishMovingPoints').click(function(){
     $('#finishMovingPoints').hide(500);
     $('#currentInstructions').hide(500);
-    $('#newColorVar').show(500);
-    $('#newPoly').show(500);
-    $('#new-circle').show(500);
-    $('#new-pixel-layer').show(500);
+    showBTN();
     pseudoSprite.shapes.forEach(function(el){
       el.editPoints = false;
     });
@@ -146,10 +169,7 @@ var initDrawingApp = function(){
     console.log($colorName);
     colorVariables.push(new colorVar($colorName));
     $('input[name="colorVarName"]').val('');
-    $('#newPoly').show(500);
-    $('#newColorVar').show(500);
-    $('#new-circle').show(500);
-    $('#new-pixel-layer').show(500);
+    showBTN();
   });
 }
 var objectSnaps = {toggle: false, line: false, grid: false, point: false, sym: false};
