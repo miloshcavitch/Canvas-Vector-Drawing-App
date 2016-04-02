@@ -37,11 +37,11 @@ var symmetryPLRender = function(shape){
     }
     ctx.lineTo((flippedX + symmetryPos), el.worldY);
   });
-  ctx.closePath();
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
   ctx.lineWidth = 1;
   ctx.stroke();
   ctx.globalAlpha = 1;
+  ctx.closePath();
 }
 var symmetryPolyRender = function(shape){
   ctx.beginPath();
@@ -363,6 +363,22 @@ var renderUI = function(){
 ////////////////////////////////////////////
 ///////////////////////////////////////////
 //Init Point Add
+var initCircleAdd = function(initPointBool){
+  if (initPointBool === true){
+    pseudoSprite.shapes[pseudoSprite.shapes.length - 1].positions.push(new point(pointerX, pointerY));
+    console.log(pseudoSprite.shapes[pseudoSprite.shapes.length-1].positions.length)
+  }
+  if (pseudoSprite.shapes[pseudoSprite.shapes.length-1].positions.length >= 2){
+    console.log('bruh');
+    showBTN();
+    initPointBool = false;
+    activeMode = function(){
+
+    }
+
+  }
+}
+
 var initPointAdd = function(initPointBool){
   if (initPointBool === true){
     pseudoSprite.shapes[pseudoSprite.shapes.length - 1].positions.push(new point(pointerX, pointerY));
@@ -513,6 +529,16 @@ var renderLine = function(pL){
     symmetryPLRender(pL);
   }
 }
+var renderCircle = function(c){
+  ctx.globalAlpha = c.alphaLevel;
+  ctx.fillStyle = colorVariables[c.colorIndex].color;
+  ctx.beginPath();
+  var radius = pythagLength(c.positions[0].worldX, c.positions[0].worldY, c.positions[1]);
+  ctx.arc(c.positions[0].worldX, c.positions[0].worldY, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.closePath();
+  ctx.globalAlpha = 1;
+}
 var render = function(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   backGrid();
@@ -523,6 +549,9 @@ var render = function(){
         break;
       case 'polyline':
         renderLine(pseudoSprite.shapes[o]);
+        break;
+      case 'circle':
+        renderCircle(pseudoSprite.shapes[o]);
         break;
     }
   });

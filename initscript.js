@@ -61,6 +61,7 @@ var initDrawingApp = function(){
   $('#currentForm').append("<button type='button' id='finishAddingPoints'>Finish Adding Points</button>");
   $('#currentForm').append("<button type='button' id='finishMovingPoints'>Finish Moving Points</button>");
   $('#currentForm').append("<form id='newLineForm'>Line Name:<br><input type='text' name='polylineName'></form><button type='button' id='submitLineName'>Submit (Poly)line Name</button>");
+  $('#currentForm').append("<form id='newCircleForm'>Circle Name:<br><input type='text' name='circleName'></form><button type='button' id='submitCircleName'>Submit Circle Name</button>");
   $('#currentInstructions').hide();
   $('#newPolyForm').hide();
   $('#submitPolyName').hide();
@@ -70,6 +71,15 @@ var initDrawingApp = function(){
   $('#finishMovingPoints').hide();
   $('#submitLineName').hide();
   $('#newLineForm').hide();
+  $('#newCircleForm').hide();
+  $('#submitCircleName').hide();
+  $('#new-circle').click(function(){
+    $('#currentInstructions').text("Enter the name of your new Circle");
+    $('#currentInstructions').show(500);
+    hideBTN();
+    $('#newCircleForm').show(500);
+    $('#submitCircleName').show(500);
+  });
   $('#new-polyline').click(function(){
     $('#currentInstructions').text("Enter the name of your new (Poly)line");
     $('#currentInstructions').show(500);
@@ -83,6 +93,21 @@ var initDrawingApp = function(){
     $('#newPolyForm').show(500);
     $('#submitPolyName').show(500);
     hideBTN();
+  });
+  $('#submitCircleName').click(function(){
+    var $circleName = $('input[name="circleName"]').val();
+    $('#newCircleForm').hide(500);
+    $('#submitCircleName').hide(500);
+    $('#currentInstructions').hide(500);
+    $('#currentInstructions').text('');
+    console.log($circleName);
+    pseudoSprite.shapes.push(new shape('circle', $circleName, 'blank'));
+    pointsBeingAdded = true;
+    activeMode = function(pointerX, pointerY){
+      initCircleAdd(pointsBeingAdded);
+    }
+    
+    $('input[name="circleName"]').val('');
   });
   $('#submitLineName').click(function(){
     var $lineName = $('input[name="polylineName"]').val();
