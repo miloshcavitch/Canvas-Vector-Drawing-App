@@ -21,7 +21,19 @@ var renderPointer = function(){
 }
 var symmetryPos; // gets value when canvas is made
 
+var symmetryCircleRender = function(shape, radius){
+  ctx.beginPath();
+  ctx.globalAlpha = shape.alphaLevel;
+  ctx.fillStyle = colorVariables[shape.colorIndex].color;
+  var flippedX = Math.abs(shape.positions[0].worldX - symmetryPos);
+  if (shape.positions[0].worldX > symmetryPos){
+    flippedX = flippedX * -1;
+  }
+  ctx.arc(flippedX + symmetryPos, shape.positions[0].worldY, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.closePath();
 
+}
 var symmetryPLRender = function(shape){
   ctx.beginPath();
   ctx.globalAlpha = shape.alphaLevel;
@@ -338,6 +350,7 @@ var renderUI = function(){
       switch(el.type){
         case 'polygon':
         case 'polyline':
+        case 'circle':
           polyEditPointRender(el, 'gray');
           break;
       }
@@ -346,6 +359,7 @@ var renderUI = function(){
       switch(el.type){
         case 'polygon':
         case 'polyline':
+        case 'circle':
           polyEditPointRender(el, '#40ff00');
           break;
       }
@@ -537,6 +551,9 @@ var renderCircle = function(c){
   ctx.arc(c.positions[0].worldX, c.positions[0].worldY, radius, 0, Math.PI * 2);
   ctx.fill();
   ctx.closePath();
+  if (c.symmetry === true){
+    symmetryCircleRender(c, radius);
+  }
   ctx.globalAlpha = 1;
 }
 var render = function(){
