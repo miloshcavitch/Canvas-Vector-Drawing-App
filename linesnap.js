@@ -2,7 +2,7 @@ var polyLineSnap = function(){
   var candidate = {worldX: undefined, worldY: undefined, type: 'line'};
   var tempLength = 10;
   pseudoSprite.shapes.forEach(function(s){
-    if (s.type === 'polygon'){
+    if (s.type === 'polygon' || s.type === 'polyline'){
       for (var i = 0; i < s.positions.length; i++){
         var rise, run, slope, inverse, special, leftY, rightY, possibleIntersections;
 

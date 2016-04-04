@@ -35,9 +35,7 @@ var shape = function(type, name){
     console.log(event);
     for (var j = 0; j < pseudoSprite.shapes.length; j++){
       if (pseudoSprite.shapes[j].name === event.target.parentNode.id){
-        //this is where some cool code will eventually be
-        $(tempJQString).parent().toggleClass('.selected');//this is working but the css is not
-        //set active function as edit/move points for the object you just selected;
+        $(tempJQString).parent().toggleClass('.selected');
         console.log(pseudoSprite.shapes[j]);
 
         switch(event.target.className){
@@ -57,7 +55,7 @@ var shape = function(type, name){
               pseudoSprite.shapes[j].editPoints = true;
               enterEdit();
             }
-            if (event.target.outerText === 'Move Poly'){
+            if (event.target.outerText === 'Move Poly' || event.target.outerText === 'Move Circle' || event.target.outerText === 'Move (Poly)line'){//beginning of code, going to have to figure out what buttons all shape types share and which are different
               console.log('move poly');
               shapeMoveToggles.shapeIndex = j;
               activeMode = function(){
