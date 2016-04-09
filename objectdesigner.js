@@ -16,7 +16,12 @@ var shape = function(type, name){
   }
     selectString += "</select>";
   console.log(selectString);
-  var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='movePoly'>Move Poly</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'></li>";
+  var htmlLiString;
+  var extra = '';
+  if (this.type === 'polygon' || this.type === 'polyline'){
+    extra = "<button type='button' class='curve-convert'>Bezier Convert</button>"
+  }
+  htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);
   console.log(this);
   console.log(htmlLiString);
@@ -55,8 +60,7 @@ var shape = function(type, name){
               pseudoSprite.shapes[j].editPoints = true;
               enterEdit();
             }
-            if (event.target.outerText === 'Move Poly' || event.target.outerText === 'Move Circle' || event.target.outerText === 'Move (Poly)line'){//beginning of code, going to have to figure out what buttons all shape types share and which are different
-              console.log('move poly');
+            if (event.target.outerText === 'Move Shape'){
               shapeMoveToggles.shapeIndex = j;
               activeMode = function(){
                 pickupShape();
