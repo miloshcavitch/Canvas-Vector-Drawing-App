@@ -351,6 +351,7 @@ var renderUI = function(){
         case 'polygon':
         case 'polyline':
         case 'circle':
+        case 'curvedshape':
           polyEditPointRender(el, 'gray');
           break;
       }
@@ -526,6 +527,26 @@ var backGrid = function(){
     pos += increment;
   }
 }
+var renderCurveShape = function(shape){
+  ctx.beginPath();
+  ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
+  for (var i = 0; i < shape.positions.length; i+=3){
+    var lastpoint = {x: undefined, y: undefined};
+    if (i+3 > shape.positions.length){
+      lastpoint.x = shape.positions[0].worldX;
+      lastpoint.y = shape.positions[0].worldY;
+    } else{
+      lastpoint.x = shape.positions[i+2].worldX;
+      lastpoint.y = shape.positions[i+2].worldY;
+    }
+    ctx.bezierCurveTo(shape.positions[i].worldX, shape.positions[i].worldY, shape.positions[i+1].worldX, shape.positions[i+1].worldY, lastpoint.x, lastpoint.y);
+  }
+  ctx.strokeStyle = 'black';
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.closePath();
+}
 var renderLine = function(pL){
   ctx.beginPath();
   ctx.moveTo(pL.positions[0].worldX, pL.positions[0].worldY);
@@ -569,6 +590,10 @@ var render = function(){
         break;
       case 'circle':
         renderCircle(pseudoSprite.shapes[o]);
+        break;
+      case 'curvedshape':
+      case 'curvedline':
+        renderCurveShape(pseudoSprite.shapes[o]);
         break;
     }
   });
