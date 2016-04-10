@@ -527,6 +527,15 @@ var backGrid = function(){
     pos += increment;
   }
 }
+var convertToCurvedShape = function(i){
+  for (var j = 0; j < pseudoSprite.shapes[i].positions.length; j+=3){
+    //calculate point at 1/3rd
+      pseudoSprite.shapes[i].splice(j+1, 0, new point(firstX, firstY));
+      //calculate point at 2/3rds
+      pseudoSprite.shapes[i].splice(j+2, 0, new point(secondX, secondY));
+  }
+  pseudoSprite.shapes[i].type = 'curvedshape';
+}
 var renderCurveShape = function(shape){
   ctx.beginPath();
   ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
@@ -541,11 +550,11 @@ var renderCurveShape = function(shape){
     }
     ctx.bezierCurveTo(shape.positions[i].worldX, shape.positions[i].worldY, shape.positions[i+1].worldX, shape.positions[i+1].worldY, lastpoint.x, lastpoint.y);
   }
-  ctx.strokeStyle = 'black';
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = 1;
-  ctx.stroke();
+  ctx.fillStyle = colorVariables[shape.colorIndex].color;
+  ctx.globalAlpha = shape.alphaLevel;
+  ctx.fill();
   ctx.closePath();
+  ctx.globalAlpha = 1;
 }
 var renderLine = function(pL){
   ctx.beginPath();
