@@ -380,6 +380,7 @@ var renderUI = function(){
         case 'polyline':
         case 'circle':
         case 'curvedshape':
+        case 'curvedline':
           polyEditPointRender(el, 'gray');
           break;
       }
@@ -390,6 +391,7 @@ var renderUI = function(){
         case 'polyline':
         case 'circle':
         case 'curvedshape':
+        case 'curvedline':
           polyEditPointRender(el, '#40ff00');
           break;
       }
@@ -556,7 +558,39 @@ var backGrid = function(){
     pos += increment;
   }
 }
-var convertToCurved = function(i){
+var convertToCurvedLine = function(i){
+  for (var j = 0; j < pseudoSprite.shapes[i].positions.length -1; j+=3){
+      console.log(j);
+      var firstX, firstY, secondX, secondY;
+      var lastPoint = pseudoSprite.shapes[i].positions[j+1];
+      var hypot = pythagLength(pseudoSprite.shapes[i].positions[j].worldX, pseudoSprite.shapes[i].positions[j].worldY, lastPoint);
+      var rise = Math.abs(pseudoSprite.shapes[i].positions[j].worldY - lastPoint.worldY);
+      console.log(lastPoint);
+      var run = Math.abs(pseudoSprite.shapes[i].positions[j].worldX - lastPoint.worldX);
+      var theta = Math.asin(rise/hypot);
+      firstY = ( ((1/3) * hypot ) * Math.sin(theta));
+      firstX = ( ((1/3) * hypot ) * Math.cos(theta));
+      secondY = ( ((2/3) * hypot ) * Math.sin(theta));
+      secondX = ( ((2/3) * hypot ) * Math.cos(theta));
+      if (pseudoSprite.shapes[i].positions[j].worldY > lastPoint.worldY){
+        firstY = firstY * -1;
+        secondY = secondY * -1;
+      }
+      if (pseudoSprite.shapes[i].positions[j].worldX > lastPoint.worldX){
+        firstX = firstX * -1;
+        secondX = secondX * -1;
+      }
+      firstY += pseudoSprite.shapes[i].positions[j].worldY;
+      firstX += pseudoSprite.shapes[i].positions[j].worldX;
+      secondY += pseudoSprite.shapes[i].positions[j].worldY;
+      secondX += pseudoSprite.shapes[i].positions[j].worldX;
+
+      pseudoSprite.shapes[i].positions.splice(j+1, 0, new point(firstX, firstY));
+      pseudoSprite.shapes[i].positions.splice(j+2, 0, new point(secondX, secondY));
+  }
+  pseudoSprite.shapes[i].type = 'curvedline';
+}
+var convertToCurvedShape = function(i){
   for (var j = 0; j < pseudoSprite.shapes[i].positions.length; j+=3){
       console.log(j);
       var firstX, firstY, secondX, secondY;

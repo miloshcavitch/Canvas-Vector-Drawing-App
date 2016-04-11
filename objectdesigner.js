@@ -45,7 +45,12 @@ var shape = function(type, name){
           case 'curve-convert':
             if (event.target.outerText === 'Bezier Convert'){
               console.log('success, great');
-              convertToCurved(j);
+              if (pseudoSprite.shapes[j].type === 'polygon'){
+                convertToCurvedShape(j);
+              }
+              if (pseudoSprite.shapes[j].type === 'polyline'){
+                convertToCurvedLine(j);
+              }
               pointMoveToggles.shapeIndex = j;
               activeMode = function(){
                 pickupPoint();
