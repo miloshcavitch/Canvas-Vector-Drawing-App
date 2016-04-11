@@ -83,7 +83,35 @@ var symmetryPolyRender = function(shape){
   ctx.fill();
   ctx.globalAlpha = 1;
 }
-
+var xFlip = function(x){
+  var flippedX = Math.abs(x - canvas.width/2);
+  if (x > canvas.width/2){
+    flippedX = flippedX * -1;
+  }
+  flippedX += canvas.width/2
+  return flippedX;
+}
+var symmetryCurvedShapeRender = function(shape){
+  ctx.beginPath();
+  var flippedXStart = xFlip(shape.positions[0].worldX);
+  ctx.moveTo(flippedXStart, shape.positions[0].worldY);
+  for (var i = 1; i < shape.positions.length; i+=3){
+    var lastpoint = {x: undefined, y: undefined};
+    if (i+3 > shape.positions.length){
+      lastpoint.x = xFlip(shape.positions[0].worldX);
+      lastpoint.y = shape.positions[0].worldY;
+    } else{
+      lastpoint.x = xFlip(shape.positions[i+2].worldX);
+      lastpoint.y = shape.positions[i+2].worldY;
+    }
+    ctx.bezierCurveTo(xFlip(shape.positions[i].worldX), shape.positions[i].worldY, xFlip(shape.positions[i+1].worldX), shape.positions[i+1].worldY, lastpoint.x, lastpoint.y);
+  }
+  ctx.fillStyle = colorVariables[shape.colorIndex].color;
+  ctx.globalAlpha = shape.alphaLevel;
+  ctx.fill();
+  ctx.closePath();
+  ctx.globalAlpha = 1;
+}
 var mirrorShapeLocations = function(s){
   var mS = [];
   s.positions.forEach(function(p){
@@ -361,6 +389,7 @@ var renderUI = function(){
         case 'polygon':
         case 'polyline':
         case 'circle':
+        case 'curvedshape':
           polyEditPointRender(el, '#40ff00');
           break;
       }
@@ -527,7 +556,7 @@ var backGrid = function(){
     pos += increment;
   }
 }
-var convertToCurvedShape = function(i){
+var convertToCurved = function(i){
   for (var j = 0; j < pseudoSprite.shapes[i].positions.length; j+=3){
       console.log(j);
       var firstX, firstY, secondX, secondY;
@@ -562,7 +591,36 @@ var convertToCurvedShape = function(i){
       pseudoSprite.shapes[i].positions.splice(j+1, 0, new point(firstX, firstY));
       pseudoSprite.shapes[i].positions.splice(j+2, 0, new point(secondX, secondY));
   }
-  pseudoSprite.shapes[i].type = 'curvedshape';
+  if (pseudoSprite.shapes[i].type === 'polygon'){
+    pseudoSprite.shapes[i].type = 'curvedshape';
+  }
+  if (pseudoSprite.shapes[i].type === 'polyline'){
+    pseudoSprite.shapes[i].type = 'curvedline';
+  }
+}
+var renderCurveLine = function(shape){
+  ctx.beginPath();
+  ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
+  for (var i = 1; i < shape.positions.length; i+=3){
+    var lastpoint = {x: undefined, y: undefined};
+    if (i+3 > shape.positions.length){
+      lastpoint.x = shape.positions[0].worldX;
+      lastpoint.y = shape.positions[0].worldY;
+    } else{
+      lastpoint.x = shape.positions[i+2].worldX;
+      lastpoint.y = shape.positions[i+2].worldY;
+    }
+    ctx.bezierCurveTo(shape.positions[i].worldX, shape.positions[i].worldY, shape.positions[i+1].worldX, shape.positions[i+1].worldY, lastpoint.x, lastpoint.y);
+  }
+  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = shape.alphaLevel;
+  ctx.stroke();
+  ctx.closePath();
+  if (shape.symmetry === true){
+    symmetryCurvedShapeRender(shape);
+  }
+  ctx.globalAlpha = 1;
 }
 var renderCurveShape = function(shape){
   ctx.beginPath();
@@ -582,6 +640,9 @@ var renderCurveShape = function(shape){
   ctx.globalAlpha = shape.alphaLevel;
   ctx.fill();
   ctx.closePath();
+  if (shape.symmetry === true){
+    symmetryCurvedShapeRender(shape);
+  }
   ctx.globalAlpha = 1;
 }
 var renderLine = function(pL){
@@ -629,8 +690,10 @@ var render = function(){
         renderCircle(pseudoSprite.shapes[o]);
         break;
       case 'curvedshape':
-      case 'curvedline':
         renderCurveShape(pseudoSprite.shapes[o]);
+        break;
+      case 'curvedline':
+        renderCurveLine(pseudoSprite.shapes[o]);
         break;
     }
   });

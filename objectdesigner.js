@@ -19,7 +19,7 @@ var shape = function(type, name){
   var htmlLiString;
   var extra = '';
   if (this.type === 'polygon' || this.type === 'polyline'){
-    extra = "<button type='button' class='curve-convert'>Bezier Convert</button>"
+    extra = "<button type='button' class='curve-convert' class='objButton'>Bezier Convert</button>"
   }
   htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);
@@ -37,16 +37,32 @@ var shape = function(type, name){
 
 
   $(tempJQString).click(function(event){
-    console.log(event);
     for (var j = 0; j < pseudoSprite.shapes.length; j++){
       if (pseudoSprite.shapes[j].name === event.target.parentNode.id){
         $(tempJQString).parent().toggleClass('.selected');
-        console.log(pseudoSprite.shapes[j]);
 
         switch(event.target.className){
+          case 'curve-convert':
+            if (event.target.outerText === 'Bezier Convert'){
+              console.log('success, great');
+              convertToCurved(j);
+              pointMoveToggles.shapeIndex = j;
+              activeMode = function(){
+                pickupPoint();
+              }
+              pseudoSprite.shapes.forEach(function(el){
+                el.editPoints = false;
+                el.movingPoly = false;
+              });
+              pseudoSprite.shapes[j].editPoints = true;
+              enterEdit();
+              event.target.outerText = '';
+            }
+            break;
           case 'symmetry-toggle':
             pseudoSprite.shapes[j].symmetry = !pseudoSprite.shapes[j].symmetry;
           case 'objButton':
+            console.log(event);
             if (event.target.outerText === 'Move Points'){
               console.log('move points');
               pointMoveToggles.shapeIndex = j;
