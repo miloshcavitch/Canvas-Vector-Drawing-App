@@ -256,7 +256,7 @@ $(document).ready(function(){
       $('#appBox').append(canString);
       $('#appBox').append("<div class='menu-btn' id='menu-btn'><div></div><span></span><span></span><span></span></div><div class='responsive-menu'></div><div id='side-menu'></div>");
       $('#side-menu').append("<form action='' id='o-tog'><br><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><br><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input><br><br><input type='range' name='gridSize' min='1' max='8' id='grid-size'></input>")
-      $('#side-menu').append("<br><br><br><p>Reference Image:</p><input id='reference-image' type='file'/>")
+      $('#side-menu').append("<br><br><br><p>Reference Image:</p><input id='reference-image' type='file'/>");
       canvasHasLoaded();
       objectSnapSetup();
       $('#appBox').append("<div id='below-menu'></div>")

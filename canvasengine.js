@@ -91,6 +91,19 @@ var xFlip = function(x){
   flippedX += canvas.width/2
   return flippedX;
 }
+var symmetryCurvedLineRender = function(shape){
+  ctx.beginPath();
+  var flippedXStart = xFlip(shape.positions[0].worldX);
+  ctx.moveTo(flippedXStart, shape.positions[0].worldY);
+  for (var i = 1; i < shape.positions.length -1; i+=3){
+    ctx.bezierCurveTo(xFlip(shape.positions[i].worldX), shape.positions[i].worldY, xFlip(shape.positions[i+1].worldX), shape.positions[i+1].worldY, xFlip(shape.positions[i+2].worldX), shape.positions[i+2].worldY);
+  }
+  ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+  ctx.globalAlpha = shape.alphaLevel;
+  ctx.stroke();
+  ctx.closePath();
+  ctx.globalAlpha = 1;
+}
 var symmetryCurvedShapeRender = function(shape){
   ctx.beginPath();
   var flippedXStart = xFlip(shape.positions[0].worldX);
@@ -229,16 +242,17 @@ var gLO; //grid left offset
 var gridSnap = function(){
   var candidate = {worldX: mouseX, worldY: mouseY, type: 'grid'};
   var yGridDist, xGridDist;
-  if (mouseY % canvas.height/gridCount <= 10 || mouseY % canvas.height/gridCount <= (gridSize - 10)){
-    yGridDist = mouseY % canvas.height/gridCount;
+  if (mouseY % canvas.height/gridCount <= 10 || mouseY % canvas.height/gridCount >= (canvas.height/gridCount - 10)){
+    yGridDist = Math.floor(mouseY/(canvas.height/gridCount)) * (canvas.height/gridCount);
     if (mouseX > canvas.width/2){//right of center
-      if ((mouseX - canvas.width/2) % canvas.height/gridCount < 10){
-        candidate.worldX = Math.floor((mouseX - canvas.width/2)/(canvas.height/gridCount) * (canvas.height/gridCount) );
-        if (yGridDist <= 10){
-          candidate.worldY = Math.floor((mouseY/(canvas.height/gridCount)) * (canvas.height/gridCount));
-        } else {
-          candidate.worldY = Math.ceil((mouseY/(canvas.height/gridCount)) * (canvas.height/gridCount));
-        }
+      var mouseXOffset = mouseX - canvas.width/2;
+      if (mouseXOffset % canvas.height/gridCount <= 10){
+        candidate.worldX = (Math.floor( mouseXOffset/(canvas.height/gridCount) ) * (canvas.height/gridCount)) + canvas.height/2;
+        candidate.worldY = yGridDist;
+        return candidate;
+      }
+      if (mouseXOffset % canvas.height/gridCount >= (canvas.height/gridCount - 10)){
+
       }
     } else {//left of center
 
@@ -372,7 +386,14 @@ var setRenderOrder = function(){
     }
   });
 }
+var imageInfo = {loaded: false, width: undefined, height: undefined};
+var imageRender = function(){
+
+}
 var renderUI = function(){
+  if (imageInfo.loaded === true){
+    //run imageRender Function;
+  }
   pseudoSprite.shapes.forEach(function(el){
     if (el.editPoints === true){
       switch(el.type){
@@ -652,7 +673,7 @@ var renderCurveLine = function(shape){
   ctx.stroke();
   ctx.closePath();
   if (shape.symmetry === true){
-    symmetryCurvedShapeRender(shape);
+    symmetryCurvedLineRender(shape);
   }
   ctx.globalAlpha = 1;
 }
