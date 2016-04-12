@@ -2,22 +2,13 @@
 I'm in too deep! I love this project and have learned so much about what not to do, which is why I need it to be over ;)
 But a wise man once said, it ain't over till the fat lady sings!
 Fix-
--Grid Snap
 -Line Snap for opposite side of symmetry
 -potential DOM Bugs, like buttons not disappearing or reappearing (last thing to do I'm thinking)
 -alter the minimum and maximum grid size to feel better
 -Take into account alternate screen sizes (this def wont be responsive but what will happen with a tiny screen? a super big screen?
 
 Add-
--Circle creation
--(Poly)line creation
--Pixel Creation- gotta be good.
--Convert Polygons and polyShapes into bezier curved objects (gonna be fun)
+-change line thickness
+-make bezier points visible (button in side menu or DOM element)
+if sides are divisible by 3 dont add points option (maybe...)
 -hotkeys (this is gonna be fun and add alot of usability)
-(sounds like alot but I'm more worried about fixing the existing stuff)
-
-if I had more time I'd love to add a shift click/multi-select ability but that would change every single dam function, so kind of impossible. If I started this
-from scratch it would be a hella smooth program but like I said before, aint nobody got time for that!
-
-But once this program is finished I think it has the potential to be a very popular program on the interwebs, def filling an unfilled hole.
-IDK how many people need that hole tho!

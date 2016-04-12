@@ -187,6 +187,11 @@ var pointSnap = function(){
     return candidate;
   }
 }
+var handleSize = 5;
+var handleSizeCalc = function(){
+  handleSize = $('#handle-tolerance').val() * 0.10;
+}
+
 
 var gridCount = 16;
 var lastGridExponent = 0;

@@ -239,6 +239,9 @@ objectSnapSetup = function(){
   $('#grid-size').click(function(){
     console.log($('#grid-size').val());
   });
+  $('#handle-tolerance').change(function(){
+    handleSizeCalc();
+  })
 }
 
 $(document).ready(function(){
@@ -255,7 +258,7 @@ $(document).ready(function(){
       var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #555555;'></canvas>";
       $('#appBox').append(canString);
       $('#appBox').append("<div class='menu-btn' id='menu-btn'><div></div><span></span><span></span><span></span></div><div class='responsive-menu'></div><div id='side-menu'></div>");
-      $('#side-menu').append("<form action='' id='o-tog'><br><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><br><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input><br><br><input type='range' name='gridSize' min='1' max='8' id='grid-size'></input>")
+      $('#side-menu').append("<form action='' id='o-tog'><br><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><br><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input><br><p>OSnap Tolerance:</p><input type='range' name='gridSize' min='5' max='100' id ='handle-tolerance'></input><p>Grid Size:</p><input type='range' name='gridSize' id='grid-size' min='1' max='8' id='grid-size'></input>")
       $('#side-menu').append("<br><br><br><p>Reference Image:</p><input id='reference-image' type='file'/>");
       canvasHasLoaded();
       objectSnapSetup();

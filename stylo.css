@@ -100,7 +100,12 @@ body {
   background-color: green;
 }
 
-
+#handle-tolerance{
+  margin-top: -10px;
+}
+#grid-size{
+  margin-top: -10px;
+}
 #side-nav{
   position: absolute;
   right: 0px;
