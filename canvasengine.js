@@ -144,7 +144,7 @@ var mirrorPythagLength = function(mouseX, mouseY, point){
 }
 
 var pointSnap = function(){
-  var shortestDistance = 10;
+  var shortestDistance = handleSize;
   var candidate = {worldX: undefined, worldY: undefined, type: 'point'};
   pseudoSprite.shapes.forEach(function(el){
     if (el.editPoints != true){
@@ -239,7 +239,7 @@ var frontGridRender = function(){
   }
 }
 var symSnap = function(){
-  if (Math.abs(mouseX - symmetryPos) <= 10){
+  if (Math.abs(mouseX - symmetryPos) <= handleSize){
     return {worldX: symmetryPos, worldY: mouseY, type: 'line of symmetry'};
   }
 }
@@ -251,7 +251,7 @@ var gridSnap = function(){
   var xCount = 0;
   var yCount = 0;
   while(pointSwitch === true){
-    if (Math.abs(mouseY - yCount * canvas.height/gridCount) <= 10){
+    if (Math.abs(mouseY - yCount * canvas.height/gridCount) <= handleSize){
       pointSwitch = false;
       pointY = yCount * canvas.height/gridCount;
     }
@@ -264,7 +264,7 @@ var gridSnap = function(){
   if (pointY != undefined){
     while(pointSwitch === true){
       if (mouseX >= canvas.width/2){
-        if (Math.abs(mouseX-canvas.width/2 - xCount * canvas.height/gridCount) <= 10){
+        if (Math.abs(mouseX-canvas.width/2 - xCount * canvas.height/gridCount) <= handleSize){
           pointSwitch = false;
           pointX = (xCount * canvas.height/gridCount) + canvas.width/2;
         }
@@ -273,7 +273,7 @@ var gridSnap = function(){
         }
         xCount++;
       } else {
-        if (Math.abs((canvas.width/2 - xCount * canvas.height/gridCount) - mouseX) <= 10){
+        if (Math.abs((canvas.width/2 - xCount * canvas.height/gridCount) - mouseX) <= handleSize){
           pointSwitch = false;
           pointX = canvas.width/2 - (xCount * canvas.height/gridCount);
         }
@@ -298,7 +298,7 @@ var oSnap = function(){//to be added
   pointerX = mouseX;
   pointerY = mouseY;
   var pCandidates = [];
-  var smallest = 10;
+  var smallest = handleSize;
   var goodOption = {worldX: mouseX, worldY: mouseY};
   if (objectSnaps.toggle){
     if (objectSnaps.point){
@@ -377,7 +377,7 @@ var polyEditPointRender = function(shape, color){
   ctx.globalAlpha = 0.6;
   shape.positions.forEach(function(p){
     ctx.beginPath();
-    ctx.arc(p.worldX, p.worldY, 10, 0, 2 * Math.PI);
+    ctx.arc(p.worldX, p.worldY, handleSize, 0, 2 * Math.PI);
     ctx.fillStyle = color;
     ctx.fill();
   });
@@ -495,7 +495,7 @@ var pickupPoint = function(shape){
   console.log('bomba');
   for (var i = 0; i < pseudoSprite.shapes[pointMoveToggles.shapeIndex].positions.length; i++){
     console.log(pythagLength(pointerX, pointerY, pseudoSprite.shapes[pointMoveToggles.shapeIndex].positions[i]))
-    if (pythagLength(pointerX, pointerY, pseudoSprite.shapes[pointMoveToggles.shapeIndex].positions[i]) <= 10){
+    if (pythagLength(pointerX, pointerY, pseudoSprite.shapes[pointMoveToggles.shapeIndex].positions[i]) <= handleSize){
       pointMoveToggles.pickedUp = true;
       pointMoveToggles.posIndex = i;
       activeUpdate = function(){
@@ -528,7 +528,7 @@ var dropPoint = function(){
 var shapeMoveToggles = {shapeIndex: undefined, pickedUp: false, posIndex: undefined};
 var pickupShape = function(){
   for (var i = 0; i < pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions.length; i++){
-    if (pythagLength(pointerX, pointerY, pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[i]) <= 10){
+    if (pythagLength(pointerX, pointerY, pseudoSprite.shapes[shapeMoveToggles.shapeIndex].positions[i]) <= handleSize){
       shapeMoveToggles.pickedUp = true;
       shapeMoveToggles.posIndex = i;
       activeUpdate = function(){

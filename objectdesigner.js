@@ -35,7 +35,6 @@ var shape = function(type, name){
     }, 10);
   });
 
-
   $(tempJQString).click(function(event){
     for (var j = 0; j < pseudoSprite.shapes.length; j++){
       if (pseudoSprite.shapes[j].name === event.target.parentNode.id){
