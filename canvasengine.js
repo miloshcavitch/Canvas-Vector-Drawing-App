@@ -240,24 +240,50 @@ var symSnap = function(){
 }
 var gLO; //grid left offset
 var gridSnap = function(){
-  var candidate = {worldX: mouseX, worldY: mouseY, type: 'grid'};
-  var yGridDist, xGridDist;
-  if (mouseY % canvas.height/gridCount <= 10 || mouseY % canvas.height/gridCount >= (canvas.height/gridCount - 10)){
-    yGridDist = Math.floor(mouseY/(canvas.height/gridCount)) * (canvas.height/gridCount);
-    if (mouseX > canvas.width/2){//right of center
-      var mouseXOffset = mouseX - canvas.width/2;
-      if (mouseXOffset % canvas.height/gridCount <= 10){
-        candidate.worldX = (Math.floor( mouseXOffset/(canvas.height/gridCount) ) * (canvas.height/gridCount)) + canvas.height/2;
-        candidate.worldY = yGridDist;
-        return candidate;
+  var candidate = {worldX: undefined, worldY: undefined, type: 'grid'};
+  var pointX, pointY;
+  var pointSwitch = true;
+  var xCount = 0;
+  var yCount = 0;
+  while(pointSwitch === true){
+    if (Math.abs(mouseY - yCount * canvas.height/gridCount) <= 10){
+      pointSwitch = false;
+      pointY = yCount * canvas.height/gridCount;
+    }
+    if (yCount * canvas.height/gridCount >= canvas.width){
+      pointSwitch = false;
+    }
+    yCount++;
+  }
+  pointSwitch = true;
+  if (pointY != undefined){
+    while(pointSwitch === true){
+      if (mouseX >= canvas.width/2){
+        if (Math.abs(mouseX-canvas.width/2 - xCount * canvas.height/gridCount) <= 10){
+          pointSwitch = false;
+          pointX = (xCount * canvas.height/gridCount) + canvas.width/2;
+        }
+        if (xCount * canvas.height/gridCount >= canvas.width){
+          pointSwitch = false;
+        }
+        xCount++;
+      } else {
+        if (Math.abs((canvas.width/2 - xCount * canvas.height/gridCount) - mouseX) <= 10){
+          pointSwitch = false;
+          pointX = canvas.width/2 - (xCount * canvas.height/gridCount);
+        }
+        if ((canvas.width/2 - xCount * canvas.height/gridCount) < 0){
+          pointSwitch = false;
+        }
+        xCount++;
       }
-      if (mouseXOffset % canvas.height/gridCount >= (canvas.height/gridCount - 10)){
-
-      }
-    } else {//left of center
-
+    }
+    if (pointX != undefined && pointY != undefined){
+      candidate.worldX = pointX;
+      candidate.worldY = pointY;
     }
   }
+  return candidate;
 }
 var snapString = '';
 var oSnap = function(){//to be added
