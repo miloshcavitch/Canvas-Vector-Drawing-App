@@ -1,3 +1,4 @@
+var tempShapes = [];
 var pseudoSprite = {xCenter: 0, yCenter: 0, unit: 4, shapes: []};
 var addingShape = [];
 var shape = function(type, name){
@@ -7,6 +8,7 @@ var shape = function(type, name){
   this.type = type;
   this.name = name;
   this.symmetry = false;
+  this.showPoints = false;
   this.positions = [];
   this.editPoints = false;
   this.movingPoly = false;
@@ -21,7 +23,7 @@ var shape = function(type, name){
   if (this.type === 'polygon' || this.type === 'polyline'){
     extra = "<button type='button' class='curve-convert' class='objButton'>Bezier Convert</button>"
   }
-  htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'>" + extra + "</li>";
+  htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);
   console.log(this);
   console.log(htmlLiString);
@@ -41,6 +43,9 @@ var shape = function(type, name){
         $(tempJQString).parent().toggleClass('.selected');
 
         switch(event.target.className){
+          case 'show-points':
+            pseudoSprite.shapes[j].showPoints = !pseudoSprite.shapes[j].showPoints;
+            break;
           case 'curve-convert':
             if (event.target.outerText === 'Bezier Convert'){
               console.log('success, great');

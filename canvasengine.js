@@ -421,11 +421,44 @@ var imageInfo = {loaded: false, width: undefined, height: undefined};
 var imageRender = function(){
 
 }
+var twoPointLine = function(ax, ay, bx, by, color){
+  ctx.beginPath();
+  ctx.moveTo(ax, ay);
+  ctx.lineTo(bx, by);
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+  ctx.closePath();
+}
+var showPointsRender = function(shape){
+  shape.positions.forEach(function(p){
+    twoPointLine(p.worldX, p.worldY + 2, p.worldX, p.worldY + 6, 'white');
+    twoPointLine(p.worldX, p.worldY - 2, p.worldX, p.worldY - 6, 'white');
+    twoPointLine(p.worldX + 2, p.worldY, p.worldX + 6, p.worldY, 'white');
+    twoPointLine(p.worldX - 2, p.worldY, p.worldX - 6, p.worldY, 'white');
+  });
+  ctx.beginPath();
+  ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
+  shape.positions.forEach(function(p){
+    ctx.lineTo(p.worldX, p.worldY);
+  });
+  ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
+  ctx.lineWidth = 0.25;
+  ctx.strokeStyle = 'white';
+  ctx.globalAlpha = 0.5;
+  ctx.stroke();
+  ctx.closePath();
+  ctx.globalAlpha = 1;
+}
 var renderUI = function(){
   if (imageInfo.loaded === true){
     //run imageRender Function;
   }
   pseudoSprite.shapes.forEach(function(el){
+    if (el.showPoints === true){
+      showPointsRender(el);
+    }
     if (el.editPoints === true){
       switch(el.type){
         case 'polygon':
