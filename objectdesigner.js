@@ -55,11 +55,33 @@ var shape = function(type, name){
             if (event.target.outerText === 'Bezier Convert'){
               console.log('success, great');
               if (pseudoSprite.shapes[j].type === 'polygon'){
+                if ((pseudoSprite.shapes[j].positions.length - 1) % 3 === 0){
+                  var bool = false;
+                  if (confirm("it has been detected that this polygon doesn't need points to be added to create a curved shape, do you want to add points?")){
+                    convertToCurvedShape(j);
+                    bool = true;
+                  }
+                  if (bool === false){
+                    pseudoSprite.shapes[j].type = 'curvedshape';
+                  }
+                } else {
                 convertToCurvedShape(j);
               }
+            }
               if (pseudoSprite.shapes[j].type === 'polyline'){
+                if ((pseudoSprite.shapes[j].positions.length - 1) % 3 === 0){
+                  var bool = false;
+                  if (confirm("it has been detected that this polyline doesn't need points to be added to create a curved line, do you want to add points?")){
+                    convertToCurvedLine(j);
+                    bool = true;
+                  }
+                  if (bool === false){
+                    pseudoSprite.shapes[j].type = 'curvedline';
+                  }
+                } else {
                 convertToCurvedLine(j);
               }
+            }
               pointMoveToggles.shapeIndex = j;
               activeMode = function(){
                 pickupPoint();
