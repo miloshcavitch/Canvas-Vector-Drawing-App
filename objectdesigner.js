@@ -22,6 +22,9 @@ var shape = function(type, name){
   var extra = '';
   if (this.type === 'polygon' || this.type === 'polyline'){
     extra = "<button type='button' class='curve-convert' class='objButton'>Bezier Convert</button>"
+    if (this.type === 'polyline'){
+      extra += "<input type='range' name='lineThickness' id='line-thickness'>";
+    }
   }
   htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);

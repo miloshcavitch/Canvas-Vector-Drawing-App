@@ -443,7 +443,9 @@ var showPointsRender = function(shape){
   shape.positions.forEach(function(p){
     ctx.lineTo(p.worldX, p.worldY);
   });
-  ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
+  if (shape.type != 'curvedline' || shape.type != 'polyline'){
+    ctx.lineTo(shape.positions[0].worldX, shape.positions[0].worldY);
+  }
   ctx.lineWidth = 0.25;
   ctx.strokeStyle = 'white';
   ctx.globalAlpha = 0.5;
