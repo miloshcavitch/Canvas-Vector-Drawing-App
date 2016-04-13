@@ -50,7 +50,7 @@ var symmetryPLRender = function(shape){
     ctx.lineTo((flippedX + symmetryPos), el.worldY);
   });
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
-  ctx.lineWidth = 1;
+  ctx.lineWidth = shape.lineWidth;
   ctx.stroke();
   ctx.globalAlpha = 1;
   ctx.closePath();
@@ -98,6 +98,7 @@ var symmetryCurvedLineRender = function(shape){
   for (var i = 1; i < shape.positions.length -1; i+=3){
     ctx.bezierCurveTo(xFlip(shape.positions[i].worldX), shape.positions[i].worldY, xFlip(shape.positions[i+1].worldX), shape.positions[i+1].worldY, xFlip(shape.positions[i+2].worldX), shape.positions[i+2].worldY);
   }
+  ctx.lineWidth = shape.lineWidth;
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
   ctx.globalAlpha = shape.alphaLevel;
   ctx.stroke();
@@ -431,6 +432,28 @@ var twoPointLine = function(ax, ay, bx, by, color){
   ctx.stroke();
   ctx.closePath();
 }
+var symmetryShowPointsRender = function(shape){
+  shape.positions.forEach(function(p){
+    twoPointLine(xFlip(p.worldX), p.worldY + 2, xFlip(p.worldX), p.worldY + 6, 'white');
+    twoPointLine(xFlip(p.worldX), p.worldY - 2, xFlip(p.worldX), p.worldY - 6, 'white');
+    twoPointLine(xFlip(p.worldX) + 2, p.worldY, xFlip(p.worldX) + 6, p.worldY, 'white');
+    twoPointLine(xFlip(p.worldX) - 2, p.worldY, xFlip(p.worldX) - 6, p.worldY, 'white');
+  });
+  ctx.beginPath();
+  ctx.moveTo(xFlip(shape.positions[0].worldX), shape.positions[0].worldY);
+  shape.positions.forEach(function(p){
+    ctx.lineTo(xFlip(p.worldX), p.worldY);
+  });
+  if (shape.type != 'curvedline' || shape.type != 'polyline'){
+    ctx.lineTo(xFlip(shape.positions[0].worldX), shape.positions[0].worldY);
+  }
+  ctx.lineWidth = 0.25;
+  ctx.strokeStyle = 'white';
+  ctx.globalAlpha = 0.5;
+  ctx.stroke();
+  ctx.closePath();
+  ctx.globalAlpha = 1;
+}
 var showPointsRender = function(shape){
   shape.positions.forEach(function(p){
     twoPointLine(p.worldX, p.worldY + 2, p.worldX, p.worldY + 6, 'white');
@@ -452,6 +475,9 @@ var showPointsRender = function(shape){
   ctx.stroke();
   ctx.closePath();
   ctx.globalAlpha = 1;
+  if (shape.symmetry === true){
+    symmetryShowPointsRender(shape);
+  }
 }
 var renderUI = function(){
   if (imageInfo.loaded === true){
@@ -734,7 +760,7 @@ var renderCurveLine = function(shape){
     ctx.bezierCurveTo(shape.positions[i].worldX, shape.positions[i].worldY, shape.positions[i+1].worldX, shape.positions[i+1].worldY, lastpoint.x, lastpoint.y);
   }
   ctx.strokeStyle = colorVariables[shape.colorIndex].color;
-  ctx.lineWidth = 1;
+  ctx.lineWidth = shape.lineWidth;
   ctx.globalAlpha = shape.alphaLevel;
   ctx.stroke();
   ctx.closePath();
@@ -775,7 +801,7 @@ var renderLine = function(pL){
   ctx.strokeStyle = 'black';
   ctx.strokeStyle = colorVariables[pL.colorIndex].color;
   ctx.globalAlpha = pL.alphaLevel;
-  ctx.lineWidth = 1;
+  ctx.lineWidth = pL.lineWidth;
   ctx.stroke();
   ctx.closePath();
   ctx.globalAlpha = 1;

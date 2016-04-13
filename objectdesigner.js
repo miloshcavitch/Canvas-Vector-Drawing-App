@@ -12,6 +12,7 @@ var shape = function(type, name){
   this.positions = [];
   this.editPoints = false;
   this.movingPoly = false;
+  this.lineWidth = 1;
   var selectString = "<select class='colorList'>";
     for (var i = 0; i < colorVariables.length; i++){
       selectString +="<option value='" + i + "'>" + colorVariables[i].name + "</option>";
@@ -23,7 +24,7 @@ var shape = function(type, name){
   if (this.type === 'polygon' || this.type === 'polyline'){
     extra = "<button type='button' class='curve-convert' class='objButton'>Bezier Convert</button>"
     if (this.type === 'polyline'){
-      extra += "<input type='range' name='lineThickness' id='line-thickness'>";
+      extra += "<input type='range' name='lineThickness' min='1' max='200' class='line-thickness'>";
     }
   }
   htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
@@ -41,6 +42,7 @@ var shape = function(type, name){
   });
 
   $(tempJQString).click(function(event){
+    console.log(event);
     for (var j = 0; j < pseudoSprite.shapes.length; j++){
       if (pseudoSprite.shapes[j].name === event.target.parentNode.id){
         $(tempJQString).parent().toggleClass('.selected');
@@ -100,6 +102,14 @@ var shape = function(type, name){
               pseudoSprite.shapes[j].movingPoly = true;
               enterEdit();
             }
+            break;
+          case 'line-thickness':
+            var val = event.target.valueAsNumber *0.1;
+            if (val >= 19.98){
+              val = 20;
+            }
+            pseudoSprite.shapes[j].lineWidth = val;
+            console.log(pseudoSprite.shapes[j].lineWidth);
             break;
           case 'alphaSlide':
             var val = event.offsetX * 0.01;
