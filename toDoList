@@ -8,7 +8,13 @@ Fix-
 -Take into account alternate screen sizes (this def wont be responsive but what will happen with a tiny screen? a super big screen?
 
 Add-
--change line thickness
--make bezier points visible (button in side menu or DOM element)
-if sides are divisible by 3 dont add points option (maybe...)
+- temp array for inital addition of points to get rid of "can't find worldX" etc.
+-delete button.
+-reference image upload
+-final source code text download
+-potentially a file save/download and open up again in the browser option.
 -hotkeys (this is gonna be fun and add alot of usability)
+
+if i had more TIME or maybe in acouple months:
+Scale
+Rotate

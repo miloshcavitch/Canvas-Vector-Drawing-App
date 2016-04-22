@@ -27,7 +27,7 @@ var shape = function(type, name){
       extra += "<input type='range' name='lineThickness' min='1' max='200' class='line-thickness'>";
     }
   }
-  htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
+  htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='delete-shape'>Delete Shape</button><button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);
   console.log(this);
   console.log(htmlLiString);
@@ -99,6 +99,11 @@ var shape = function(type, name){
             pseudoSprite.shapes[j].symmetry = !pseudoSprite.shapes[j].symmetry;
           case 'objButton':
             console.log(event);
+            if(event.target.outerText === 'Delete Shape'){
+              if(confirm("Are you sure you want to delete this shape? You cant undo this action.")){
+                pseudoSprite.shapes.splice(j,1);
+              }
+            }
             if (event.target.outerText === 'Move Points'){
               console.log('move points');
               pointMoveToggles.shapeIndex = j;
