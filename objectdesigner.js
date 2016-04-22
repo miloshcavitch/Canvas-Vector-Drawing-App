@@ -101,6 +101,8 @@ var shape = function(type, name){
             console.log(event);
             if(event.target.outerText === 'Delete Shape'){
               if(confirm("Are you sure you want to delete this shape? You cant undo this action.")){
+                var elID = "#" + pseudoSprite.shapes[j].name;
+                $(elID).remove();
                 pseudoSprite.shapes.splice(j,1);
               }
             }
