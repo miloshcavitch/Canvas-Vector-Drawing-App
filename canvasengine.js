@@ -35,6 +35,9 @@ var symmetryCircleRender = function(shape, radius){
 
 }
 var symmetryPLRender = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   ctx.globalAlpha = shape.alphaLevel;
   var flippedXStart = Math.abs(shape.positions[0].worldX - symmetryPos);
@@ -56,6 +59,9 @@ var symmetryPLRender = function(shape){
   ctx.closePath();
 }
 var symmetryPolyRender = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   ctx.globalAlpha = shape.alphaLevel;
   var flippedXStart = Math.abs(shape.positions[0].worldX - symmetryPos);
@@ -92,6 +98,9 @@ var xFlip = function(x){
   return flippedX;
 }
 var symmetryCurvedLineRender = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   var flippedXStart = xFlip(shape.positions[0].worldX);
   ctx.moveTo(flippedXStart, shape.positions[0].worldY);
@@ -106,6 +115,9 @@ var symmetryCurvedLineRender = function(shape){
   ctx.globalAlpha = 1;
 }
 var symmetryCurvedShapeRender = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   var flippedXStart = xFlip(shape.positions[0].worldX);
   ctx.moveTo(flippedXStart, shape.positions[0].worldY);
@@ -353,6 +365,9 @@ var activeMode = function(x, y, shape){
 }
 
 var renderPoly = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   ctx.globalAlpha = shape.alphaLevel;
   ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
@@ -396,6 +411,7 @@ var polyEditPointRender = function(shape, color){
 }
 
 var symmetryLineRender = function(){
+
   ctx.beginPath();
   ctx.lineWidth = 0.6;
   ctx.globalAlpha = 0.9;
@@ -418,10 +434,7 @@ var setRenderOrder = function(){
     }
   });
 }
-var imageInfo = {loaded: false, width: undefined, height: undefined};
-var imageRender = function(){
 
-}
 var twoPointLine = function(ax, ay, bx, by, color){
   ctx.beginPath();
   ctx.moveTo(ax, ay);
@@ -433,6 +446,9 @@ var twoPointLine = function(ax, ay, bx, by, color){
   ctx.closePath();
 }
 var symmetryShowPointsRender = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   shape.positions.forEach(function(p){
     twoPointLine(xFlip(p.worldX), p.worldY + 2, xFlip(p.worldX), p.worldY + 6, 'white');
     twoPointLine(xFlip(p.worldX), p.worldY - 2, xFlip(p.worldX), p.worldY - 6, 'white');
@@ -455,6 +471,9 @@ var symmetryShowPointsRender = function(shape){
   ctx.globalAlpha = 1;
 }
 var showPointsRender = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   shape.positions.forEach(function(p){
     twoPointLine(p.worldX, p.worldY + 2, p.worldX, p.worldY + 6, 'white');
     twoPointLine(p.worldX, p.worldY - 2, p.worldX, p.worldY - 6, 'white');
@@ -480,9 +499,6 @@ var showPointsRender = function(shape){
   }
 }
 var renderUI = function(){
-  if (imageInfo.loaded === true){
-    //run imageRender Function;
-  }
   pseudoSprite.shapes.forEach(function(el){
     if (el.showPoints === true){
       showPointsRender(el);
@@ -553,6 +569,7 @@ var test = function(shape){
 }
 
 var pickupPoint = function(shape){
+
   console.log('bomba');
   for (var i = 0; i < pseudoSprite.shapes[pointMoveToggles.shapeIndex].positions.length; i++){
     console.log(pythagLength(pointerX, pointerY, pseudoSprite.shapes[pointMoveToggles.shapeIndex].positions[i]))
@@ -746,6 +763,9 @@ var convertToCurvedShape = function(i){
   }
 }
 var renderCurveLine = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
   for (var i = 1; i < shape.positions.length; i+=3){
@@ -770,6 +790,9 @@ var renderCurveLine = function(shape){
   ctx.globalAlpha = 1;
 }
 var renderCurveShape = function(shape){
+  if (shape.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   ctx.moveTo(shape.positions[0].worldX, shape.positions[0].worldY);
   for (var i = 1; i < shape.positions.length; i+=3){
@@ -793,6 +816,9 @@ var renderCurveShape = function(shape){
   ctx.globalAlpha = 1;
 }
 var renderLine = function(pL){
+  if (pL.positions.length === 0){
+    return;
+  }
   ctx.beginPath();
   ctx.moveTo(pL.positions[0].worldX, pL.positions[0].worldY);
   pL.positions.forEach(function(p){
@@ -810,6 +836,9 @@ var renderLine = function(pL){
   }
 }
 var renderCircle = function(c){
+  if (c.positions.length === 0){
+    return;
+  }
   ctx.globalAlpha = c.alphaLevel;
   ctx.fillStyle = colorVariables[c.colorIndex].color;
   ctx.beginPath();

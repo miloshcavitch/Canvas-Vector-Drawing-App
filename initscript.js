@@ -40,7 +40,6 @@ var hideBTN = function(){
   $('#newColorVar').hide(500);
   $('#newPoly').hide(500);
   $('#new-circle').hide(500);
-  $('#new-pixel-layer').hide(500);
   $('#new-polyline').hide(500);
 }
 
@@ -48,11 +47,10 @@ var showBTN = function(){
   $('#newColorVar').show(500);
   $('#newPoly').show(500);
   $('#new-circle').show(500);
-  $('#new-pixel-layer').show(500);
   $('#new-polyline').show(500);
 }
 var initDrawingApp = function(){
-  $('#below-menu').append("<br><button type='button' id='newPoly'>New Polygon</button><button type='button' id ='new-circle'>New Circle</button><button type='button' id ='new-polyline'>New (Poly)line</button><button type='button' id='new-pixel-layer'>New Pixel Layer</button><button type='button' id='newColorVar'>New Color Variable</button><br>");
+  $('#below-menu').append("<br><button type='button' id='newPoly'>New Polygon</button><button type='button' id ='new-circle'>New Circle</button><button type='button' id ='new-polyline'>New (Poly)line</button><button type='button' id='newColorVar'>New Color Variable</button><br>");
   $('#below-menu').append('<ul id="shapesCollection"></ul><ul id="colorsCollection"></ul>');
   initColorLayers();
   initSortableLayers();
