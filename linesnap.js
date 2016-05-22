@@ -69,5 +69,5 @@ var calculationOfLine = function(x1, y1, x2, y2){
 }
 
 var mirrorLineSnap = function(){
-
+  
 }
