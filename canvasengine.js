@@ -548,8 +548,23 @@ var renderUI = function(){
     symmetryLineRender();
   }
   renderPointer();
+  if (referenceBool){
+    ctx.globalAlpha = 1;
+    for (var i = 0; i < 10; i++){
+      ctx.beginPath();
+      if (i % 2 === 0){
+        ctx.strokeStyle = 'white';
+      } else {
+        ctx.strokeStyle = 'black';
+      }
+      ctx.arc(referencePoint.x, referencePoint.y, i * 1.5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.closePath();
+    }
+    ctx.globalAlpha = 1;
+  }
 }
-////////////////////////////////////////////
+///////////////////////////////////////////
 ///////////////////////////////////////////
 //Init Point Add
 var initCircleAdd = function(initPointBool){

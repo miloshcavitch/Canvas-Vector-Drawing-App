@@ -4,6 +4,7 @@ var ctx;
 var currentShape;//be careful with the way this is going to be used
 var canvasHasLoaded = function(){
   canvas = document.getElementById("myCanvas");
+  referencePoint = {x: canvas.width/2, y: canvas.height/2};
   symmetryPos = canvas.width/2;
   ctx = canvas.getContext('2d');
   $('#myCanvas').on( "mousemove", function(event) {
@@ -259,7 +260,6 @@ $(document).ready(function(){
     if (isNaN(cW) == false && isNaN(cH) == false && cW != false && cH != false){
       $('#textInfo').empty();
       var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #555555;'></canvas>";
-      referencePoint = {x: canvas.width/2, y: canvas.height/2};
       $('#appBox').append(canString);
       $('#appBox').append("<div class='menu-btn' id='menu-btn'><div></div><span></span><span></span><span></span></div><div class='responsive-menu'></div><div id='side-menu'></div>");
       $('#side-menu').append("<form action='' id='o-tog'><br><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><br><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input><br><p>OSnap Tolerance:</p><input type='range' name='gridSize' min='5' max='100' id ='handle-tolerance'></input><p>Grid Size:</p><input type='range' name='gridSize' id='grid-size' min='1' max='8' id='grid-size'></input><br><br><button type='button' id='xp-js-obj'>Export JS Object</button>")
