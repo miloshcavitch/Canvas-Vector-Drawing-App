@@ -911,8 +911,25 @@ var activeUpdate = function(){
 var activeRenderLayer = function(){
 
 }
+var updateReferencePoint = function(){
+  if (referenceBool){
+    if (referencePoint.left){
+      referencePoint.x -= 1;
+    }
+    if (referencePoint.up){
+      referencePoint.y -= 1;
+    }
+    if (referencePoint.right){
+      referencePoint.x += 1;
+    }
+    if (referencePoint.down){
+      referencePoint.y += 1;
+    }
+  }
+}
 var update = function(){
   activeUpdate();
+  updateReferencePoint();
   render();
   renderUI();
 }
