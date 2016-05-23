@@ -178,7 +178,7 @@ var colorVar = function(name, hexstring){
   //append colors to drop down
   $( "#shapesCollection li" ).each(function() {
     console.log($(this).context.childNodes)
-    $(this).context.childNodes[5S].insertAdjacentHTML( 'beforeend', "<option value='" + colorVariables.length + "'>" + name + "</option>" );
+    $(this).context.childNodes[5].insertAdjacentHTML( 'beforeend', "<option value='" + colorVariables.length + "'>" + name + "</option>" );
   });
   var htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'>" + this.name + "<input type='text' class='basic' id='" + this.name + "Picker' value='red'/></li>";
   $('#colorsCollection').append(htmlLiString);
