@@ -241,7 +241,10 @@ objectSnapSetup = function(){
   });
   $('#handle-tolerance').change(function(){
     handleSizeCalc();
-  })
+  });
+  $('#move-centerpoint').click(function(event){
+    toggleReferencePoint(event);
+  });
 }
 
 $(document).ready(function(){
@@ -256,16 +259,18 @@ $(document).ready(function(){
     if (isNaN(cW) == false && isNaN(cH) == false && cW != false && cH != false){
       $('#textInfo').empty();
       var canString = "<canvas id='myCanvas' width='" + cW + "' height='" + cH + "' style='border:1px solid #555555;'></canvas>";
+      referencePoint = {x: canvas.width/2, y: canvas.height/2};
       $('#appBox').append(canString);
       $('#appBox').append("<div class='menu-btn' id='menu-btn'><div></div><span></span><span></span><span></span></div><div class='responsive-menu'></div><div id='side-menu'></div>");
       $('#side-menu').append("<form action='' id='o-tog'><br><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><br><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input><br><p>OSnap Tolerance:</p><input type='range' name='gridSize' min='5' max='100' id ='handle-tolerance'></input><p>Grid Size:</p><input type='range' name='gridSize' id='grid-size' min='1' max='8' id='grid-size'></input><br><br><button type='button' id='xp-js-obj'>Export JS Object</button>")
-      $('#side-menu').append("<br><br><br><p>Reference Image:</p><input id='reference-image' type='file'/>");
+      $('#side-menu').append("<button type='button' id='move-centerpoint'>Show Center/Reference Point</button>")
       canvasHasLoaded();
       objectSnapSetup();
       $('#appBox').append("<div id='below-menu'></div>")
       $('#below-menu').append("<div id='currentOptions'></div>");
       $('#currentOptions').append('<p id="currentInstructions"></p>');
       $('#currentOptions').append('<div id="currentForm"></div>');
+      $(document.body).append("<div id='obj-source'></div>")
       $('#currentInstructions').text('');
       initDrawingApp();
     } else{

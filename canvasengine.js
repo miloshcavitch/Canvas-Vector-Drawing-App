@@ -1,6 +1,20 @@
 ///////////////////////////////////////
 ///////////////////////////////////////
 //JQuery functions
+var referenceBool = false;
+var referencePoint;
+var toggleReferencePoint = function(event){
+  referenceBool = !referenceBool;
+  switch(referenceBool){
+    case true:
+      event.target.innerHTML = 'Hide Center/Reference Point';
+      break;
+    case false:
+      event.target.innerHTML = 'Show Center/Reference Point';
+      break;
+  }
+  console.log(referenceBool);
+}
 var enterEdit = function(){
   hideBTN();
 }

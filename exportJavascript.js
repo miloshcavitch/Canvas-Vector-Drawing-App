@@ -1,7 +1,7 @@
 var writeJS = function(){
   var jSString ='';
   colorVariables.forEach(function(color){
-    jSString += ("var " + color.name + " = " + color.color + ";\n");
+    jSString += ("var " + color.name + " = " + color.color + ";<br>");
   });
   var maxX = 0;
   var maxY = 0;
@@ -26,15 +26,25 @@ var writeJS = function(){
   });
   unitX = maxX - minX;
   unitY = maxY - minY;
-  jSString += ('var pseudoSprite = {xCenter: undefined, yCenter: undefined, width: " + unitX + ", height: " + unitY + ", shapes: [');
+  var xCenter = 500;
+  var yCenter = 500;
+  console.log(unitX);
+  jSString += ('<p>var pseudoSprite = {xCenter: undefined, yCenter: undefined, width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
   pseudoSprite.shapes.forEach(function(shape){
-    jSString += ('{fillColor: ' + colorVariables[shape.colorIndex].name + ", type: " + shape.type + ", positions: [";
+    jSString += ('{fillColor: ' + colorVariables[shape.colorIndex].name + ', type: \'' + shape.type + '\', positions: [<br>&#9;&#9;&#9;');
     shape.positions.forEach(function(p){
-      var localX = (p.worldX - shape.xCenter) / ;
-      var localY = (p.worldY - shape.yCenter) / ;
-      jSString += "{x: " +  localX + ", y: " + localY + "}";
+      var localX = (p.worldX - xCenter) / unitX;
+      var localY = (p.worldY - yCenter) / unitY;
+      jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
     });
-    " },\n");
+    jSString += " },<br>";
   });
+  jSString.slice(jSString.length, 1);
+  jSString += "]}</p>";
+
+  $('#obj-source').empty();
+  $('#obj-source').append(jSString);
+  $('#obj-source').css('display', 'block');
   console.log(jSString);
+
 }

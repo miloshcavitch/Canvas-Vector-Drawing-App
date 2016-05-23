@@ -11,7 +11,18 @@ body {
   width: 70%;
   float: left;
 }
-
+#obj-source{
+  position: fixed;
+  display: none;
+  height: 100%;
+  width: 50%;
+  color: white;
+  background-color: black;
+  font-size: 8px;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
 .symmetry-toggle{
   float: right;
 }
