@@ -4,7 +4,8 @@ var ctx;
 var currentShape;//be careful with the way this is going to be used
 var canvasHasLoaded = function(){
   canvas = document.getElementById("myCanvas");
-  referencePoint = {x: canvas.width/2, y: canvas.height/2};
+  referencePoint = {x: canvas.width/2, y: canvas.height/2, left: false, right: false, up: false, down: false};
+
   symmetryPos = canvas.width/2;
   ctx = canvas.getContext('2d');
   $('#myCanvas').on( "mousemove", function(event) {
@@ -154,7 +155,33 @@ var initDrawingApp = function(){
   $('#xp-js-obj').click(function(){
     writeJS();
   });
+  $(document).on('keyup', function(event){
+    if (event.which === 39){
+      referencePoint.right = false;
+    }
+    if (event.which === 40){
+      referencePoint.down = false;
+    }
+    if (event.which === 37){
+      referencePoint.left = false;
+    }
+    if (event.which === 38){
+      referencePoint.up = false;
+    }
+  });
   $(document).on('keydown', function(event){
+    if (event.which === 39){
+      referencePoint.right = true;
+    }
+    if (event.which === 40){
+      referencePoint.down = true;
+    }
+    if (event.which === 37){
+      referencePoint.left = true;
+    }
+    if (event.which === 38){
+      referencePoint.up = true;
+    }
     if (event.which === 27){//escape key
       pseudoSprite.shapes.forEach(function(el){
         el.editPoints = false;
@@ -243,7 +270,7 @@ objectSnapSetup = function(){
   $('#handle-tolerance').change(function(){
     handleSizeCalc();
   });
-  $('#move-centerpoint').click(function(event){
+  $('#show-centerpoint').click(function(event){
     toggleReferencePoint(event);
   });
 }
@@ -263,7 +290,8 @@ $(document).ready(function(){
       $('#appBox').append(canString);
       $('#appBox').append("<div class='menu-btn' id='menu-btn'><div></div><span></span><span></span><span></span></div><div class='responsive-menu'></div><div id='side-menu'></div>");
       $('#side-menu').append("<form action='' id='o-tog'><br><input type='checkbox' id='object-snap-toggle' value='oSnapToggle'>Toggle Object Snap</input></form><br><form action='' id='object-snap-options'><br><br><input type='checkbox' id='point-snap' value='pointSnap'>Point Snap</input><input type='checkbox' id='line-snap' value='lineSnap'>Line Snap</input><br><input type='checkbox' id='grid-snap' value='gridSnap'>Grid Snap</input><br><br><input type='checkbox' id='symmetry-snap' value='symSnap'>Line of Symmetry Snap</input><br><p>OSnap Tolerance:</p><input type='range' name='gridSize' min='5' max='100' id ='handle-tolerance'></input><p>Grid Size:</p><input type='range' name='gridSize' id='grid-size' min='1' max='8' id='grid-size'></input><br><br><button type='button' id='xp-js-obj'>Export JS Object</button>")
-      $('#side-menu').append("<button type='button' id='move-centerpoint'>Show Center/Reference Point</button>")
+      $('#side-menu').append("<button type='button' id='show-centerpoint'>Show Center/Reference Point</button>")
+      $('#side-menu').append("<div id='move-centerpoint-info'><p>You can move the reference point <br> with the arrow keys</p></div>")
       canvasHasLoaded();
       objectSnapSetup();
       $('#appBox').append("<div id='below-menu'></div>")

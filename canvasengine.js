@@ -8,9 +8,11 @@ var toggleReferencePoint = function(event){
   switch(referenceBool){
     case true:
       event.target.innerHTML = 'Hide Center/Reference Point';
+      $('#move-centerpoint-info').css('display', 'block');
       break;
     case false:
       event.target.innerHTML = 'Show Center/Reference Point';
+      $('#move-centerpoint-info').css('display', 'none');
       break;
   }
   console.log(referenceBool);
