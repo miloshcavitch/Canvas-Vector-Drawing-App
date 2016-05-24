@@ -22,19 +22,36 @@ var writeJS = function(){
       if (p.worldY < minY){
         minY = p.worldY;
       }
+      if (shape.symmetry === true){
+        var symPoint = Math.abs(p.worldX - symmetryPos);
+        if (p.worldX > symmetryPos){
+          symPoint = symmetryPos - symPoint;
+        } else {
+          symPoint = symettryPos + symPoint;
+        }
+        if (p.worldX > maxX){
+          maxX = symPoint;
+        }
+        if (p.worldX < minX){
+          minX = symPoint;
+        }
+      }
     });
   });
   unitX = maxX - minX;
   unitY = maxY - minY;
-  var xCenter = 500;
-  var yCenter = 500;
   console.log(unitX);
-  jSString += ('<p>var pseudoSprite = {xCenter: undefined, yCenter: undefined, width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
+  jSString += ('<p>var pseudoSprite = {symmetryLine' +  'xCenter: ' + referencePoint.x + ', yCenter: '+ referencePoint.y + ', width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
   pseudoSprite.shapes.forEach(function(shape){
     jSString += ('{fillColor: ' + colorVariables[shape.colorIndex].name + ', type: \'' + shape.type + '\', positions: [<br>&#9;&#9;&#9;');
+    if (shape.type === 'circle'){
+      var localX = (shape.positions[0].worldX - referencePoint.x) / unitX;
+      var localY = (shape.positions[0].worldY - referencePoint.y) / unitY;
+      jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
+    }
     shape.positions.forEach(function(p){
-      var localX = (p.worldX - xCenter) / unitX;
-      var localY = (p.worldY - yCenter) / unitY;
+      var localX = (p.worldX - referencePoint.x) / unitX;
+      var localY = (p.worldY - referencePoint.y) / unitY;
       jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
     });
     jSString += " },<br>";
@@ -44,7 +61,7 @@ var writeJS = function(){
 
   $('#obj-source').empty();
   $('#obj-source').append(jSString);
-  $('#obj-source').css('display', 'block');
+  $('#obj-source').css({display: 'block', opacity: 1})
   console.log(jSString);
 
 }
