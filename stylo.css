@@ -24,6 +24,15 @@ body {
   z-index: 99;
   transition: opacity 1s;
 }
+#exit-source {
+  color: white;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
 #move-centerpoint-info{
   display: none;
   width: 100%;

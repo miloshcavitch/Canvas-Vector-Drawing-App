@@ -25,9 +25,10 @@ var writeJS = function(){
       if (shape.symmetry === true){
         var symPoint = Math.abs(p.worldX - symmetryPos);
         if (p.worldX > symmetryPos){
-          symPoint = symmetryPos - symPoint;
+          symPoint = symmetryPos + symPoint;
         } else {
-          symPoint = symettryPos + symPoint;
+          symPoint = symmetryPos - symPoint;
+          console.log('happening');
         }
         if (p.worldX > maxX){
           maxX = symPoint;
@@ -57,7 +58,7 @@ var writeJS = function(){
     jSString += " },<br>";
   });
   jSString.slice(jSString.length, 1);
-  jSString += "]}</p>";
+  jSString += "]}</p><div id='exit-source'><p>X</p></div>";
 
   $('#obj-source').empty();
   $('#obj-source').append(jSString);

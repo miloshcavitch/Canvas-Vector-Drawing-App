@@ -154,7 +154,11 @@ var initDrawingApp = function(){
   });
   $('#xp-js-obj').click(function(){
     writeJS();
+    $('#exit-source').click(function(){
+      $('#obj-source').css('display', 'none');
+    });
   });
+
   $(document).on('keyup', function(event){
     if (event.which === 39){
       referencePoint.right = false;
@@ -298,7 +302,7 @@ $(document).ready(function(){
       $('#below-menu').append("<div id='currentOptions'></div>");
       $('#currentOptions').append('<p id="currentInstructions"></p>');
       $('#currentOptions').append('<div id="currentForm"></div>');
-      $(document.body).append("<div id='obj-source'></div>")
+      $(document.body).append("<div id='obj-source'><div id='exit-source'><p>X</p></div></div>")
       $('#currentInstructions').text('');
       initDrawingApp();
     } else{

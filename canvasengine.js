@@ -151,6 +151,11 @@ var symmetryCurvedShapeRender = function(shape){
   ctx.fillStyle = colorVariables[shape.colorIndex].color;
   ctx.globalAlpha = shape.alphaLevel;
   ctx.fill();
+  if (shape.alphaLevel >= 0.9){
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = colorVariables[shape.colorIndex].color;
+    ctx.stroke();
+  }
   ctx.closePath();
   ctx.globalAlpha = 1;
 }
