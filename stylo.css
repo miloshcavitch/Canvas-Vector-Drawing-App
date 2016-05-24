@@ -10,6 +10,7 @@ body {
   width: 70%;
   float: left;
 }
+
 #obj-source{
   position: fixed;
   display: none;
@@ -24,6 +25,7 @@ body {
   z-index: 99;
   transition: opacity 1s;
 }
+
 #exit-source {
   color: white;
   position: absolute;

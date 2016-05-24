@@ -1,7 +1,7 @@
 var writeJS = function(){
   var jSString ='';
   colorVariables.forEach(function(color){
-    jSString += ("var " + color.name + " = " + color.color + ";<br>");
+    jSString += ("var " + color.name + " = '" + color.color + "';<br>");
   });
   var maxX = 0;
   var maxY = 0;
@@ -55,7 +55,7 @@ var writeJS = function(){
       var localY = (p.worldY - referencePoint.y) / unitY;
       jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
     });
-    jSString += " },<br>";
+    jSString += " ]},<br>";
   });
   jSString.slice(jSString.length, 1);
   jSString += "]}</p><div id='exit-source'><p>X</p></div>";
