@@ -42,20 +42,26 @@ var writeJS = function(){
   unitX = maxX - minX;
   unitY = maxY - minY;
   console.log(unitX);
-  jSString += ('<p>var pseudoSprite = {symmetryLine' +  'xCenter: ' + referencePoint.x + ', yCenter: '+ referencePoint.y + ', width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
+  jSString += ('<p>var pseudoSprite = {symmetryLine: ' +  symmetryPos + ', xCenter: ' + referencePoint.x + ', yCenter: '+ referencePoint.y + ', width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
   pseudoSprite.shapes.forEach(function(shape){
-    jSString += ('{fillColor: ' + colorVariables[shape.colorIndex].name + ', type: \'' + shape.type + '\', positions: [<br>&#9;&#9;&#9;');
+    jSString += ('{fillColor: ' + colorVariables[shape.colorIndex].name + ', globalAlpha: ' + shape.alphaLevel + ', type: \'' + shape.type + '\',');
     if (shape.type === 'circle'){
+      jSString += 'radius : ' + pythagLength(shape.positions[0].worldX, shape.positions[0].worldY, shape.positions[0]) + ",  positions: [<br>&#9;&#9;&#9;";
       var localX = (shape.positions[0].worldX - referencePoint.x) / unitX;
       var localY = (shape.positions[0].worldY - referencePoint.y) / unitY;
       jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
+    } else {
+      if (shape.type === 'polyline' || shape.type === 'curvedline'){
+        jSString += 'lineWidth: ' + shape.lineWidth + ", ";
+      }
+      jSString +=  'positions: [<br>&#9;&#9;&#9;';
+      shape.positions.forEach(function(p){
+        var localX = (p.worldX - referencePoint.x) / unitX;
+        var localY = (p.worldY - referencePoint.y) / unitY;
+        jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
+      });
+      jSString += " <br>]},<br>";
     }
-    shape.positions.forEach(function(p){
-      var localX = (p.worldX - referencePoint.x) / unitX;
-      var localY = (p.worldY - referencePoint.y) / unitY;
-      jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
-    });
-    jSString += " ]},<br>";
   });
   jSString.slice(jSString.length, 1);
   jSString += "]}</p><div id='exit-source'><p>X</p></div>";
