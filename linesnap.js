@@ -12,7 +12,7 @@ var polyLineSnap = function(){
         } else {
           possibleIntersections = calculationOfLine(s.positions[i].worldX, s.positions[i].worldY, s.positions[i+1].worldX, s.positions[i+1].worldY);
         }
-
+        console.log(possibleIntersections);
         if (possibleIntersections.onLine1 === true && possibleIntersections.onLine2 === true){
           var tempPoint = {worldX: possibleIntersections.x, worldY: possibleIntersections.y,};
           if (pythagLength(mouseX, mouseY, tempPoint) <= tempLength){
