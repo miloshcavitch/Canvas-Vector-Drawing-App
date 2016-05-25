@@ -46,10 +46,10 @@ var writeJS = function(){
   pseudoSprite.shapes.forEach(function(shape){
     jSString += ('{fillColor: ' + colorVariables[shape.colorIndex].name + ', globalAlpha: ' + shape.alphaLevel + ', type: \'' + shape.type + '\',');
     if (shape.type === 'circle'){
-      jSString += 'radius : ' + pythagLength(shape.positions[0].worldX, shape.positions[0].worldY, shape.positions[0]) + ",  positions: [<br>&#9;&#9;&#9;";
+      jSString += 'radius : ' + pythagLength(shape.positions[0].worldX, shape.positions[0].worldY, shape.positions[1])/unitX + ",  positions: [<br>&#9;&#9;&#9;";
       var localX = (shape.positions[0].worldX - referencePoint.x) / unitX;
       var localY = (shape.positions[0].worldY - referencePoint.y) / unitY;
-      jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},";
+      jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "},<br>";
     } else {
       if (shape.type === 'polyline' || shape.type === 'curvedline'){
         jSString += 'lineWidth: ' + shape.lineWidth + ", ";

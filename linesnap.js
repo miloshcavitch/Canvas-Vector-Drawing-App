@@ -23,11 +23,6 @@ var polyLineSnap = function(){
         }
       }
     }
-    if (s.type === 'circle'){
-      if (pythagLength(mouseX, mouseY, s.positions[0]) < s.radius){
-        //where stuff will go
-      }
-    }
   });
   if (candidate.worldX != undefined){
     return candidate;
@@ -69,5 +64,5 @@ var calculationOfLine = function(x1, y1, x2, y2){
 }
 
 var mirrorLineSnap = function(){
-  
+
 }
