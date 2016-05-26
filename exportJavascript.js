@@ -52,7 +52,7 @@ var writeJS = function(){
       jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "}]},<br>";
     } else {
       if (shape.type === 'polyline' || shape.type === 'curvedline'){
-        jSString += 'lineWidth: ' + shape.lineWidth + ", ";
+        jSString += 'lineWidth: ' + shape.lineWidth + ", " ;
       }
       jSString +=  'positions: [<br>&#9;&#9;&#9;';
       shape.positions.forEach(function(p){
