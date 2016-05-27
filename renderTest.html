@@ -9,35 +9,51 @@
       var ctx = canvas.getContext('2d');
 
       var black = '#000000';
-var pseudoSprite = {symmetryLine: 677.5, xCenter: 677.5, yCenter: 250, width: 462, height: 227, shapes: [
-{color: black, globalAlpha: 1, type: 'curvedshape',positions: [
+      var pseudoSprite = {symmetryLine: 677.5, xCenter: 677.5, yCenter: 250, width: 511, height: 458, shapes: [
+      {color: black, globalAlpha: 1, type: 'curvedline',lineWidth: 12.200000000000001, positions: [
 
-{x: -0.6071428571428571, y: -0.02643171806167401},
-{x: -0.6295093795093795, y: -0.16446402349486042},
-{x: -0.8344155844155844, y: -0.1762114537444934},
-{x: -0.6742424242424242, y: -0.44052863436123346},
-{x: -0.6634199134199135, y: -0.801762114537445},
-{x: -0.4707792207792208, y: -0.6872246696035242},
-{x: -0.36904761904761907, y: -0.8105726872246696},
-{x: 0.16558441558441558, y: -0.8193832599118943},
-{x: -0.11219336219336228, y: -0.2701908957415566},
-{x: 0.016233766233766232, y: 0},
-{x: -0.11291486291486283, y: 0.06020558002936866},
-{x: -0.24206349206349215, y: 0.12041116005873707},
-{x: -0.3712121212121212, y: 0.18061674008810572},
-{x: -0.3712121212121212, y: -0.030837004405286344},
-{x: -0.3712121212121212, y: -0.2422907488986784},
-{x: -0.3712121212121212, y: -0.45374449339207046},
-{x: -0.42821067821067815, y: -0.42731277533039647},
-{x: -0.48520923520923515, y: -0.4008810572687225},
-{x: -0.5422077922077922, y: -0.3744493392070485},
-{x: -0.6006493506493507, y: -0.21145374449339208},
-{x: -0.4873737373737373, y: -0.039647577092511016},
-{x: -0.45995670995670995, y: 0.1277533039647577},
-{x: -0.509018759018759, y: 0.07635829662261372},
-{x: -0.5580808080808081, y: 0.024963289280469855},
-]},
-]}
+      {x: -0.5900195694716243, y: 0.08296943231441048},
+      {x: -0.6291585127201565, y: 0.024017467248908297},
+      {x: -0.860078277886497, y: 0.034934497816593885},
+      {x: -0.7074363992172211, y: -0.09388646288209607},
+      {x: -0.5802348336594912, y: -0.20378457059679764},
+      {x: -0.3747553816046967, y: -0.5393013100436681},
+      {x: -0.3258317025440313, y: -0.42358078602620086},
+      {x: -0.2932159165035878, y: -0.37627365356623},
+      {x: -0.26060013046314406, y: -0.3289665211062591},
+      {x: -0.27690802348336596, y: -0.25327510917030566},
+      {x: -0.30104370515329426, y: -0.19577874818049487},
+      {x: -0.35909980430528377, y: 0.015283842794759825},
+      {x: -0.18493150684931506, y: 0.08296943231441048},
+      ]},
+      {color: black, globalAlpha: 0.42, type: 'curvedshape',positions: [
+
+      {x: -0.3669275929549902, y: 0.3471615720524017},
+      {x: -0.39954337899543374, y: 0.2627365356622998},
+      {x: -0.5430528375733855, y: 0.27510917030567683},
+      {x: -0.46477495107632094, y: 0.09388646288209607},
+      {x: -0.4315068493150685, y: 0.08078602620087336},
+      {x: -0.39823874755381605, y: 0.06768558951965066},
+      {x: -0.3649706457925636, y: 0.05458515283842795},
+      {x: -0.14774951076320939, y: 0.006550218340611353},
+      {x: -0.13274624918460542, y: 0.2045123726346433},
+      {x: -0.016634050880626222, y: 0.2794759825327511},
+      {x: 0.13992172211350293, y: 0.4017467248908297},
+      {x: -0.09752120026092637, y: 0.3478893740902474},
+      {x: -0.1634050880626223, y: 0.32532751091703055},
+      {x: -0.2181996086105675, y: 0.28820960698689957},
+      {x: -0.19863013698630136, y: 0.10262008733624454},
+      {x: -0.3786692759295499, y: 0.10043668122270742},
+      {x: -0.3943248532289628, y: 0.10553129548762732},
+      {x: -0.40998043052837574, y: 0.11062590975254735},
+      {x: -0.42563600782778865, y: 0.11572052401746726},
+      {x: -0.2710371819960861, y: 0.21179039301310043},
+      {x: -0.3290932811480757, y: 0.30058224163027647},
+      {x: -0.2808219178082192, y: 0.3930131004366812},
+      {x: -0.2299412915851272, y: 0.4519650655021834},
+      {x: -0.3512720156555773, y: 0.4606986899563319},
+      ]},
+      ]}
       var renderPseudoSprite = function(object, context){
         object.shapes.forEach(function(shape){
           switch (shape.type){
@@ -45,7 +61,8 @@ var pseudoSprite = {symmetryLine: 677.5, xCenter: 677.5, yCenter: 250, width: 46
               renderPolyline(object, context, shape);
               break;
             case 'curvedline':
-              //renderCurvedLine(shape);
+              renderCurvedLine(object, context, shape);
+              debugRender(object, context, shape);
               break;
             case 'polygon':
               renderPolygon(object, context, shape);
@@ -94,12 +111,12 @@ var pseudoSprite = {symmetryLine: 677.5, xCenter: 677.5, yCenter: 250, width: 46
       var renderCurvedShape = function(object, context, shape){
         context.beginPath();
         context.moveTo(object.xCenter + (shape.positions[0].x), object.yCenter + (shape.positions[0].y));
-        for (var i = 1; i < shape.positions.length -1; i += 3){
+        for (var i = 1; i < shape.positions.length - 1; i += 3){
           var lastpoint = {x: undefined, y: undefined};
-          if (i+3 > shape.positions.length){
+          if ( i+3 > shape.positions.length ) {
             lastpoint.x = shape.positions[0].x;
             lastpoint.y = shape.positions[0].y;
-          } else{
+          } else {
             lastpoint.x = shape.positions[i+2].x;
             lastpoint.y = shape.positions[i+2].y;
           }
@@ -113,6 +130,32 @@ var pseudoSprite = {symmetryLine: 677.5, xCenter: 677.5, yCenter: 250, width: 46
         context.globalAlpha = shape.globalAlpha;
         context.fill();
         context.closePath();
+      }
+
+      var renderCurvedLine = function(object, context, shape){
+        context.beginPath();
+        context.moveTo(object.xCenter + (shape.positions[0].x * object.width), object.yCenter + (shape.positions[0].y * object.height));
+        for (var i = 1; i < shape.positions.length - 1; i +=3 ){
+          var lastpoint = {x: undefined, y: undefined};
+          if (shape.positions[i+2] === undefined){
+            continue;
+          }
+          context.bezierCurveTo(object.xCenter + (shape.positions[i].x * object.width), object.yCenter + (shape.positions[i].y * object.height), object.xCenter + (shape.positions[i+1].x * object.width), object.yCenter + (shape.positions[i+1].y * object.yCenter), object.xCenter + (shape.positions[i+2].x * object.width), object.yCenter + (shape.positions[i+2].y * object.height) );
+        }
+        context.strokeStyle = shape.color;
+        context.lineWidth = shape.lineWidth;
+        context.globalAlpha = shape.globalAlpha;
+        context.stroke();
+        context.closePath();
+      }
+      var debugRender = function(object, context, shape){
+        shape.positions.forEach(function(p){
+          context.beginPath();
+          context.arc(object.xCenter + (p.x * object.width), object.yCenter + (p.y * object.height), 10, 0, Math.PI * 2);
+          context.fillStyle = 'black';
+          context.fill();
+          context.closePath();
+        });
       }
       var incX = 5;
       var incY = 10;
