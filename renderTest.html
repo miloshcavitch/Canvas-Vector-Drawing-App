@@ -9,14 +9,19 @@
       var ctx = canvas.getContext('2d');
 
       var black = '#000000';
-      var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 334, height: 416, shapes: [
+      var pseudoSprite = {symmetryLine: 0, xCenter: 577.5, yCenter: 250, width: 306, height: 246, shapes: [
       {symmetryBool: true, color: black, globalAlpha: 1, type: 'polygon',positions: [
 
-      {x: -1.034431137724551, y: 0.1346153846153846},
-      {x: -1.1062874251497006, y: -0.18990384615384615},
-      {x: -0.19311377245508982, y: -0.4567307692307692},
-      {x: -0.1062874251497006, y: 0.21153846153846154},
-      {x: -0.5703592814371258, y: 0.5432692307692307},
+      {x: -1.1552287581699345, y: 0.04878048780487805},
+      {x: -0.9493464052287581, y: -0.7723577235772358},
+      {x: -0.6356209150326797, y: -0.7520325203252033},
+      {x: -0.684640522875817, y: 0.012195121951219513},
+      ]},
+      {symmetryBool: true, color: black, globalAlpha: 1, type: 'polyline',lineWidth: 9.5, positions: [
+
+      {x: -1.1519607843137254, y: 0.22764227642276422},
+      {x: -0.15522875816993464, y: 0.21138211382113822},
+      {x: -0.4199346405228758, y: -0.7398373983739838},
       ]},
       ]}
       var renderPseudoSprite = function(object, context){
@@ -55,7 +60,7 @@
         context.fill();
         context.closePath();
         if (shape.symmetryBool === true){
-          symmetryRenderPolygon(object, context, shape);
+          symmetryRenderPoly(object, context, shape);
         }
       }
       var renderCircle = function(object, context, shape){
@@ -77,6 +82,9 @@
         context.strokeStyle = shape.color;
         context.stroke();
         context.closePath();
+        if (shape.symmetryBool == true){
+          symmetryRenderPoly(object, context, shape);
+        }
       }
       var renderCurvedShape = function(object, context, shape){
         context.beginPath();
@@ -122,7 +130,7 @@
         context.stroke();
         context.closePath();
       }
-      var symmetryRenderPolygon = function(object, context, shape){
+      var symmetryRenderPoly = function(object, context, shape){
         context.beginPath();
         var initFlippedX = Math.abs(shape.positions[0].x - object.symmetryLine);
         if (shape.positions[0].x > object.symmetryLine){
@@ -136,7 +144,15 @@
           }
           context.lineTo(object.xCenter + (flippedX * object.width), object.yCenter + (p.y * object.height) );
         });
-        context.fill();
+        switch (shape.type){
+          case 'polyline':
+            context.stroke();
+            break;
+          case 'polygon':
+            context.fill();
+            break;
+        }
+        context.closePath();
       }
       var debugRender = function(object, context, shape){
         shape.positions.forEach(function(p){
