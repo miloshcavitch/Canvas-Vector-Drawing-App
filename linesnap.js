@@ -53,6 +53,9 @@ var calculationOfLine = function(x1, y1, x2, y2){
   rise = Math.abs(y1 - y2);
   run = Math.abs(x1 - x2);
   slope = rise/run;
+  if (slope === 0){//some bullshit hack code right hurr to fix a bullshit problem(temp)
+    slope = 0.00000000000001;
+  }
   if ((x1 > x2 && y1 < y2) || (x1 < x2 && y1 > y2)){
     slope = slope * -1;
   }

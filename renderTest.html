@@ -9,21 +9,34 @@
       var ctx = canvas.getContext('2d');
 
       var black = '#000000';
-var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 245, height: 421, shapes: [
-{symmetryBool: true, color: black, globalAlpha: 1, type: 'polyline',lineWidth: 1, positions: [
+var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 461, height: 340, shapes: [
+{symmetryBool: false, color: black, globalAlpha: 0.3, type: 'curvedshape', lineWidth: 10,positions: [
 
-{x: -1.1612244897959183, y: 0.035629453681710214},
-{x: -1.1612244897959183, y: -0.23515439429928742},
-{x: -0.16122448979591836, y: -0.5581947743467933},
-{x: -0.373469387755102, y: 0.24465558194774348},
-{x: -0.8346938775510204, y: 0.4418052256532066},
+{x: -1.0488069414316703, y: 0.11176470588235295},
+{x: -1.0488069414316703, y: -0.043137254901960756},
+{x: -1.0488069414316703, y: -0.19803921568627444},
+{x: -1.0488069414316703, y: -0.35294117647058826},
+{x: -1.0206073752711498, y: -0.5764705882352941},
+{x: -0.7885032537960954, y: -0.6647058823529411},
+{x: -0.5433839479392625, y: -0.5941176470588235},
+{x: -0.04880694143167028, y: -0.38529411764705884},
+{x: -0.3958785249457701, y: 0.02549019607843126},
+{x: -0.32212581344902386, y: 0.3352941176470588},
+{x: -0.45300072306579897, y: 0.3352941176470588},
+{x: -0.583875632682574, y: 0.3352941176470588},
+{x: -0.7147505422993492, y: 0.3352941176470588},
+{x: -0.6800433839479393, y: 0.12450980392156874},
+{x: -0.28308026030368766, y: -0.2411764705882353},
+{x: -0.5824295010845987, y: -0.3382352941176471},
+{x: -0.6865509761388287, y: -0.37058823529411766},
+{x: -0.7711496746203904, y: -0.3941176470588235},
+{x: -0.9229934924078091, y: -0.21470588235294116},
+{x: -1.0054229934924077, y: -0.07352941176470588},
+{x: -0.8897324656543746, y: 0.15},
+{x: -0.7776572668112798, y: 0.3},
+{x: -0.9316702819956616, y: 0.25882352941176473},
+{x: -0.9902386117136659, y: 0.18529411764705883},
 ]},
-{symmetryBool: true, color: black, globalAlpha: 1, type: 'circle',radius : 0.13067600484556835, positions: [
-
-{x: -1.1612244897959183, y: 0.035629453681710214}]},
-{symmetryBool: true, color: black, globalAlpha: 1, type: 'circle',radius : 0.14285714285714285, positions: [
-
-{x: -1.1612244897959183, y: -0.23515439429928742}]},
 ]}
       var renderPseudoSprite = function(object, context){
         object.shapes.forEach(function(shape){
@@ -43,8 +56,8 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 245, h
               break;
             case 'curvedshape':
               renderCurvedShape(object, context, shape);
-              renderPolygon(object, context, shape);
-            //  debugRender(object,context,shape);
+              //renderPolygon(object, context, shape);
+              debugRender(object,context,shape);
               break;
 
           }
@@ -99,24 +112,17 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 245, h
       }
       var renderCurvedShape = function(object, context, shape){
         context.beginPath();
-        context.moveTo(object.xCenter + (shape.positions[0].x), object.yCenter + (shape.positions[0].y));
-        for (var i = 1; i < shape.positions.length - 1; i += 3){
-          //console.log(i + ", " + (i+1) + ", " + (i+2) );
+        context.moveTo(object.xCenter + (shape.positions[0].x * object.width) , object.yCenter + (shape.positions[0].y * object.height) );
+        for (var i = 1; i < shape.positions.length; i+=3){
           var lastpoint = {x: undefined, y: undefined};
-          if ( shape.positions[i+3] === undefined ) {
+          if (i+3 > shape.positions.length){
             lastpoint.x = shape.positions[0].x;
             lastpoint.y = shape.positions[0].y;
-          } else {
-            lastpoint.x = shape.positions[i+3].x;
-            lastpoint.y = shape.positions[i+3].y;
+          } else{
+            lastpoint.x = shape.positions[i+2].x;
+            lastpoint.y = shape.positions[i+2].y;
           }
-          var one = {x: object.xCenter + (shape.positions[i].x * object.width), y: object.yCenter + (shape.positions[i].y * object.height)};
-          var two = {x: object.xCenter + (shape.positions[i+1].x * object.width), y: object.yCenter + (shape.positions[i+1].y * object.height)};
-          var three = {x: object.xCenter + (lastpoint.x * object.width), y: object.yCenter + (lastpoint.y * object.height)};
-          context.bezierCurveTo(one.x, one.y, two.x, two.y, three.x, three.y);
-          debugPoint(one.x,one.y);
-          debugPoint(two.x,two.y);
-          debugPoint(three.x,three.y);
+          context.bezierCurveTo(object.xCenter + (shape.positions[i].x * object.width), object.yCenter + (shape.positions[i].y * object.height), object.xCenter + (shape.positions[i+1].x * object.width), object.yCenter + (shape.positions[i+1].y * object.height), object.xCenter + (lastpoint.x * object.width), object.yCenter + (lastpoint.y * object.height) );
         }
 
         context.fillStyle = shape.color;
