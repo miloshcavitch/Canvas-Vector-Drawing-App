@@ -9,33 +9,45 @@
       var ctx = canvas.getContext('2d');
 
       var black = '#000000';
-var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 461, height: 340, shapes: [
-{symmetryBool: false, color: black, globalAlpha: 0.3, type: 'curvedshape', lineWidth: 10,positions: [
+var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 509, height: 343, shapes: [
+{symmetryBool: false, color: black, globalAlpha: 0.55, type: 'curvedshape',positions: [
 
-{x: -1.0488069414316703, y: 0.11176470588235295},
-{x: -1.0488069414316703, y: -0.043137254901960756},
-{x: -1.0488069414316703, y: -0.19803921568627444},
-{x: -1.0488069414316703, y: -0.35294117647058826},
-{x: -1.0206073752711498, y: -0.5764705882352941},
-{x: -0.7885032537960954, y: -0.6647058823529411},
-{x: -0.5433839479392625, y: -0.5941176470588235},
-{x: -0.04880694143167028, y: -0.38529411764705884},
-{x: -0.3958785249457701, y: 0.02549019607843126},
-{x: -0.32212581344902386, y: 0.3352941176470588},
-{x: -0.45300072306579897, y: 0.3352941176470588},
-{x: -0.583875632682574, y: 0.3352941176470588},
-{x: -0.7147505422993492, y: 0.3352941176470588},
-{x: -0.6800433839479393, y: 0.12450980392156874},
-{x: -0.28308026030368766, y: -0.2411764705882353},
-{x: -0.5824295010845987, y: -0.3382352941176471},
-{x: -0.6865509761388287, y: -0.37058823529411766},
-{x: -0.7711496746203904, y: -0.3941176470588235},
-{x: -0.9229934924078091, y: -0.21470588235294116},
-{x: -1.0054229934924077, y: -0.07352941176470588},
-{x: -0.8897324656543746, y: 0.15},
-{x: -0.7776572668112798, y: 0.3},
-{x: -0.9316702819956616, y: 0.25882352941176473},
-{x: -0.9902386117136659, y: 0.18529411764705883},
+{x: -0.9400785854616895, y: 0.21574344023323616},
+{x: -0.9400785854616895, y: 0.062196307094266386},
+{x: -0.9400785854616895, y: -0.09135082604470354},
+{x: -0.9400785854616895, y: -0.24489795918367346},
+{x: -0.9145383104125737, y: -0.46647230320699706},
+{x: -0.7043222003929273, y: -0.5539358600583091},
+{x: -0.4823182711198428, y: -0.4839650145772595},
+{x: -0.0343811394891945, y: -0.27696793002915454},
+{x: -0.3487229862475442, y: 0.13022351797861992},
+{x: -0.2819253438113949, y: 0.43731778425655976},
+{x: -0.4004584151931892, y: 0.43731778425655976},
+{x: -0.5189914865749835, y: 0.43731778425655976},
+{x: -0.637524557956778, y: 0.43731778425655976},
+{x: -0.6060903732809431, y: 0.2283770651117591},
+{x: -0.24656188605108054, y: -0.13411078717201166},
+{x: -0.5176817288801572, y: -0.2303206997084548},
+{x: -0.611984282907662, y: -0.26239067055393583},
+{x: -0.6886051080550099, y: -0.2857142857142857},
+{x: -0.8261296660117878, y: -0.10787172011661808},
+{x: -0.9007858546168959, y: 0.03206997084548105},
+{x: -0.7960052390307794, y: 0.2536443148688047},
+{x: -0.6944990176817288, y: 0.40233236151603496},
+{x: -0.8339882121807466, y: 0.36151603498542273},
+{x: -0.8870333988212181, y: 0.2886297376093295},
+]},
+{symmetryBool: true, color: black, globalAlpha: 0.48, type: 'curvedshape',positions: [
+
+{x: -0.05795677799607073, y: 0.3819241982507289},
+{x: -0.2125081859855926, y: 0.21282798833819241},
+{x: -0.11886051080550099, y: 0.026239067055393587},
+{x: -0.5216110019646365, y: -0.12536443148688048},
+{x: -0.14636542239685657, y: -0.05539358600583091},
+{x: -0.2518009168303863, y: -0.41690962099125367},
+{x: -0.1168958742632613, y: -0.5626822157434402},
+{x: -0.09724950884086467, y: -0.2478134110787172},
+{x: 0.05992141453831041, y: -0.043731778425655975},
 ]},
 ]}
       var renderPseudoSprite = function(object, context){
@@ -129,6 +141,9 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 461, h
         context.globalAlpha = shape.globalAlpha;
         context.fill();
         context.closePath();
+        if (shape.symmetryBool === true){
+          symmetryRenderCurvedShape(object, context, shape);
+        }
       }
 
       var renderCurvedLine = function(object, context, shape){
@@ -169,6 +184,41 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 461, h
             context.fill();
             break;
         }
+        context.closePath();
+      }
+      var symmetryRenderCurvedShape = function(object, context, shape){
+        context.beginPath();
+        var initFlippedX = Math.abs(shape.positions[0].x - object.symmetryLine);
+        if (shape.positions[0].x > object.symmetryLine){
+          initFlippedX = initFlippedX * -1;
+        }
+        context.moveTo(object.xCenter + (initFlippedX * object.width) , object.yCenter + (shape.positions[0].y * object.height) );
+        for (var i = 1; i < shape.positions.length; i+=3){
+          var lastpoint = {x: undefined, y: undefined};
+          if (i+3 > shape.positions.length){
+            lastpoint.x = Math.abs(shape.positions[0].x - object.symmetryLine);
+            if (shape.positions[0].x > object.symmetryLine){
+              lastpoint.x = lastpoint.x * -1;
+            }
+            lastpoint.y = shape.positions[0].y;
+          } else{
+            lastpoint.x = Math.abs(shape.positions[i+2].x - object.symmetryLine);
+            if (shape.positions[i+2].x > object.symmetryLine){
+              lastpoint.x = lastpoint.x * -1;
+            }
+            lastpoint.y = shape.positions[i+2].y;
+          }
+          var oneX = Math.abs(shape.positions[i].x - object.symmetryLine);
+          if (shape.positions[i].x > object.symmetryLine){
+            oneX = oneX * -1;
+          }
+          var twoX = Math.abs(shape.positions[i+1].x - object.symmetryLine);
+          if (shape.positions[i+1].x > object.symmetryLine){
+            twoX = twoX * -1;
+          }
+          context.bezierCurveTo(object.xCenter + (oneX * object.width), object.yCenter + (shape.positions[i].y * object.height), object.xCenter + (twoX * object.width), object.yCenter + (shape.positions[i+1].y * object.height), object.xCenter + (lastpoint.x * object.width), object.yCenter + (lastpoint.y * object.height) );
+        }
+        context.fill();
         context.closePath();
       }
       var debugRender = function(object, context, shape){
