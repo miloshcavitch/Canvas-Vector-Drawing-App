@@ -23,6 +23,7 @@ body {
   top: 0;
   left: 0;
   z-index: 99;
+  overflow: scroll;
   transition: opacity 1s;
 }
 
