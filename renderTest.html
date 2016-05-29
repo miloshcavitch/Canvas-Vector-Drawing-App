@@ -8,19 +8,29 @@
       var canvas = document.getElementById('myCanvas');
       var ctx = canvas.getContext('2d');
 
-      var black = '#000000';
-var houi = '#fffe00';
-var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, height: 251, shapes: [
-{symmetryBool: false, color: houi, globalAlpha: 0.42, type: 'polygon',positions: [
+      var colorArray =['#000000', '#fffe00']
+var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 238, height: 299, shapes: [
+{symmetryBool: true, color: 0, globalAlpha: 1, type: 'curvedshape',positions: [
 
-{x: -1.646341463414634, y: 0.4541832669322709},
-{x: -1.5878048780487806, y: -0.32270916334661354},
-{x: -0.9, y: -0.545816733067729},
-{x: -0.7292682926829268, y: 0.035856573705179286},
+{x: 0.35084033613445376, y: 0.22742474916387959},
+{x: 0.22478991596638656, y: 0.07803790412486078},
+{x: 0.09873949579831932, y: -0.07134894091415825},
+{x: -0.25, y: 0.0903010033444816},
+{x: 0.3802521008403361, y: -0.15719063545150502},
+{x: 0.23599439775910397, y: -0.44816053511705684},
+{x: 0.36764705882352944, y: -0.5618729096989966},
+{x: 0.5189075630252101, y: -0.6521739130434783},
+{x: 0.6113445378151261, y: -0.4816053511705686},
+{x: 0.45168067226890757, y: -0.41471571906354515},
+{x: 0.32983193277310924, y: -0.3433667781493868},
+{x: 0.20798319327731093, y: -0.2720178372352285},
+{x: 0.21218487394957983, y: -0.15384615384615385},
+{x: 0.20378151260504201, y: -0.056856187290969896},
+{x: 0.20378151260504201, y: 0.14715719063545152},
+{x: 0.5609243697478992, y: 0.14046822742474915},
+{x: 0.75, y: 0.10702341137123746},
+{x: 0.4432773109243697, y: 0.34782608695652173},
 ]},
-{symmetryBool: false, color: black, globalAlpha: 0.43, type: 'circle',radius : 0.26269096620168314, positions: [
-
-{x: -0.8707317073170732, y: 0.05179282868525897}]},
 ]}
       var renderPseudoSprite = function(object, context){
         object.shapes.forEach(function(shape){
@@ -53,16 +63,16 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, h
         context.globalAlpha = shape.globalAlpha;
         switch (shape.type){
           case 'polyline':
-            context.strokeStyle = shape.color;
+            context.strokeStyle = colorArray[shape.color];
             context.lineWidth = shape.lineWidth;
             context.stroke();
             break;
           case 'polygon':
-            context.fillStyle = shape.color;
+            context.fillStyle = colorArray[shape.color];
             context.fill();
             if (shape.globalAlpha >= 0.9){
               context.lineWidth = 1;
-              context.strokeStyle = shape.color;
+              context.strokeStyle = colorArray[shape.color];
               context.stroke();
             }
             break;
@@ -75,7 +85,7 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, h
       var renderCircle = function(object, context, shape){
         context.beginPath();
         context.arc(object.xCenter + (shape.positions[0].x * object.width), object.yCenter + (object.height * shape.positions[0].y), (shape.radius * object.width), 0, Math.PI * 2);
-        context.fillStyle = shape.color;
+        context.fillStyle = colorArray[shape.color];
         context.globalAlpha = shape.globalAlpha;
         context.fill()
         context.closePath();
@@ -98,7 +108,7 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, h
         });
         context.lineWidth = shape.lineWidth;
         context.globalAlpha = shape.globalAlpha;
-        context.strokeStyle = shape.color;
+        context.strokeStyle = colorArray[shape.color];
         context.stroke();
         context.closePath();
         if (shape.symmetryBool == true){
@@ -120,12 +130,12 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, h
           context.bezierCurveTo(object.xCenter + (shape.positions[i].x * object.width), object.yCenter + (shape.positions[i].y * object.height), object.xCenter + (shape.positions[i+1].x * object.width), object.yCenter + (shape.positions[i+1].y * object.height), object.xCenter + (lastpoint.x * object.width), object.yCenter + (lastpoint.y * object.height) );
         }
 
-        context.fillStyle = shape.color;
+        context.fillStyle = colorArray[shape.color];
         context.globalAlpha = shape.globalAlpha;
         context.fill();
         if (shape.globalAlpha >= 0.9){
           context.lineWidth = 1;
-          context.strokeStyle = shape.color;
+          context.strokeStyle = colorArray[shape.color];
           context.stroke();
         }
         context.closePath();
@@ -144,7 +154,7 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, h
           }
           context.bezierCurveTo(object.xCenter + (shape.positions[i].x * object.width), object.yCenter + (shape.positions[i].y * object.height), object.xCenter + (shape.positions[i+1].x * object.width), object.yCenter + (shape.positions[i+1].y * object.yCenter), object.xCenter + (shape.positions[i+2].x * object.width), object.yCenter + (shape.positions[i+2].y * object.height) );
         }
-        context.strokeStyle = shape.color;
+        context.strokeStyle = colorArray[shape.color];
         context.lineWidth = shape.lineWidth;
         context.globalAlpha = shape.globalAlpha;
         context.stroke();

@@ -1,8 +1,10 @@
 var writeJS = function(){
-  var jSString ='';
+  var jSString ='var colorArray =[';
   colorVariables.forEach(function(color){
-    jSString += ("var " + color.name + " = '" + color.color + "';<br>");
+    jSString += "\'" + color.color + "\', ";
   });
+  jSString = jSString.substring(0, jSString.length - 2);
+  jSString += "]<br>";
   var maxX = 0;
   var maxY = 0;
   var minX = pseudoSprite.shapes[0].positions[0].worldX;
@@ -45,7 +47,7 @@ var writeJS = function(){
   jSString += ('<p>var pseudoSprite = {symmetryLine: ' +  ( (symmetryPos - referencePoint.x) / unitX ) + ', xCenter: ' + referencePoint.x + ', yCenter: '+ referencePoint.y + ', width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
     renderOrder.forEach(function(i){
       var shape = pseudoSprite.shapes[i];
-      jSString += ('{symmetryBool: ' + shape.symmetry + ', color: ' + colorVariables[shape.colorIndex].name + ', globalAlpha: ' + shape.alphaLevel + ', type: \'' + shape.type + '\',');
+      jSString += ('{symmetryBool: ' + shape.symmetry + ', color: ' + shape.colorIndex + ', globalAlpha: ' + shape.alphaLevel + ', type: \'' + shape.type + '\',');
       if (shape.type === 'circle'){
         jSString += 'radius : ' + pythagLength(shape.positions[0].worldX, shape.positions[0].worldY, shape.positions[1])/unitX + ",  positions: [<br>&#9;&#9;&#9;";
         var localX = (shape.positions[0].worldX - referencePoint.x) / unitX;
