@@ -9,24 +9,18 @@
       var ctx = canvas.getContext('2d');
 
       var black = '#000000';
-var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 565, height: 347, shapes: [
-{symmetryBool: true, color: black, globalAlpha: 0.8300000000000001, type: 'polygon',positions: [
+var houi = '#fffe00';
+var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 205, height: 251, shapes: [
+{symmetryBool: false, color: houi, globalAlpha: 0.42, type: 'polygon',positions: [
 
-{x: -0.34601769911504426, y: 0.4034582132564842},
-{x: -0.1584070796460177, y: 0.21037463976945245},
-{x: -0.29646017699115046, y: -0.17579250720461095},
-{x: -0.1088495575221239, y: -0.40057636887608067},
-{x: -0.48761061946902656, y: -0.5965417867435159},
-{x: -0.6964601769911505, y: 0.23631123919308358},
+{x: -1.646341463414634, y: 0.4541832669322709},
+{x: -1.5878048780487806, y: -0.32270916334661354},
+{x: -0.9, y: -0.545816733067729},
+{x: -0.7292682926829268, y: 0.035856573705179286},
 ]},
-{symmetryBool: true, color: black, globalAlpha: 0.51, type: 'polygon',positions: [
+{symmetryBool: false, color: black, globalAlpha: 0.43, type: 'circle',radius : 0.26269096620168314, positions: [
 
-{x: -0.1088495575221239, y: -0.40057636887608067},
-{x: -0.29646017699115046, y: -0.17579250720461095},
-{x: -0.1584070796460177, y: 0.21037463976945245},
-{x: 0.252212389380531, y: 0.29394812680115273},
-{x: 0.3035398230088496, y: -0.04610951008645533},
-]},
+{x: -0.8707317073170732, y: 0.05179282868525897}]},
 ]}
       var renderPseudoSprite = function(object, context){
         object.shapes.forEach(function(shape){
