@@ -22,6 +22,7 @@ var polyLineSnap = function(){
           }
         }
       }
+      
     }
   });
   if (candidate.worldX != undefined){
@@ -49,6 +50,7 @@ var linePolyTest = function(s){
     }
   }
 }
+
 var calculationOfLine = function(x1, y1, x2, y2){
   rise = Math.abs(y1 - y2);
   run = Math.abs(x1 - x2);

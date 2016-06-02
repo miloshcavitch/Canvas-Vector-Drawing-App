@@ -8,29 +8,33 @@
       var canvas = document.getElementById('myCanvas');
       var ctx = canvas.getContext('2d');
 
-      var colorArray =['#000000', '#fffe00']
-var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 238, height: 299, shapes: [
-{symmetryBool: true, color: 0, globalAlpha: 1, type: 'curvedshape',positions: [
+      var colorArray =['#000000', '#57ff00']
+var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 517, height: 359, shapes: [
+{symmetryBool: true, color: 1, globalAlpha: 0.49, type: 'curvedshape',positions: [
 
-{x: 0.35084033613445376, y: 0.22742474916387959},
-{x: 0.22478991596638656, y: 0.07803790412486078},
-{x: 0.09873949579831932, y: -0.07134894091415825},
-{x: -0.25, y: 0.0903010033444816},
-{x: 0.3802521008403361, y: -0.15719063545150502},
-{x: 0.23599439775910397, y: -0.44816053511705684},
-{x: 0.36764705882352944, y: -0.5618729096989966},
-{x: 0.5189075630252101, y: -0.6521739130434783},
-{x: 0.6113445378151261, y: -0.4816053511705686},
-{x: 0.45168067226890757, y: -0.41471571906354515},
-{x: 0.32983193277310924, y: -0.3433667781493868},
-{x: 0.20798319327731093, y: -0.2720178372352285},
-{x: 0.21218487394957983, y: -0.15384615384615385},
-{x: 0.20378151260504201, y: -0.056856187290969896},
-{x: 0.20378151260504201, y: 0.14715719063545152},
-{x: 0.5609243697478992, y: 0.14046822742474915},
-{x: 0.75, y: 0.10702341137123746},
-{x: 0.4432773109243697, y: 0.34782608695652173},
+{x: -0.8172147001934236, y: 0.3342618384401114},
+{x: -0.9680851063829787, y: 0.4428969359331476},
+{x: -1.0918762088974856, y: 0.04178272980501393},
+{x: -0.9177949709864603, y: -0.17270194986072424},
+{x: -0.8372018052869117, y: -0.2794800371402043},
+{x: -0.7566086395873629, y: -0.3862581244196844},
+{x: -0.6237911025145068, y: -0.4373259052924791},
+{x: -0.2852998065764023, y: -0.5181058495821727},
+{x: -0.13056092843326886, y: 0.4818941504178273},
+{x: -0.4787234042553192, y: 0.1392757660167131},
+{x: -0.7147001934235977, y: -0.24233983286908078},
+{x: -0.7043842682140555, y: 0.26926648096564537},
 ]},
+{symmetryBool: true, color: 0, globalAlpha: 0.48, type: 'circle',radius : 0.10242322858703076, positions: [
+
+{x: -0.5154738878143134, y: 0.39275766016713093}]},
+{symmetryBool: true, color: 1, globalAlpha: 0.17, type: 'polygon',positions: [
+
+{x: -0.16731141199226304, y: 0.32590529247910865},
+{x: -0.20986460348162475, y: 0.12813370473537605},
+{x: -0.16731141199226304, y: 0.005571030640668524},
+{x: -0.09187620889748549, y: 0.03899721448467967},
+]}
 ]}
       var renderPseudoSprite = function(object, context){
         object.shapes.forEach(function(shape){
@@ -181,7 +185,10 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 238, h
             break;
           case 'polygon':
             context.fill();
-            context.stroke();
+            if (shape.globalAlpha >= 0.9){
+              context.lineTo(object.xCenter + (initFlippedX * object.width), object.yCenter + (shape.positions[0].y * object.height));
+              context.stroke();
+            }
             break;
         }
         context.closePath();
@@ -219,7 +226,9 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 238, h
           context.bezierCurveTo(object.xCenter + (oneX * object.width), object.yCenter + (shape.positions[i].y * object.height), object.xCenter + (twoX * object.width), object.yCenter + (shape.positions[i+1].y * object.height), object.xCenter + (lastpoint.x * object.width), object.yCenter + (lastpoint.y * object.height) );
         }
         context.fill();
-        context.stroke();
+        if (shape.globalAlpha >= 0.9){
+          context.stroke();
+        }
         context.closePath();
       }
       var debugRender = function(object, context, shape){
@@ -243,10 +252,10 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 238, h
       }
       var incX = 5;
       var incY = 10;
+      var wave = 0;
       var update = function(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        pseudoSprite.yCenter += 2;
-        pseudoSprite.xCenter -= 2;
+
         renderPseudoSprite(pseudoSprite, ctx);
 
       }

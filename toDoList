@@ -3,8 +3,5 @@ Fix-
 -Line Snap for opposite side of symmetry
 -potential DOM Bugs, like buttons not disappearing or reappearing (last thing to do I'm thinking)
 -alter the minimum and maximum grid size to feel better
-- line snap for perfectly horizontal lines doesn't work
 Add-
--final source code text download
--potentially a file save/download and open up again in the browser option.
 -hotkeys (this is gonna be fun and add alot of usability)

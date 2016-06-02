@@ -66,6 +66,8 @@ var writeJS = function(){
         jSString += " <br>]},<br>";
       }
     });
+    jSString = jSString.substring(0, jSString.length - 5);
+    jSString += "<br>";
 
   jSString.slice(jSString.length, 1);
   jSString += "]}</p><div id='exit-source'><p>X</p></div>";
