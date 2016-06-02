@@ -44,7 +44,7 @@ var writeJS = function(){
   unitX = maxX - minX;
   unitY = maxY - minY;
   console.log(unitX);
-  jSString += ('<p>var pseudoSprite = {symmetryLine: ' +  ( (symmetryPos - referencePoint.x) / unitX ) + ', xCenter: ' + referencePoint.x + ', yCenter: '+ referencePoint.y + ', width: ' + unitX + ', height: ' + unitY + ', shapes: [<br>&#9;&#9;');
+  jSString += ('<p>var pseudoSprite = {symmetryLine: ' +  ( (symmetryPos - referencePoint.x) / unitX ) + ', xCenter: ' + referencePoint.x + ', yCenter: '+ referencePoint.y + ', width: ' + unitX + ', height: ' + unitY + ', rotation: 0, shapes: [<br>&#9;&#9;');
     renderOrder.forEach(function(i){
       var shape = pseudoSprite.shapes[i];
       jSString += ('{symmetryBool: ' + shape.symmetry + ', color: ' + shape.colorIndex + ', globalAlpha: ' + shape.alphaLevel + ', type: \'' + shape.type + '\',');
