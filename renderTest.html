@@ -9,20 +9,22 @@
       var ctx = canvas.getContext('2d');
 
       var colorArray =['#000000']
-var pseudoSprite = {symmetryLine: 0.2634032634032634, xCenter: 564.5, yCenter: 223, width: 429, height: 407, rotation: 0, shapes: [
-{symmetryBool: false, color: 0, globalAlpha: 1, type: 'polygon',positions: [
+var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 580, height: 361, rotation: 0, shapes: [
+{symmetryBool: true, color: 0, globalAlpha: 1, type: 'curvedshape',positions: [
 
-{x: -0.27855477855477856, y: 0.3046683046683047},
-{x: -0.08275058275058275, y: 0.14250614250614252},
-{x: -0.44638694638694637, y: 0.09090909090909091},
-{x: -0.3974358974358974, y: -0.21867321867321868},
-{x: -0.03146853146853147, y: -0.04668304668304668},
-{x: -0.005827505827505828, y: -0.44226044226044225},
-{x: 0.5536130536130536, y: -0.02702702702702703},
-{x: 0.08974358974358974, y: 0.39803439803439805},
-{x: 0.17365967365967366, y: -0.0687960687960688},
-{x: -0.11771561771561771, y: 0.5577395577395577},
-]}
+{x: -0.5129310344827587, y: 0.16620498614958448},
+{x: -0.5818965517241379, y: -0.0341643582640812},
+{x: -1.0077586206896552, y: -0.32132963988919666},
+{x: -0.7198275862068966, y: -0.43490304709141275},
+{x: -0.5721264367816092, y: -0.4607571560480147},
+{x: -0.2508620689655172, y: -0.6648199445983379},
+{x: -0.16982758620689656, y: -0.5235457063711911},
+{x: -0.007758620689655172, y: -0.16066481994459833},
+{x: -0.09913793103448276, y: 0.15789473684210525},
+]},
+{symmetryBool: true, color: 0, globalAlpha: 1, type: 'circle',radius : 0.05235250500237578, positions: [
+
+{x: -0.28879310344827586, y: 0.33518005540166207}]}
 ]}
       var renderPseudoSprite = function(object, context){
         context.translate(object.xCenter, object.yCenter);
@@ -248,6 +250,7 @@ var pseudoSprite = {symmetryLine: 0.2634032634032634, xCenter: 564.5, yCenter: 2
       var update = function(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         pseudoSprite.rotation += 1;
+      
         renderPseudoSprite(pseudoSprite, ctx);
 
       }

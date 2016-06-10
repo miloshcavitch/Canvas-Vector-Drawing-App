@@ -1,4 +1,5 @@
-var mouseX, mouseY, pointerX, pointerY, lastPointerX, lastPointerY;
+var mouse
+, mouseY, pointerX, pointerY, lastPointerX, lastPointerY;
 var pointsBeingAdded = false;
 var ctx;
 var currentShape;//be careful with the way this is going to be used
@@ -298,11 +299,11 @@ $(document).ready(function(){
       $('#side-menu').append("<div id='move-centerpoint-info'><p>You can move the reference point <br> with the arrow keys</p></div>")
       canvasHasLoaded();
       objectSnapSetup();
-      $('#appBox').append("<div id='below-menu'></div>")
+      $('#appBox').append("<div id='below-menu'></div>");
       $('#below-menu').append("<div id='currentOptions'></div>");
       $('#currentOptions').append('<p id="currentInstructions"></p>');
       $('#currentOptions').append('<div id="currentForm"></div>');
-      $(document.body).append("<div id='obj-source'><div id='exit-source'><p>X</p></div></div>")
+      $(document.body).append("<div id='obj-source'><div id='exit-source'>w</div><div><p>bruhuigrh</p></div>");
       $('#currentInstructions').text('');
       initDrawingApp();
     } else{

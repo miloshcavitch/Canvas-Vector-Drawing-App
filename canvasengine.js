@@ -872,7 +872,7 @@ var renderLine = function(pL){
   }
 }
 var renderCircle = function(c){
-  if (c.positions.length === 0){
+  if (c.positions[1] === undefined){
     return;
   }
   ctx.globalAlpha = c.alphaLevel;

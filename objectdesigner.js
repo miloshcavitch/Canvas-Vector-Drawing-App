@@ -27,6 +27,10 @@ var shape = function(type, name){
       extra += "<input type='range' name='lineThickness' min='1' max='200' class='line-thickness'>";
     }
   }
+  if (this.type === 'circle'){
+    extra += "<input type='checkbox' class='circle-line-toggle' name='circleLineToggle' value='1'>";
+    console.log("huahdsjfahsdjkfhajksdf");
+  }
   htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='delete-shape'>Delete Shape</button><button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);
   console.log(this);

@@ -30,11 +30,13 @@ body {
 #exit-source {
   color: white;
   position: absolute;
-  right: 10px;
+  right: 20px;
   top: 10px;
   font-size: 20px;
   margin: 0;
   padding: 0;
+  cursor: pointer;
+
 }
 #move-centerpoint-info{
   display: none;
@@ -63,6 +65,9 @@ body {
 .colorList {
   float: right;
   height: auto;
+}
+.circle-line-toggle {
+  margin-left: 20px;
 }
 .curve-convert {
   margin-right: 20px;
