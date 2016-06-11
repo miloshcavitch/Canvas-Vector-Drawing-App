@@ -884,7 +884,7 @@ var renderCircle = function(c){
     ctx.fill();
   } else {
     ctx.strokeStyle = colorVariables[c.colorIndex].color;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = c.lineWidth;
     ctx.stroke();
   }
   ctx.closePath();

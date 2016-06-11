@@ -28,12 +28,16 @@ var shape = function(type, name){
     }
   }
   if (this.type === 'circle'){
-    extra += "<input type='checkbox' class='circle-line-toggle' name='circleLineToggle' value='1'>";
-    console.log("huahdsjfahsdjkfhajksdf");
+    extra += "<input type='checkbox' class='circle-line-toggle' name='circleLineToggle' value='1'><input type='range' name='lineThickness' min='1' max='200' class='line-thickness'>";
+
     this.circleFill = false;
   }
   htmlLiString = "<li class='clearFix' class='ui-state-default' id='" + this.name + "'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + this.name +"<button type='button' class='objButton' class='delete-shape'>Delete Shape</button><button type='button' class='objButton' class='move-shape'>Move Shape</button><button type='button' class='objButton' class='movePoints'>Move Points</button>" + selectString + "<input type='range' class='alphaSlide'></select><input type='checkbox' class='symmetry-toggle' name='symmetry' value='1'><input type='checkbox' class='show-points' name='showPoints' value='1'>" + extra + "</li>";
   $('#shapesCollection').append(htmlLiString);
+  if (this.type === 'circle'){
+    var tempString = '#' + this.name + ' .line-thickness';
+    $(tempString).css('display', 'none');
+  }
   console.log(this);
   console.log(htmlLiString);
   renderOrder.push(pseudoSprite.shapes.length);
@@ -58,6 +62,13 @@ var shape = function(type, name){
             break;
           case 'circle-line-toggle':
             pseudoSprite.shapes[j].circleFill = !pseudoSprite.shapes[j].circleFill;
+            var tempString = '#' + event.target.parentNode.id + " " + '.line-thickness';
+            if ( pseudoSprite.shapes[j].circleFill === false){
+              $(tempString).css('display', 'none');
+            } else {
+              $(tempString).css('display', 'block');
+            }
+
           case 'curve-convert':
             if (event.target.outerText === 'Bezier Convert'){
               console.log('success, great');
