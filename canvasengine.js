@@ -876,11 +876,17 @@ var renderCircle = function(c){
     return;
   }
   ctx.globalAlpha = c.alphaLevel;
-  ctx.fillStyle = colorVariables[c.colorIndex].color;
   ctx.beginPath();
   var radius = pythagLength(c.positions[0].worldX, c.positions[0].worldY, c.positions[1]);
   ctx.arc(c.positions[0].worldX, c.positions[0].worldY, radius, 0, Math.PI * 2);
-  ctx.fill();
+  if (c.circleFill === false){
+    ctx.fillStyle = colorVariables[c.colorIndex].color;
+    ctx.fill();
+  } else {
+    ctx.strokeStyle = colorVariables[c.colorIndex].color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
   ctx.closePath();
   if (c.symmetry === true){
     symmetryCircleRender(c, radius);
