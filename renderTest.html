@@ -189,7 +189,7 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 169, h
           switch (shape.type){
             case 'curvedline':
               renderCurvedLine(object, context, shape);
-              //debugRender(object, context, shape);
+              debugRender(object, context, shape);
               break;
             case 'polygon':
             case 'polyline':
@@ -334,15 +334,15 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 169, h
         context.moveTo( (initFlippedX * object.width), (shape.positions[0].y * object.height) );
         for ( var i = 1; i < shape.positions.length; i+=3){
           var flippedXOne = Math.abs(shape.positions[i].x - object.symmetryLine);
-          if (shape.position[i].x > object.symmetryLine){
+          if (shape.positions[i].x > object.symmetryLine){
             flippedXOne *= -1;
           }
           var flippedXTwo = Math.abs(shape.positions[i+1].x - object.symmetryLine);
-          if (shape.position[i+1].x > object.symmetryLine){
+          if (shape.positions[i+1].x > object.symmetryLine){
             flippedXTwo *= -1;
           }
           var flippedXThree = Math.abs(shape.positions[i+2].x - object.symmetryLine);
-          if (shape.position[i+2].x > object.symmetryLine){
+          if (shape.positions[i+2].x > object.symmetryLine){
             flippedXThree *= -1;
           }
           context.bezierCurveTo( (flippedXOne * object.width), (shape.positions[i].y * object.height), (flippedXTwo * object.width), (shape.positions[i+1].y * object.height), (flippedXThree * object.width), (shape.positions[i+2].y * object.height))
@@ -416,9 +416,6 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 169, h
           context.stroke();
         }
         context.closePath();
-      }
-      var symmetryRenderCurvedLine = function(object, context, shape){
-
       }
       var debugRender = function(object, context, shape){
         shape.positions.forEach(function(p){
