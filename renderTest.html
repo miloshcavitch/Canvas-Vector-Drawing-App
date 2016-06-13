@@ -309,21 +309,18 @@ var pseudoSprite = {symmetryLine: 0, xCenter: 677.5, yCenter: 250, width: 169, h
 
       var renderCurvedLine = function(object, context, shape){
         context.beginPath();
-        context.moveTo(  (shape.positions[0].x * object.width),   (shape.positions[0].y * object.height));
-        for (var i = 1; i < shape.positions.length -2; i +=3 ){
-          var lastpoint = {x: undefined, y: undefined};
-          lastpoint.x = shape.positions[i+2].x;
-          lastpoint.y = shape.positions[i+2].y;
-          context.bezierCurveTo(  (shape.positions[i].x * object.width),   (shape.positions[i].y * object.height),   (shape.positions[i+1].x * object.width),   (shape.positions[i+1].y * object.yCenter),   (lastpoint.x * object.width),   (lastpoint.y * object.height) );
+        context.moveTo( (shape.positions[0].x * object.width), (shape.positions[0].y * object.height) );
+        for ( var i = 1; i < shape.positions.length; i+=3){
+          context.bezierCurveTo( (shape.positions[i].x * object.width), (shape.positions[i].y * object.height), (shape.positions[i+1].x * object.width), (shape.positions[i+1].y * object.height), (shape.positions[i+2].x * object.width), (shape.positions[i+2].y * object.height))
         }
         context.strokeStyle = colorArray[shape.color];
-        context.lineWidth = shape.lineWidth;
         context.globalAlpha = shape.globalAlpha;
         context.stroke();
         context.closePath();
         if (shape.symmetryBool === true){
           symmetryRenderCurvedLine(object, context, shape);
         }
+
       }
       var symmetryRenderCurvedLine = function(object, context, shape){
         context.beginPath();
