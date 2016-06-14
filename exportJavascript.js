@@ -49,7 +49,7 @@ var writeJS = function(){
       var shape = pseudoSprite.shapes[i];
       jSString += ('{symmetryBool: ' + shape.symmetry + ', color: ' + shape.colorIndex + ', globalAlpha: ' + shape.alphaLevel + ', type: \'' + shape.type + '\',');
       if (shape.type === 'circle'){
-        jSString += 'radius : ' + pythagLength(shape.positions[0].worldX, shape.positions[0].worldY, shape.positions[1])/unitX + ",  positions: [<br>&#9;&#9;&#9;";
+        jSString += 'radius : ' + pythagLength(shape.positions[0].worldX, shape.positions[0].worldY, shape.positions[1])/unitX + ", line: " + !shape.circleFill + ",  positions: [<br>&#9;&#9;&#9;";
         var localX = (shape.positions[0].worldX - referencePoint.x) / unitX;
         var localY = (shape.positions[0].worldY - referencePoint.y) / unitY;
         jSString += "<br>&#9;&#9;&#9;&#9;{x: " +  localX + ", y: " + localY + "}]},<br>";
